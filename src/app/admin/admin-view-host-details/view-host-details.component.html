@@ -1,0 +1,19 @@
+<div class="container mt-2">
+    <h1>Partner Details</h1>
+    <div class="card">
+        <div *ngIf="user | async as i">
+            <div class="card-content">
+                <p class="mx-3 mt-2">Name : <b>{{ i.name }}</b></p>
+                <p class="mx-3">Email : <b>{{ i.email }}</b></p>
+                <p class="mx-3">Phone : <b>{{ i.phone }}</b></p>
+                <h3 class="mx-3">Document : </h3>
+                <img class="mx-3" [src]="getImage(i.document ? i.document.toString() : '')" width="260px" alt="No document">
+            </div>
+            <div class="card-actions mx-3 mt-3 mb-3">
+                <button class="me-2" *ngIf="!i.isVerified" mat-raised-button color="primary" (click)="verifyHost(i._id)">Verify</button>
+                <button *ngIf="!i.isVerified" mat-raised-button color="warn" (click)="notVerifyHostPopup(i._id)">Not
+                    Verify</button>
+            </div>
+        </div>
+    </div>
+</div>

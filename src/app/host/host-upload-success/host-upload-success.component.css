@@ -1,0 +1,63 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px
+}
+
+.card {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+/* default boilerplate to center input */
+body {
+    min-height: 100vh;
+    max-width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5vmax;
+    box-sizing: border-box;
+}
+
+.upload-container {
+    display: flex;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+}
+
+/* redirection button */
+.bn3637 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 2rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    color: #000000;
+    background-color: #ffc107;
+    backface-visibility: hidden;
+    border: 0.1rem solid transparent;
+    border-radius: 2rem;
+}
+
+.bn36 {
+    border-color: #ffc107;
+    transition: transform 0.2s cubic-bezier(0.235, 0, 0.05, 0.95);
+}
+
+.bn36:hover {
+    transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
+}
+
+.redirect-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

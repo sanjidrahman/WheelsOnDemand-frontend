@@ -1,0 +1,43 @@
+<app-host-header></app-host-header>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="text-center">Verification</h1>
+            <h4 class="card-title text-center">Thank you for choosing to host with us.<br> To complete the host
+                verification procedure, please follow these steps:</h4>
+            <ol>
+                <li>Upload a clear image of your government-issued ID or passport.</li>
+                <li>Ensure that the image is high-quality and all details are clearly visible.</li>
+                <li>Click the "Upload" button below to submit your identification document.</li>
+            </ol>
+            <p class="card-text">Our team will review the uploaded document for verification purposes. This is a
+                standard procedure to ensure the safety and security of our platform.</p>
+
+            <h4 class="card-text text-center">Upload an image:</h4>
+            <div class="image-upload">
+                <input type="file" formControlName="fileinput" accept="image/*" name="image" (change)="uploadFile($event)" #fileUpload />
+            </div>
+            <button (click)="hi()">hi</button>
+            
+            <div class="upload-container">
+                <div class="upload mt-3" *ngIf="file">
+                    <a>
+                        <button (click)="onUpload()" class="bn54">
+                          <span class="bn54span">Upload</span>
+                        </button>
+                      </a>
+
+                    <section class="mt-2" [ngSwitch]="status">
+                        <p *ngSwitchCase="'uploading'">⏳ Uploading...</p>
+                        <p *ngSwitchCase="'success'">✅ Done!</p>
+                        <p *ngSwitchCase="'fail'">❌ Error!</p>
+                        <p *ngSwitchDefault>😶 Waiting to upload...</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-host-footer></app-host-footer>

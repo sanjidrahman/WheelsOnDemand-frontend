@@ -1,0 +1,46 @@
+<app-admin-header></app-admin-header>
+
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-body">
+            <mat-tab-group>
+                <mat-tab dynamicHeight label="Login">
+                    <div class="container">
+                        <form [formGroup]='adminLogin' #adminForm="ngForm" (ngSubmit)="login()" class="example-form mt-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Email</mat-label>
+                                <input formControlName="email" matInput placeholder="Ex. example@gmail.com">
+                            </mat-form-field>
+                            <div style="width: 423px;" *ngIf="adminForm.submitted && adminLogin.controls['email'].errors" class="text-danger">
+                                <p *ngIf="adminForm.submitted && adminLogin.controls['email'].errors['required']">
+                                    Email is required
+                                </p>
+                                <p *ngIf="adminForm.submitted && adminLogin.controls['email'].errors['email']">
+                                    Invalid email
+                                </p>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Password</mat-label>
+                                <input type="password" formControlName="password" matInput>
+                            </mat-form-field>
+                            <div style="width: 423px;" *ngIf="adminForm.submitted && adminLogin.controls['password'].errors" class="text-danger">
+                                <p *ngIf="adminForm.submitted && adminLogin.controls['password'].errors['required']">
+                                    Password is required
+                                </p>
+                                <p *ngIf="adminForm.submitted && adminLogin.controls['password'].errors['minlength']">
+                                    Password must have at least 8 characters.
+                                </p>
+                            </div>
+                            <div class="submit-button">
+                                <button style="width: 100%;" class="login-button"
+                                    mat-button>Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+
+<app-admin-footer></app-admin-footer>

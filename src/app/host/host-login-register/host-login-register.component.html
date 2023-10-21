@@ -1,0 +1,142 @@
+<app-host-header></app-host-header>
+
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-body">
+            <mat-tab-group>
+                <mat-tab dynamicHeight label="Login">
+                    <div class="container">
+                        <form [formGroup]="hostLoginForm" (ngSubmit)="onLogin()" class="example-form mt-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Email</mat-label>
+                                <input formControlName="email" matInput placeholder="Ex. example@gmail.com">
+                            </mat-form-field>
+                            <div style="width: 423px;" *ngIf="submit && hostLoginForm.controls['email'].errors"
+                                class="text-danger">
+                                <p *ngIf="submit && hostLoginForm.controls['email'].errors['required']">
+                                    Email is required
+                                </p>
+                                <p *ngIf="submit && hostLoginForm.controls['email'].errors['email']">
+                                    Invalid email
+                                </p>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Password</mat-label>
+                                <input type="password" formControlName="password" matInput>
+                            </mat-form-field>
+                            <div style="width: 423px;" *ngIf="submit && hostLoginForm.controls['password'].errors"
+                                class="text-danger">
+                                <p *ngIf="submit && hostLoginForm.controls['password'].errors['required']">
+                                    Password is required
+                                </p>
+                                <p *ngIf="submit && hostLoginForm.controls['password'].errors['minlength']">
+                                    Password must have at least 8 characters.
+                                </p>
+                            </div>
+                            <div class="text-forgot">
+                                <a href="">forgot password</a>
+                            </div>
+                            <div class="submit-button">
+                                <button style="width: 100%;" type="submit" class="login-button"
+                                    mat-button>Login</button>
+                            </div>
+                            <div class="google-btn mt-4">
+                                <asl-google-signin-button 
+                                type='standard' size='medium' 
+                                shape="pill" 
+                                text="continue_with">
+                            </asl-google-signin-button>
+                            </div>
+                        </form>
+                    </div>
+                </mat-tab>
+                <mat-tab dynamicHeight label="Register">
+                    <div class="container">
+                        <form [formGroup]="hostRegisterForm" #hostregform="ngForm" (ngSubmit)="onRegister()"
+                            class="example-form mt-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Name</mat-label>
+                                <input formControlName="name" matInput>
+                            </mat-form-field>
+                            <div style="width: 423px;"
+                                *ngIf="hostregform.submitted && hostRegisterForm.controls['name'].errors" class="text-danger">
+                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['name'].errors['required']">
+                                    Name is required
+                                </p>
+                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['name'].errors['minlength']">
+                                    Name must have at least 4 characters.
+                                </p>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Email</mat-label>
+                                <input formControlName="email" matInput placeholder="Ex. example@gmail.com">
+                            </mat-form-field>
+                            <div style="width: 423px;"
+                                *ngIf="hostregform.submitted && hostRegisterForm.controls['email'].errors"
+                                class="text-danger">
+                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['email'].errors['required']">
+                                    Email is required
+                                </p>
+                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['email'].errors['email']">
+                                    Invalid email
+                                </p>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Phone</mat-label>
+                                <input type="number" formControlName="phone" matInput>
+                            </mat-form-field>
+                            <div style="width: 500px;"
+                                *ngIf="hostregform.submitted && hostRegisterForm.controls['phone'].errors"
+                                class="text-danger">
+                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['phone'].errors['required']">
+                                    Phone is required
+                                </p>
+                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['phone'].getError('minlength')">
+                                    Phone must have 10 numbers.
+                                </p>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Password</mat-label>
+                                <input type="password" formControlName="password" matInput>
+                            </mat-form-field>
+                            <div style="width: 423px;"
+                                *ngIf="hostregform.submitted && hostRegisterForm.controls['password'].errors"
+                                class="text-danger">
+                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['password'].errors['required']">
+                                    Password is required
+                                </p>
+                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['password'].getError('minlength')">
+                                    Password must have at least 8 characters.
+                                </p>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Confirm Password</mat-label>
+                                <input type="password" formControlName="confirmPass" matInput>
+                            </mat-form-field>
+                            <div style="width: 500px;"
+                                *ngIf="hostregform.submitted && hostRegisterForm.controls['confirmPass'].errors"
+                                class="text-danger">
+                                <p
+                                    *ngIf="hostregform.submitted && hostRegisterForm.controls['confirmPass'].errors['required']">
+                                    Confirm Password is required
+                                </p>
+                                <p
+                                    *ngIf="hostregform.submitted && hostRegisterForm.controls['confirmPass'].getError('passwordMismatch')">
+                                    Confirm Password doesn't match.
+                                </p>
+                            </div>
+                            <div class="submit-button">
+                                <button style="width: 100%;" class="register-button" mat-button>Register</button>
+                            </div>
+                            <div>
+                            </div>
+                        </form>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+
+<app-host-footer></app-host-footer>
+

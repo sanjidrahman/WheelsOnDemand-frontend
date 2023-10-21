@@ -1,0 +1,49 @@
+.land-first {
+    background-image: url('/assets/images/home-view.png');
+    height: 759px;
+    text-align: center;
+    background-repeat: no-repeat;
+    /* background-attachment :scroll; */
+    background-size: cover ;
+}
+
+h1 {
+    line-height: 79px;
+    font-weight: bold;
+    font-size: 44px;
+    padding-top: 129px;
+}
+
+.second-last {
+    color: #C8D723;
+    font-size: 26px;
+    font-weight: 600;
+    font-family: Jomhuria;
+}
+
+.last {
+    color: #C8D723;
+    font-size: 22px;
+    font-weight: 600;
+    font-family: Jomhuria;
+}
+
+.btn {
+    background-color: #C8D723;
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+.head-4 {
+    margin: 18px;
+}
+
+.head4-cont {
+    background-color: #EFEBEB;
+    height: 350px;
+}
+
+.card {
+    box-shadow: 0px 0px 12px -2px;
+}
+

@@ -1,0 +1,33 @@
+<app-header></app-header>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <mat-tab-group>
+                <mat-tab dynamicHeight label="Verify otp">
+                    <div class="container" style="width: 423px;">
+                        <form [formGroup]='otpVerify' #otpForm="ngForm" (ngSubmit)="onSubmit()" class="example-form mt-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>otp</mat-label>
+                                <input formControlName="otp" matInput>
+                            </mat-form-field>
+                            <div style="width: 423px;" *ngIf="otpForm.submitted && otpVerify.controls['otp'].errors" class="text-danger">
+                                <p *ngIf="otpForm.submitted && otpVerify.controls['otp'].errors['required']">
+                                    otp is required
+                                </p>
+                                <p *ngIf="otpForm.submitted && otpVerify.controls['otp'].errors['minlength']">
+                                    otp should have 4 numbers
+                                </p>
+                            </div>
+                            <div class="submit-button">
+                                <button style="width: 100%;" class="otp-button" mat-button>Verify</button>
+                            </div>
+                        </form>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

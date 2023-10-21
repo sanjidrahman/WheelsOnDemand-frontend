@@ -1,0 +1,55 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.content {
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.text-input {
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.proceed-button {
+    background-color: #007bff;
+    color: #fff;
+    margin-right: 10px;
+}
+
+.cancel-button {
+    background-color: #ccc;
+    color: #000;
+}
+
+.proceed-button:hover {
+    background-color: #0056b3;
+}
+
+.cancel-button:hover {
+    background-color: #999;
+}

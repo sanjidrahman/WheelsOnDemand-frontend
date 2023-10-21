@@ -1,0 +1,25 @@
+<form [formGroup]="issueForm" (ngSubmit)="saveClick()" #issueform="ngForm">
+    <div class="container">
+        <h2>Submit Issue</h2>
+        <div class="content">
+            <mat-dialog-content>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Issue</mat-label>
+                    <textarea matInput formControlName="issue" class="text-input"></textarea>
+                </mat-form-field>
+            </mat-dialog-content>
+            <div *ngIf="issueform.submitted && issueForm.controls['issue'].errors" class="text-danger">
+                <p *ngIf="issueform.submitted && issueForm.controls['issue'].errors['required']">Issue is required</p>
+                <p *ngIf="issueform.submitted && issueForm.controls['issue'].errors['minlength']">Should have minumum 4
+                    characters</p>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <mat-dialog-actions>
+                <button mat-raised-button class="proceed-button" type="submit">Proceed</button>
+                <button mat-raised-button (click)="closepopup()" class="cancel-button">Cancel</button>
+            </mat-dialog-actions>
+        </div>
+    </div>
+</form>

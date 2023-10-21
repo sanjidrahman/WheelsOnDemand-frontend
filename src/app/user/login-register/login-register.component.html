@@ -1,0 +1,173 @@
+<app-header></app-header>
+
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-body">
+            <mat-tab-group>
+                <mat-tab dynamicHeight label="Login">
+                    <div class="container">
+                        <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="example-form mt-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Email</mat-label>
+                                <input formControlName="email" matInput placeholder="Ex. example@gmail.com">
+                            </mat-form-field>
+                            <div style="width: 468px;" *ngIf="submit && loginForm.controls['email'].errors"
+                                class="text-danger">
+                                <p *ngIf="submit && loginForm.controls['email'].errors['required']">
+                                    Email is required
+                                </p>
+                                <p *ngIf="submit && loginForm.controls['email'].errors['email']">
+                                    Invalid email
+                                </p>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Password</mat-label>
+                                <input [type]="hideLogin ? 'password' : 'text'" formControlName="password" matInput>
+                                <button mat-icon-button matSuffix (click)="hideLogin = !hideLogin"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideLogin">
+                                    <mat-icon>{{hideLogin ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                            <div style="width: 468px;" *ngIf="submit && loginForm.controls['password'].errors"
+                                class="text-danger">
+                                <p *ngIf="submit && loginForm.controls['password'].errors['required']">
+                                    Password is required
+                                </p>
+                                <p *ngIf="submit && loginForm.controls['password'].errors['minlength']">
+                                    Password must have at least 8 characters.
+                                </p>
+                            </div>
+                            <div class="text-forgot">
+                                <a href="">forgot password</a>
+                            </div>
+                            <div class="submit-button">
+                                <button style="width: 100%;" type="submit" class="login-button"
+                                    mat-button>Login</button>
+                            </div>
+                            <div class="google-btn mt-4">
+                                <asl-google-signin-button type='standard' size='medium' shape="pill"
+                                    text="continue_with">
+                                </asl-google-signin-button>
+                            </div>
+                        </form>
+                    </div>
+                </mat-tab>
+                <mat-tab dynamicHeight label="Register">
+                    <div class="container">
+                        <form [formGroup]="registerForm" #localform="ngForm" (ngSubmit)="onRegister()"
+                            class="example-form mt-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Name</mat-label>
+                                <input formControlName="name" matInput>
+                            </mat-form-field>
+                            <div style="width: 423px;"
+                                *ngIf="localform.submitted && registerForm.controls['name'].errors" class="text-danger">
+                                <p *ngIf="localform.submitted && registerForm.controls['name'].errors['required']">
+                                    Name is required
+                                </p>
+                                <p *ngIf="localform.submitted && registerForm.controls['name'].errors['minlength']">
+                                    Name must have at least 4 characters.
+                                </p>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Email</mat-label>
+                                <input formControlName="email" matInput placeholder="Ex. example@gmail.com">
+                            </mat-form-field>
+                            <div style="width: 423px;"
+                                *ngIf="localform.submitted && registerForm.controls['email'].errors"
+                                class="text-danger">
+                                <p *ngIf="localform.submitted && registerForm.controls['email'].errors['required']">
+                                    Email is required
+                                </p>
+                                <p *ngIf="localform.submitted && registerForm.controls['email'].errors['email']">
+                                    Invalid email
+                                </p>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Phone</mat-label>
+                                <input type="number" formControlName="phone" matInput>
+                            </mat-form-field>
+                            <div style="width: 500px;"
+                                *ngIf="localform.submitted && registerForm.controls['phone'].errors"
+                                class="text-danger">
+                                <p *ngIf="localform.submitted && registerForm.controls['phone'].errors['required']">
+                                    Phone is required
+                                </p>
+                                <p *ngIf="localform.submitted && registerForm.controls['phone'].getError('minlength')">
+                                    Phone must have 10 numbers.
+                                </p>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Password</mat-label>
+                                <input [type]="hide ? 'password' : 'text'" formControlName="password" matInput>
+                                <button mat-icon-button matSuffix (click)="hide = !hide"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                            <div style="width: 423px;"
+                                *ngIf="localform.submitted && registerForm.controls['password'].errors"
+                                class="text-danger">
+                                <p *ngIf="localform.submitted && registerForm.controls['password'].errors['required']">
+                                    Password is required
+                                </p>
+                                <div class="text-red-400 text-sm" *ngIf="registerForm.controls['password'].dirty">
+
+                                    <span class="block"
+                                        [ngClass]="{'text-primary': registerForm.controls['password'].value?.match('^(?=.*[A-Z])')}">At
+                                        least uppercase letter.</span><br>
+
+                                    <span class="block"
+                                        [ngClass]="{'text-primary': registerForm.controls['password'].value?.match('(?=.*[a-z])')}">At
+                                        least one lowercase letter.</span><br>
+
+                                    <span class="block"
+                                        [ngClass]="{'text-primary': registerForm.controls['password'].value?.match('(.*[0-9].*)')}">At
+                                        least one digit.</span><br>
+
+                                    <span class="block"
+                                        [ngClass]="{'text-primary': registerForm.controls['password'].value?.match('(?=.*[!@#$%^&*])')}">At
+                                        least one special character.</span><br>
+
+                                    <span class="block"
+                                        [ngClass]="{'text-primary': registerForm.controls['password'].value?.match('.{8,}')}">At
+                                        least 8 characters long.</span><br>
+
+                                </div>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Confirm Password</mat-label>
+                                <input type="password" [type]="hideConfirm ? 'password' : 'text'" formControlName="confirmPass"
+                                    matInput>
+                                <button mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirm">
+                                    <mat-icon>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                            <div style="width: 500px;"
+                                *ngIf="localform.submitted && registerForm.controls['confirmPass'].errors"
+                                class="text-danger">
+                                <p
+                                    *ngIf="localform.submitted && registerForm.controls['confirmPass'].errors['required']">
+                                    Confirm Password is required
+                                </p>
+                                <p
+                                    *ngIf="localform.submitted && registerForm.controls['confirmPass'].getError('passwordMismatch')">
+                                    Confirm Password doesn't match.
+                                </p>
+                            </div>
+                            <div class="submit-button">
+                                <button style="width: 100%;" class="register-button" (click)="click()"
+                                    mat-button>Register</button>
+                            </div>
+                            <div>
+                            </div>
+                        </form>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
