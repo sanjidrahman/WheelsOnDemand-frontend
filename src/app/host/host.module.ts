@@ -32,6 +32,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgConfirmModule } from 'ng-confirm-box';
+import { HostProfileComponent } from './host-profile/host-profile.component';
+import { HostAddVehicleComponent } from './host-add-vehicle/host-add-vehicle.component';
+import { HostVehiclesComponent } from './host-vehicles/host-vehicles.component';
+import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -42,9 +47,13 @@ import { NgConfirmModule } from 'ng-confirm-box';
     HostOtpCompComponent,
     HostUploadDocComponent,
     HostUploadSuccessComponent,
-    HostNavigationComponent
+    HostNavigationComponent,
+    HostProfileComponent,
+    HostAddVehicleComponent,
+    HostVehiclesComponent,
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
     HostRoutingModule,
     MatTabsModule,
@@ -70,6 +79,7 @@ import { NgConfirmModule } from 'ng-confirm-box';
     MatPaginatorModule,
     MatTableModule,
     MatDialogModule,
+    MatSelectModule,
     NgConfirmModule,
   ],
   providers:[HostService],

@@ -1,0 +1,20 @@
+/* Apply styles to the button element with the class "btn" and "btn-outline-success" */
+.btn.btn-success {
+    background-color: #ffc107; /* Background color for the button */
+    color: #000000; /* Text color for the button */
+    border-color: #ffc107; /* Border color for the button */
+    padding: 7px 20px; /* Adjust padding to your liking */
+    border-radius: 5px; /* Add rounded corners to the button */
+    font-size: 16px; /* Font size for the button text */
+}
+
+/* Apply styles when hovering over the button */
+.btn.btn-success:hover {
+    background-color: #ffc107; /* Change background color on hover */
+    border-color: #ffc107; /* Change border color on hover */
+    color: #fff; /* Change text color on hover */
+}
+
+.navbar{
+    background-color: white;
+}

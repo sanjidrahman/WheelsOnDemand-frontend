@@ -35,10 +35,15 @@ import { ViewHostDetailsComponent } from './admin-view-host-details/view-host-de
 import { AdminHostlistComponent } from './admin-hostlist/admin-hostlist.component';
 import { AdminVehiclesComponent } from './admin-vehicles/admin-vehicles.component';
 import { AdminAddVehicleComponent } from './admin-add-vehicle/admin-add-vehicle.component';
+import { AdminHeaderComponent } from './admin-header/admin-header.component';
+import { AdminFooterComponent } from './admin-footer/admin-footer.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
   declarations: [
+    AdminHeaderComponent,
+    AdminFooterComponent,
     AdminLoginRegisterComponent,
     AdminNavigationComponent,
     AdminDashboarddComponent,
@@ -76,7 +81,8 @@ import { AdminAddVehicleComponent } from './admin-add-vehicle/admin-add-vehicle.
     MatTableModule,
     MatDialogModule,
     NgConfirmModule,
-    FileUploadModule
+    FileUploadModule,
+    MatSelectModule,
   ],
   providers: [AdminService , MessageService],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]

@@ -10,20 +10,19 @@ import { AdminVehiclesComponent } from './admin-vehicles/admin-vehicles.componen
 import { AdminAddVehicleComponent } from './admin-add-vehicle/admin-add-vehicle.component';
 
 const routes: Routes = [
-  
-  { path: '', component: AdminLoginRegisterComponent },
+  { path: '', title: 'Admin Login' , component: AdminLoginRegisterComponent },
   {
     path: '', children: [
       {
         path: 'a',
         component: AdminNavigationComponent,
         children: [
-          { path: 'dashboard', component: AdminDashboarddComponent },
-          { path: 'userlist', component: AdminUserlistComponent },
-          { path: 'hostlist', component: AdminHostlistComponent },
-          { path: 'view-details/:id', component: ViewHostDetailsComponent },
-          { path: 'vehicles', component: AdminVehiclesComponent},
-          { path: 'add-vehicle' , component: AdminAddVehicleComponent},
+          { path: 'dashboard', title: 'Admin Dashboard', component: AdminDashboarddComponent },
+          { path: 'userlist', title: 'Admin Userlist', component: AdminUserlistComponent },
+          { path: 'hostlist', title: 'Admin Hostlist', component: AdminHostlistComponent },
+          { path: 'view-details/:id', title: 'Admin Host Details', component: ViewHostDetailsComponent },
+          { path: 'vehicles', title: 'Admin Vehiclelist' , component: AdminVehiclesComponent},
+          { path: 'add-vehicle' , title: 'Admin Add Vehicle', component: AdminAddVehicleComponent},
         ]
       },
     ]

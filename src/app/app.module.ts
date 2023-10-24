@@ -13,7 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './user/home/home.component';
-import { HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
@@ -32,6 +32,11 @@ import { NgConfirmModule } from 'ng-confirm-box';
 import { MatIconModule } from '@angular/material/icon';
 import { SubmitNotverifiedComponent } from './popups/submit-notverified/submit-notverified.component';
 import { environment } from 'src/environments/environment.development';
+import { AppInterceptor } from './http-interceptor/interceptor.interceptor';
+import { EditHostDialogComponent } from './popups/edit-host-dialog/edit-host-dialog.component';
+import { ChangePassComponent } from './popups/change-pass/change-pass.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { MailVerifyComponent } from './forgot-password/mail-verify/mail-verify.component';
 
 
 @NgModule({
@@ -45,6 +50,10 @@ import { environment } from 'src/environments/environment.development';
     HomeComponent,
     OtpCompComponent,
     SubmitNotverifiedComponent,
+    EditHostDialogComponent,
+    ChangePassComponent,
+    ForgotPasswordComponent,
+    MailVerifyComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +95,8 @@ import { environment } from 'src/environments/environment.development';
           console.error(err);
         }
       } as SocialAuthServiceConfig,
-    }
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

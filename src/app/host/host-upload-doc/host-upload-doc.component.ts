@@ -12,25 +12,17 @@ import { RxwebValidators } from '@rxweb/reactive-form-validators';
   templateUrl: './host-upload-doc.component.html',
   styleUrls: ['./host-upload-doc.component.css']
 })
-export class HostUploadDocComponent implements OnInit{
+export class HostUploadDocComponent {
 
   status: "initial" | "uploading" | "success" | "fail" = "initial"; // Variable to store file status
   file!: File
   jwttoken!: any
-  fileinput!: FormGroup
 
   constructor(
     private _service: HostService,
     private _toastr: ToastrService,
-    private _fb: FormBuilder,
     private _router: Router
   ) { }
-
-  ngOnInit(): void {
-    this.fileinput = this._fb.group({
-      file:['', RxwebValidators.extension({extensions:['png','jpg','jpeg','gif']})]
-    })
-  }
 
   uploadFile(event: any) {
     this.file = <File>event.target.files[0]
@@ -45,9 +37,7 @@ export class HostUploadDocComponent implements OnInit{
       const form = new FormData()
       form.append('file', this.file, this.file.name)
       const token = localStorage.getItem('hostToken')
-      if (token) {
-        this.jwttoken = jwt_decode(token)
-      }
+      if (token) this.jwttoken = jwt_decode(token)
       const upload$ = this._service.upload(form , this.jwttoken.id)
       this.status = "uploading"
       upload$.subscribe({
@@ -63,10 +53,6 @@ export class HostUploadDocComponent implements OnInit{
         }
       })
     }
-  }
-
-  hi(){
-    console.log(this.fileinput.value);
   }
 
 }

@@ -7,12 +7,22 @@
                 <p class="mx-3">Email : <b>{{ i.email }}</b></p>
                 <p class="mx-3">Phone : <b>{{ i.phone }}</b></p>
                 <h3 class="mx-3">Document : </h3>
-                <img class="mx-3" [src]="getImage(i.document ? i.document.toString() : '')" width="260px" alt="No document">
+                <img class="mx-3" [src]="getImage(i.document ? i.document.toString() : '')" width="260px"
+                    alt="No document">
+            </div>
+            <div class="col-2" *ngIf="i.isVerified">
+                <h2 style="letter-spacing: 2px;" class="mx-3 mt-4"><b>Verified</b>
+                    <svg class="mx-3" xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-person-check-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg>
+                </h2>
             </div>
             <div class="card-actions mx-3 mt-3 mb-3">
-                <button class="me-2" *ngIf="!i.isVerified" mat-raised-button color="primary" (click)="verifyHost(i._id)">Verify</button>
-                <button *ngIf="!i.isVerified" mat-raised-button color="warn" (click)="notVerifyHostPopup(i._id)">Not
-                    Verify</button>
+                <button class="me-2" *ngIf="!i.isVerified" mat-raised-button color="primary"
+                    (click)="verifyHost(i._id)">Verify</button>
+                <button *ngIf="!i.isVerified" mat-raised-button color="warn"
+                    (click)="notVerifyHostPopup(i._id)">Reject</button>
             </div>
         </div>
     </div>

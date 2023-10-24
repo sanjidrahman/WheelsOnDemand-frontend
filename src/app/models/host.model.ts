@@ -7,5 +7,6 @@ export interface hostModel {
     isBlocked: boolean
     isVerified: boolean
     document: string
+    profile:string
     __v: number
 }

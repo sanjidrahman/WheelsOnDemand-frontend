@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { hostModel } from 'src/app/models/host.model';
+import { vehicleModel } from 'src/app/models/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable()
@@ -40,9 +42,39 @@ export class HostService {
     });
   }
 
-  upload(file: any , id : string) {
-    return this._http.post(`${this.commonUrl}/host/upload-single/${id}`, file, {
+  upload(file: any, id: string) {
+    return this._http.post(`${this.commonUrl}/host/upload-doc/${id}`, file, {
       withCredentials: true
     });
+  }
+
+  uploadProfile(file: any) {
+    return this._http.post(`${this.commonUrl}/host/upload-profile`, file, {
+      withCredentials: true
+    })
+  }
+
+  hostdetails(): Observable<hostModel> {
+    return this._http.get<hostModel>(`${this.commonUrl}/host/host-details`, {
+      withCredentials: true
+    })
+  }
+
+  updatehost(data: any) {
+    return this._http.patch(`${this.commonUrl}/host/update-host`, data, {
+      withCredentials: true
+    })
+  }
+
+  changePass(data: any) {
+    return this._http.patch(`${this.commonUrl}/host/change-pass`, data, {
+      withCredentials: true
+    })
+  }
+
+  addvehicle(data: any) {  
+    return this._http.post(`${this.commonUrl}/host/add-vehicle`, data, {
+      withCredentials: true
+    })
   }
 }

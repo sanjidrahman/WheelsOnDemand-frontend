@@ -6,17 +6,23 @@ import { HostOtpCompComponent } from './host-otp-comp/host-otp-comp.component';
 import { HostUploadDocComponent } from './host-upload-doc/host-upload-doc.component';
 import { HostUploadSuccessComponent } from './host-upload-success/host-upload-success.component';
 import { HostNavigationComponent } from './host-navigation/host-navigation.component';
+import { HostProfileComponent } from './host-profile/host-profile.component';
+import { HostAddVehicleComponent } from './host-add-vehicle/host-add-vehicle.component';
+import { HostVehiclesComponent } from './host-vehicles/host-vehicles.component';
 
 const routes: Routes = [
-    { path: '', component: HostLoginRegisterComponent },
+    { path: '', title: 'Host Login', component: HostLoginRegisterComponent },
     {
         path: '', children: [
-            { path: 'host-otp-verify', component: HostOtpCompComponent },
-            { path: 'host-upload', component: HostUploadDocComponent },
-            { path: 'host-upload-success', component: HostUploadSuccessComponent },
+            { path: 'host-otp-verify', title: 'Host OTP-verification', component: HostOtpCompComponent },
+            { path: 'host-upload', title: 'Host Document Upload', component: HostUploadDocComponent },
+            { path: 'host-upload-success', title: 'Host Upload Success', component: HostUploadSuccessComponent },
             {
                 path: 'h', component: HostNavigationComponent, children: [
-                    { path: 'dashboard', component: HostDashboardComponent }
+                    { path: 'dashboard', title: 'Host Dashboard', component: HostDashboardComponent },
+                    { path: 'profile', title: 'Host Profile', component: HostProfileComponent },
+                    { path: 'vehicles', title: 'Host Vehicles', component: HostVehiclesComponent },
+                    { path: 'add-vehicle', title: 'Host Add Vehicle', component: HostAddVehicleComponent },
                 ]
             }
         ]

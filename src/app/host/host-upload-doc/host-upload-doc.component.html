@@ -16,9 +16,8 @@
 
             <h4 class="card-text text-center">Upload an image:</h4>
             <div class="image-upload">
-                <input type="file" formControlName="fileinput" accept="image/*" name="image" (change)="uploadFile($event)" #fileUpload />
+                <input type="file" accept="image/*" name="image" (change)="uploadFile($event)" #fileUpload />
             </div>
-            <button (click)="hi()">hi</button>
             
             <div class="upload-container">
                 <div class="upload mt-3" *ngIf="file">

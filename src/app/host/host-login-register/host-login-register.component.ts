@@ -65,7 +65,7 @@ export class HostLoginRegisterComponent implements OnInit {
       phone: ['', [Validators.required, Validators.minLength(10)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPass: ['', [Validators.required]]
-    }, { validators: this.passwordMatchValidator('password', 'confirmPass') });
+    }, { validators: this.passwordMatchValidator('password', 'confirmPass')} );
 
   }
 
@@ -86,7 +86,7 @@ export class HostLoginRegisterComponent implements OnInit {
     }else{
       let logData = this.hostLoginForm.getRawValue()
       this._service.loginHost(logData).subscribe((res) => {
-        this._router.navigate(['/host/host-dashboard'])
+        this._router.navigate(['/host/h/dashboard'])
       },(err) => {
         this._toastr.error(err.error.message)
       })

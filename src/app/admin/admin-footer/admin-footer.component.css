@@ -1,0 +1,5 @@
+footer {
+    position: sticky;
+    top: 100%;
+    background-color: black;
+}
