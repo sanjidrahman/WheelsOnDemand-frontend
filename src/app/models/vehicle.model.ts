@@ -6,7 +6,9 @@ export interface vehicleModel {
     transmission: string
     brand: string
     fuel: string
+    location: string
     createdBy: string
-    __v: number
+    isVerified: boolean
     images: string[]
+    __v: number
 }

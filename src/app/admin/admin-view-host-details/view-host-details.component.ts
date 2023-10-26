@@ -60,7 +60,7 @@ export class ViewHostDetailsComponent implements OnInit {
     console.log(id);
     this._service.verifyhost(id).subscribe((res) => {
       console.log(res);
-      this._router.navigate(['admin/land/hostlist'])
+      this._router.navigate(['admin/a/hostlist'])
       this._toastr.success('Host verified Successfully');
     })
   }

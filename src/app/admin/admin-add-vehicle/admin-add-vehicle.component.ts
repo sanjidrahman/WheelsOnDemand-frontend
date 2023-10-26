@@ -31,6 +31,7 @@ export class AdminAddVehicleComponent {
       model: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       transmission: ['', Validators.required],
       fuel: ['', Validators.required],
+      location: ['', Validators.required],
       price: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
     })
   }
@@ -55,7 +56,7 @@ export class AdminAddVehicleComponent {
     return filename.split('.').pop();
   }
 
-  
+
   onSubmit() {
     if (this.vehicleForm.invalid) {
       return
@@ -67,11 +68,21 @@ export class AdminAddVehicleComponent {
     form.append('model', data.model);
     form.append('transmission', data.transmission);
     form.append('fuel', data.fuel);
+    form.append('location', data.location);
     form.append('price', data.price);
     for (const file of this.selectedfiles) {
-      form.append('files', file , file.name);
+      form.append('files', file, file.name);
     }
-    
+
+    this._service.addvehicle(form).subscribe({
+      next: () => {
+        this._router.navigate(['/admin/a/vehicles'])
+        this._toastr.success('Registered vehicle to collection!')
+      },
+      error: (err) => {
+        this._toastr.error(err.error.message)
+      }
+    })
   }
 
 }

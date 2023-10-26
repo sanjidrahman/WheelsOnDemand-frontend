@@ -21,7 +21,7 @@
             <div class="card-actions mx-3 mt-3 mb-3">
                 <button class="me-2" *ngIf="!i.isVerified" mat-raised-button color="primary"
                     (click)="verifyHost(i._id)">Verify</button>
-                <button *ngIf="!i.isVerified" mat-raised-button color="warn"
+                <button *ngIf="!i.isVerified" mat-raised-button type="button" color="warn"
                     (click)="notVerifyHostPopup(i._id)">Reject</button>
             </div>
         </div>

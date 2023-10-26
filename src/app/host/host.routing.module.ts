@@ -9,6 +9,7 @@ import { HostNavigationComponent } from './host-navigation/host-navigation.compo
 import { HostProfileComponent } from './host-profile/host-profile.component';
 import { HostAddVehicleComponent } from './host-add-vehicle/host-add-vehicle.component';
 import { HostVehiclesComponent } from './host-vehicles/host-vehicles.component';
+import { HostEditVehicleComponent } from './host-edit-vehicle/host-edit-vehicle.component';
 
 const routes: Routes = [
     { path: '', title: 'Host Login', component: HostLoginRegisterComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
                     { path: 'profile', title: 'Host Profile', component: HostProfileComponent },
                     { path: 'vehicles', title: 'Host Vehicles', component: HostVehiclesComponent },
                     { path: 'add-vehicle', title: 'Host Add Vehicle', component: HostAddVehicleComponent },
+                    { path: 'edit-vehicle/:id', title: 'Host Edit Vehicle', component: HostEditVehicleComponent },
                 ]
             }
         ]

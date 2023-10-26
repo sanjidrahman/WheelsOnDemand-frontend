@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AdminService } from 'src/app/admin/services/admin.services';
+import { AdminService } from '../../../../src/app/admin/services/admin.services';
 
 @Component({
   selector: 'app-submit-notverified',
@@ -36,12 +36,10 @@ export class SubmitNotverifiedComponent implements OnInit {
       return
     } else {
       const issueSubmtted = this.issueForm.value
-      console.log(this.userId.id);
       this._service.hostnotverify(this.userId.id, issueSubmtted).subscribe((res) => {
-        console.log(res);
         this.closepopup()
-        // this._router.navigate(['admin/land/hostlist'])
-        // this._toastr.success('Issue submitted to host')
+        this._router.navigate(['admin/a/hostlist'])
+        this._toastr.success('Issue submitted to host')
       })
     }
   }

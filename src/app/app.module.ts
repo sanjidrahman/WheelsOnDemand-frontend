@@ -37,6 +37,7 @@ import { EditHostDialogComponent } from './popups/edit-host-dialog/edit-host-dia
 import { ChangePassComponent } from './popups/change-pass/change-pass.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { MailVerifyComponent } from './forgot-password/mail-verify/mail-verify.component';
+import { SubmitRejectvehicleComponent } from './popups/submit-rejectvehicle/submit-rejectvehicle.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { MailVerifyComponent } from './forgot-password/mail-verify/mail-verify.c
     ChangePassComponent,
     ForgotPasswordComponent,
     MailVerifyComponent,
+    SubmitRejectvehicleComponent,
   ],
   imports: [
     BrowserModule,

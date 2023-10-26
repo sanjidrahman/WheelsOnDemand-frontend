@@ -12,4 +12,21 @@
             </div>
         </nav>
     </div>
+    <div class="row" *ngIf="hostVehicles">
+        <div class="col-md-4" *ngFor="let v of hostVehicles">
+            <div class="card">
+                <img [src]="getImage(v.images[0] ? v.images[0].toString() : '')" alt="Vehicle Image" width="250px"
+                    height="250px">
+                <h1>{{ v.brand }} {{ v.name }}</h1>
+                <p class="price">{{ v.price | currency:'INR':'symbol':'1.2-2' }}</p>
+                <div class="card-body">
+                    <p>{{ v.model }}</p>
+                    <p>{{ v.transmission }}</p>
+                </div>
+                <p>{{ v.fuel }}</p>
+                <button class="mx-1" mat-raised-button [routerLink]="['/host/h/edit-vehicle', v._id]" color="primary">Edit</button>
+                <button mat-raised-button (click)="deleteVehicle(v._id)" color="warn">Delete</button>
+            </div>
+        </div>
+    </div>
 </div>

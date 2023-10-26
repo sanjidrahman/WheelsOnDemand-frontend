@@ -86,6 +86,7 @@ export class HostLoginRegisterComponent implements OnInit {
     }else{
       let logData = this.hostLoginForm.getRawValue()
       this._service.loginHost(logData).subscribe((res) => {
+        localStorage.setItem('hostToken', res.token)
         this._router.navigate(['/host/h/dashboard'])
       },(err) => {
         this._toastr.error(err.error.message)

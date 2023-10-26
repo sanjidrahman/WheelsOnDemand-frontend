@@ -34,9 +34,7 @@ export class AdminLoginRegisterComponent implements OnInit {
       return
     }else{
       let data = this.adminLogin.getRawValue()
-      console.log(data);
       this._service.loginUser(data).subscribe((res) => {
-        console.log(res.token);
         localStorage.setItem('adminToken', res.token)
         this._router.navigate(['admin/a/dashboard'])
       },(err) => {

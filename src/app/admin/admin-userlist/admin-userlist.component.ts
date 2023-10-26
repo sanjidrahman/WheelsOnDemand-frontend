@@ -1,4 +1,4 @@
-import { userModel } from './../../models/user.model';
+import { userModel } from '../../models/user.model';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';

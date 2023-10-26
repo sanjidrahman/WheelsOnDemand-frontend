@@ -27,11 +27,12 @@ export class HostAddVehicleComponent implements OnInit {
 
   ngOnInit(): void {
     this.vehicleForm = this._fb.group({
-      name: ['', [Validators.required, Validators.minLength(4)]],
+      name: ['', Validators.required],
       brand: ['', [Validators.required, Validators.minLength(3)]],
       model: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       transmission: ['', Validators.required],
       fuel: ['', Validators.required],
+      location: ['', Validators.required],
       price: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
     })
   }
@@ -68,15 +69,20 @@ export class HostAddVehicleComponent implements OnInit {
     form.append('model', data.model);
     form.append('transmission', data.transmission);
     form.append('fuel', data.fuel);
+    form.append('location', data.location);
     form.append('price', data.price);
     for (const file of this.selectedfiles) {
       form.append('files', file , file.name);
     }
-    this._service.addvehicle(form).subscribe(() => {
-      this._router.navigate(['/host/h/vehicles'])
-      this._toastr.success('Vehicle Registered!')
-    },(err) => {
-      console.log('Something went wrong');
+    this._service.addvehicle(form).subscribe({
+      next: () => {
+          this._router.navigate(['/host/h/vehicles'])
+          this._toastr.success('Vehicle Registered, after verification it would be display on your page') 
+      },
+      error: (err) => {
+        this._toastr.error('Something went wrong');
+        console.log('Something went wrong');
+      }
     })
   }
 

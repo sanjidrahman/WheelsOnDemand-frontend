@@ -111,7 +111,7 @@
                                 <p *ngIf="localform.submitted && registerForm.controls['password'].errors['required']">
                                     Password is required
                                 </p>
-                                <div class="text-red-400 text-sm" *ngIf="registerForm.controls['password'].dirty">
+                                <div class="text-red-400 text-sm mb-3" *ngIf="registerForm.controls['password'].dirty">
 
                                     <span class="block"
                                         [ngClass]="{'text-primary': registerForm.controls['password'].value?.match('^(?=.*[A-Z])')}">At

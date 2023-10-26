@@ -37,6 +37,7 @@ import { HostAddVehicleComponent } from './host-add-vehicle/host-add-vehicle.com
 import { HostVehiclesComponent } from './host-vehicles/host-vehicles.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
+import { HostEditVehicleComponent } from './host-edit-vehicle/host-edit-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { HttpClientModule } from '@angular/common/http';
     HostProfileComponent,
     HostAddVehicleComponent,
     HostVehiclesComponent,
+    HostEditVehicleComponent,
   ],
   imports: [
     HttpClientModule,

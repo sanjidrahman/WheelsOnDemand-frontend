@@ -38,6 +38,7 @@ import { AdminAddVehicleComponent } from './admin-add-vehicle/admin-add-vehicle.
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { AdminFooterComponent } from './admin-footer/admin-footer.component';
 import { MatSelectModule } from '@angular/material/select';
+import { AdminEditVehicleComponent } from './admin-edit-vehicle/admin-edit-vehicle.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { MatSelectModule } from '@angular/material/select';
     ViewHostDetailsComponent,
     AdminHostlistComponent,
     AdminVehiclesComponent,
-    AdminAddVehicleComponent
+    AdminAddVehicleComponent,
+    AdminEditVehicleComponent
   ],
   imports: [
     CommonModule,

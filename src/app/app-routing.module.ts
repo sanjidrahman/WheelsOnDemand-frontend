@@ -5,9 +5,11 @@ import { HomeComponent } from './user/home/home.component';
 import { userGuardGuard } from './user/user-guard.guard';
 import { OtpCompComponent } from './user/otp-comp/otp-comp.component';
 import { MailVerifyComponent } from './forgot-password/mail-verify/mail-verify.component';
+import { adminGuardGuard } from './admin/admin-guards/admin-guard.guard';
 
 const routes: Routes = [
   { path: '', title: 'Home', component: HomeComponent },
+  { path: 'home' , redirectTo: '' , pathMatch: 'full'},
   { path: 'login', title: 'Login', component: LoginRegisterComponent },
   { path: 'otp-verify', title: 'OTP-Verify', component: OtpCompComponent },
   { path: 'mail-verify', title: 'Mail Verify', component: MailVerifyComponent },

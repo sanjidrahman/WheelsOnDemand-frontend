@@ -77,4 +77,28 @@ export class HostService {
       withCredentials: true
     })
   }
+
+  editVehicle(data: any, id: string) {
+    return this._http.patch(`${this.commonUrl}/host/edit-vehicle/${id}`, data, {
+      withCredentials: true
+    })
+  }
+
+  deleteVehicleImage(file: string, id: string) {
+    return this._http.patch(`${this.commonUrl}/host/delete-image/${id}?file=${file}`, null, {
+      withCredentials: true
+    })
+  }
+
+  deleteVehicle(id: string) {
+    return this._http.delete(`${this.commonUrl}/host/delete-vehicle/${id}` , {
+      withCredentials: true
+    })
+  }
+
+  hostVehicle() : Observable<vehicleModel[]> {
+    return this._http.get<vehicleModel[]>(`${this.commonUrl}/host/host-vehicles` , {
+      withCredentials: true
+    })
+  }
 }

@@ -37,3 +37,7 @@
     align-content: center;
     text-decoration: none;
 }
+
+.icon {
+    vertical-align: middle;
+}
