@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.background-image {
+    background-image: url('../../../assets/images/portrait-car-mercedes-benz.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .center-card {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+} */
+
+.card {
+    width: 660px;
+    margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+    .card {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 880px) {
+    .card {
+        width: 500px;
+    }
+}
+
+h2 {
+    color: #333;
+}
+
+label {
+    display: block;
+    color: #666;
+}
+
+.mat-stepper-vertical {
+    margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+    margin-top: 16px;
+}

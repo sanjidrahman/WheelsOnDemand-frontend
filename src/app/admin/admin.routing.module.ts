@@ -13,13 +13,13 @@ import { adminGuardChildGuard } from './admin-guards/admin-guard-child.guard';
 import { AdminEditVehicleComponent } from './admin-edit-vehicle/admin-edit-vehicle.component';
 
 const routes: Routes = [
-  { path: '', title: 'Admin Login', component: AdminLoginRegisterComponent },
+  { path: '', title: 'Admin Login', component: AdminLoginRegisterComponent, canActivate: [adminGuardGuard] },
   {
     path: '', children: [
       {
         path: 'a',
         component: AdminNavigationComponent,
-        // canActivateChild: [adminGuardChildGuard],
+        canActivateChild: [adminGuardChildGuard],
         children: [
           { path: 'dashboard', title: 'Admin Dashboard', component: AdminDashboarddComponent },
           { path: 'userlist', title: 'Admin Userlist', component: AdminUserlistComponent },

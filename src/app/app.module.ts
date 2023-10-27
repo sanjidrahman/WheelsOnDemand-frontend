@@ -38,6 +38,8 @@ import { ChangePassComponent } from './popups/change-pass/change-pass.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { MailVerifyComponent } from './forgot-password/mail-verify/mail-verify.component';
 import { SubmitRejectvehicleComponent } from './popups/submit-rejectvehicle/submit-rejectvehicle.component';
+import { SelectDateComponent } from './user/select-date/select-date.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 
 @NgModule({
@@ -56,6 +58,7 @@ import { SubmitRejectvehicleComponent } from './popups/submit-rejectvehicle/subm
     ForgotPasswordComponent,
     MailVerifyComponent,
     SubmitRejectvehicleComponent,
+    SelectDateComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,8 @@ import { SubmitRejectvehicleComponent } from './popups/submit-rejectvehicle/subm
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     NgConfirmModule,
-    MatIconModule
+    MatIconModule,
+    MatStepperModule,
   ],
   providers: [
     {
