@@ -40,6 +40,13 @@ import { MailVerifyComponent } from './forgot-password/mail-verify/mail-verify.c
 import { SubmitRejectvehicleComponent } from './popups/submit-rejectvehicle/submit-rejectvehicle.component';
 import { SelectDateComponent } from './user/select-date/select-date.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { VehiclesComponent } from './user/vehicles/vehicles.component';
+import { VehicleDetailsComponent } from './user/vehicle-details/vehicle-details.component';
+import { GALLERY_CONFIG, GalleryConfig, GalleryModule } from 'ng-gallery';
+import { LIGHTBOX_CONFIG, LightboxConfig, LightboxModule } from 'ng-gallery/lightbox';
+import { VehicleListComponent } from './user/vehicle-list/vehicle-list.component';
 
 
 @NgModule({
@@ -59,6 +66,9 @@ import { MatStepperModule } from '@angular/material/stepper';
     MailVerifyComponent,
     SubmitRejectvehicleComponent,
     SelectDateComponent,
+    VehiclesComponent,
+    VehicleDetailsComponent,
+    VehicleListComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +93,10 @@ import { MatStepperModule } from '@angular/material/stepper';
     NgConfirmModule,
     MatIconModule,
     MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    GalleryModule,
+    LightboxModule
   ],
   providers: [
     {
@@ -102,7 +116,21 @@ import { MatStepperModule } from '@angular/material/stepper';
         }
       } as SocialAuthServiceConfig,
     },
-    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
+    {
+      provide: GALLERY_CONFIG,
+      useValue: {
+        autoHeight: true,
+        imageSize: 'cover'
+      } as GalleryConfig
+    },
+    {
+      provide: LIGHTBOX_CONFIG,
+      useValue: {
+        keyboardShortcuts: false,
+        exitAnimationTime: 1000
+      } as LightboxConfig
+    }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

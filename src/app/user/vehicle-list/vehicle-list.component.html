@@ -1,0 +1,47 @@
+<div>
+    <div class="col-lg-3 mt-4 car-card" *ngFor="let v of vehicleList; let i = index">
+        <div class="row">
+            <div class="v-image col-lg-12">
+                <img style="margin-left: 36px;"
+                    [src]="getImage(v.images[0] ? v.images[0].toString() : '')" alt="Vehicle Image"
+                    width="200px" height="200px">
+                <h1 class="mt-3"> {{v.brand}} {{ v.name }}</h1>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-1">
+                        <i class="fas fa-gas-pump"></i>
+                    </div>
+                    <div class="col-lg-3">
+                        <p>{{ v.fuel }}</p>
+                    </div>
+                    <div class="col-lg-1">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="col-lg-3">
+                        <p>{{ v.model }}</p>
+                    </div>
+                    <div class="col-lg-1">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="col-lg-3">
+                        <p>{{ v.transmission == 'Automatic' ? 'AT' : 'MT' }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="col-md-12 text-center">
+                    <p><i class="fas fa-map-marker-alt"></i><b> {{ v.location }}</b></p>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2 class="price mt-1">{{ customPrice[i] | currency:'INR':'symbol':'1.2-2' }}</h2>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-5">
+                        <button class="book-btn" [routerLink]="['/vehicle-details', v._id]" mat-raised-button>Book now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,9 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import '~@angular/cdk/overlay-prebuilt.css';
+
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */

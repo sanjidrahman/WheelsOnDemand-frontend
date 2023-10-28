@@ -16,7 +16,6 @@ export class AppInterceptor implements HttpInterceptor {
     let userToken = localStorage.getItem('userToken')
     let adminToken = localStorage.getItem('adminToken')
     let hostToken = localStorage.getItem('hostToken')
-
     if (userToken) {
       let newRequest = request.clone({
         setHeaders: { Authorization: 'Bearer ' + userToken }

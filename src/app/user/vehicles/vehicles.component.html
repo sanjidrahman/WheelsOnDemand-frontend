@@ -1,0 +1,67 @@
+<app-header></app-header>
+
+
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 main">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1 class="mt-4 mx-2">Filters</h1>
+                    </div>
+                    <div class="col-lg-6">
+                        <a class="reset" href="#">
+                            <h1 class="mt-4 mx-2">Reset</h1>
+                        </a>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 main2">
+                <div class="card mt-3">
+                    <div class="row">
+                        <div class="side-body col-lg-2 d-flex align-items-center">
+                            <h1 class="m-auto">Days : {{ days }}</h1>
+                        </div>                        
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="pickuplocation1">Pickup Location</label>
+                                        <input type="text" id="pickuplocation1" class="form-control" [value]="pickup">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="pickuplocation2">Dropoff Location</label>
+                                        <input type="text" id="pickuplocation2" class="form-control" [value]="dropoff">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="pickuplocation3">Pickup Date</label>
+                                        <input type="date" id="pickuplocation3" class="form-control" [(ngModel)]="formattedStartDate" [min]="minDate" [max]="maxDate">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="pickuplocation4">Dropoff Date</label>
+                                        <input type="date" id="pickuplocation4" class="form-control" [(ngModel)]="formattedEndDate" [min]="minDate" [max]="maxDate">
+                                    </div>
+                                    <div>
+                                        <button (click)="click()">sdjfk</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <app-vehicle-list></app-vehicle-list>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer></app-footer>
