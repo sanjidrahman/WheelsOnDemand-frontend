@@ -47,6 +47,8 @@ import { VehicleDetailsComponent } from './user/vehicle-details/vehicle-details.
 import { GALLERY_CONFIG, GalleryConfig, GalleryModule } from 'ng-gallery';
 import { LIGHTBOX_CONFIG, LightboxConfig, LightboxModule } from 'ng-gallery/lightbox';
 import { VehicleListComponent } from './user/vehicle-list/vehicle-list.component';
+import { CheckoutComponent } from './user/checkout/checkout.component';
+// import { PriceCalculationPipe } from './user/pipe/price-calculation.pipe';
 
 
 @NgModule({
@@ -69,6 +71,8 @@ import { VehicleListComponent } from './user/vehicle-list/vehicle-list.component
     VehiclesComponent,
     VehicleDetailsComponent,
     VehicleListComponent,
+    CheckoutComponent,
+    // PriceCalculationPipe,
   ],
   imports: [
     BrowserModule,

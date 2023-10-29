@@ -2,7 +2,6 @@ import { hostModel } from 'src/app/models/host.model';
 import { userModel } from '../../models/user.model';
 import { createAction, props } from "@ngrx/store";
 import { vehicleModel } from 'src/app/models/vehicle.model';
-import { ChoiceModel } from 'src/app/models/choice.model';
 
 export const LOAD_USER = '[admin page] list users'
 export const loaduser = createAction('[admin page] list users')
@@ -15,5 +14,3 @@ export const retrievehostsuccess = createAction('[host list api] host list succe
 
 export const retrievevehicles = createAction('[vehicle list api] vehicles list')
 export const retrivevehiclessuccess = createAction('[vehicle list api] vehicles list success' , props<{vehiclelist : vehicleModel[]}>())
-
-export const choicedetails = createAction('[choices details] store', props<{ choice : any }>())

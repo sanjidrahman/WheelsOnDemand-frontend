@@ -1,9 +1,8 @@
 import { vehicleModel } from '../../models/vehicle.model';
 import { createReducer, on } from "@ngrx/store"
-import { choicedetails, retrievehostsuccess, retrieveusersuccess, retrivevehiclessuccess } from "./app.actions"
+import { retrievehostsuccess, retrieveusersuccess, retrivevehiclessuccess } from "./app.actions"
 import { userModel } from "src/app/models/user.model"
 import { hostModel } from "src/app/models/host.model"
-import { ChoiceModel } from 'src/app/models/choice.model';
 
 // user reducer 
 export const userinitialState: userModel[] = []
@@ -38,20 +37,4 @@ const _vehicleReducer = createReducer(vehicleintialState,
 )
 export function vehicleReducer(state: any, action: any) {
     return _vehicleReducer(state, action)
-}
-
-// choice reducer
-export const choiceinitialstate = { choice: null }
-
-const _choiceReducer = createReducer(choiceinitialstate,
-    on(choicedetails, (state, { choice }) => {
-        return {
-            ...state,
-            choice
-        }
-    })
-)
-
-export function choiceReducer(state: any, action: any) {
-    return _choiceReducer(state, action)
 }

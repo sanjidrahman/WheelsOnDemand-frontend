@@ -8,13 +8,14 @@
                     <gallery gallerize [items]="images"></gallery>
                 </div>
                 <div class="col-lg-7">
-                    <div class="row">
+                    <div class="row mt-5">
                         <h1>{{ v.brand }} {{ v.name }}</h1>
                     </div>
                     <h4>Model : {{ v.model }}</h4>
                     <h4>Fuel : {{ v.fuel }}</h4>
                     <h4>Transmission : {{ v.transmission }}</h4>
-                    <h2 class="price mt-1">{{ v.price | currency:'INR':'symbol':'1.2-2' }}</h2>
+                    <h2 class="price mt-1">{{ v_price | currency:'INR':'symbol':'1.2-2' }}</h2>
+                    <button mat-raised-button [routerLink]="['/checkout', v._id]">Book Now</button>
                 </div>
             </div>
         </div>

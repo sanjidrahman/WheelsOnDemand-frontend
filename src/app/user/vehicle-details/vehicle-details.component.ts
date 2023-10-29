@@ -1,14 +1,15 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { ImageItem, GalleryItem, Gallery, ImageSize, ThumbnailsPosition } from 'ng-gallery';
-import { Lightbox } from 'ng-gallery/lightbox';
+import { ImageItem, GalleryItem } from 'ng-gallery';
+import jwt_decode from 'jwt-decode';
 import { Observable, map } from 'rxjs';
 import { vehicleModel } from 'src/app/models/vehicle.model';
-import { retrievevehicles } from 'src/app/store/state/app.actions';
-import { getvehicles } from 'src/app/store/state/app.selectors';
-import { vehicleState } from 'src/app/store/state/app.state';
+import { retrieveuser, retrievevehicles } from 'src/app/store/state/app.actions';
+import { getuser, getvehicles } from 'src/app/store/state/app.selectors';
+import { userState, vehicleState } from 'src/app/store/state/app.state';
 import { environment } from 'src/environments/environment.development';
+import { userModel } from 'src/app/models/user.model';
 
 
 @Component({
@@ -23,13 +24,15 @@ export class VehicleDetailsComponent implements OnInit {
   vehicleDetails!: Observable<vehicleModel | undefined>
   data!: string[] | undefined
   imageData!: any[]
-lightbox: any;
+  userDetails!: Observable<userModel | undefined>
+  userid!: any
+  userChoices: any
+  v_price!: number
 
   constructor(
     private _store: Store<vehicleState>,
+    private _userstore: Store<userState>,
     private _activatedroute: ActivatedRoute,
-    private _gallery: Gallery,
-    private _lightbox: Lightbox
   ) { }
 
   ngOnInit() {
@@ -40,6 +43,43 @@ lightbox: any;
       select(getvehicles),
       map(v => v.find(vehicle => vehicle._id == id))
     )
+
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      this.userid = jwt_decode(token)
+    } 
+    this._userstore.dispatch(retrieveuser())
+    this.userDetails = this._userstore.pipe(
+      select(getuser),
+      map(u => u.find(user => user._id == this.userid.id))
+    )
+
+    setTimeout(() => {
+      this.userDetails.forEach((i) => {
+        this.userChoices = i?.choices
+      })
+    },50)
+
+    setTimeout(() => {
+      const startDate = new Date(this.userChoices.startDate)
+      const endDate = new Date(this.userChoices.endDate)
+      const timeDiff = endDate.getTime() - startDate.getTime()
+      const days = timeDiff / (1000 * 3600 * 24)
+      if(days >= 7) {
+        this.vehicleDetails.forEach((v) => {
+          if(v) {
+            const dis = (v.price * days) * 10 / 100
+            this.v_price = (v.price * days) - dis
+          }
+        })
+      } else {
+         this.vehicleDetails.forEach((v) => {
+          if(v) {
+            this.v_price = v.price * days
+          }
+        })
+      }
+    },100)
 
     setTimeout(() => {
       this.loadImage()

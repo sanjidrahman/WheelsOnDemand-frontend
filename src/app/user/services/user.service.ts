@@ -37,10 +37,14 @@ export class UserService {
     })
   }
 
-  submitChoice(startDate: Date, endDate: Date, pickup: string, dropoff: string) {
-    return this._http.post<vehicleModel[]>(
-      `${this.commonUrl}/user/vehicles`, 
-      { startDate, endDate, pickup, dropoff }, {
+  storeChoice(choice: any) {
+    return this._http.put(`${this.commonUrl}/user/store-choice`, choice, {
+      withCredentials: true
+    } )
+  }
+
+  getVehicle() {
+    return this._http.get<vehicleModel[]>(`${this.commonUrl}/user/vehicles`, {
       withCredentials: true
     })
   }

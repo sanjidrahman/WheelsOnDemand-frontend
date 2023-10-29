@@ -3,13 +3,14 @@ import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/
 import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-select-date',
   templateUrl: './select-date.component.html',
   styleUrls: ['./select-date.component.css']
 })
-export class SelectDateComponent implements OnInit {
+export class SelectDateComponent implements OnInit, OnDestroy {
 
   minDate = new Date();
   maxDate!: Date;
@@ -17,11 +18,13 @@ export class SelectDateComponent implements OnInit {
   pickupLocation!: FormGroup;
   dropLocation!: FormGroup;
   isLinear = true;
+  private subscribe = new Subscription()
 
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
-    
+    private _service: UserService,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -61,8 +64,24 @@ export class SelectDateComponent implements OnInit {
         pickup: pickupData.pickup,
         dropoff: dropoffData.dropoff,
       };
-      this._router.navigate(['vehicles'], { queryParams: queryParams });
+
+      console.log(dateDate.startDate, dateDate.endDate, pickupData.pickup, dropoffData.dropoff);
+
+      this.subscribe.add(
+        this._service.storeChoice(queryParams).subscribe({
+          next: (res) => {
+            this._router.navigate(['vehicles'])
+          },
+          error: (err) => {
+            this._toastr.error('Something went wrong' , err)
+          }
+        })
+      )
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscribe.unsubscribe()
   }
 
 }

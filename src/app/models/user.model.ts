@@ -7,4 +7,5 @@ export interface userModel {
     password: string
     isBlocked: boolean
     __v: number
+    choices: object
 }

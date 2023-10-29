@@ -15,6 +15,3 @@ export interface vehicleState {
     vehiclelist : vehicleModel[]
 }
 
-export interface choiceState {
-    choice: any
-}
