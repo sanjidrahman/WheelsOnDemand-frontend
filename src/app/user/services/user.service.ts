@@ -49,6 +49,18 @@ export class UserService {
     })
   }
 
+  bookVehicle(bookData: object) {
+    return this._http.post(`${ this.commonUrl }/user/book-vehicle` , bookData , {
+      withCredentials: true
+    })
+  }
+
+  getBookDetails(id: string | null) {
+    return this._http.get(`${this.commonUrl}/user/booking-details/${id}`, {
+      withCredentials: true
+    })
+  }
+
   logout() {
     return this._http.post(`${this.commonUrl}/user/logout`, {}, {
       withCredentials: true

@@ -25,8 +25,8 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this._service.logout().subscribe((res: any) => {
-      window.location.reload()
       localStorage.removeItem('userToken')
+      window.location.reload()
       this._router.navigate(['login'])
     }, (err) => {
       this._toastr.error('Failed to logout')

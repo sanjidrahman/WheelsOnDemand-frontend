@@ -29,14 +29,15 @@ export class AdminNavigationComponent implements OnDestroy {
     );
 
   logout() {
-    localStorage.removeItem('adminToken');
     this.subscribe.add(
       this._service.logout().subscribe({
         next: () => {
+          localStorage.removeItem('adminToken');
           this._router.navigate(['/admin']);
           this._toastr.success('Logged out successfully');
         },
         error: (err) => {
+          console.log(err);
           this._toastr.error('Something went wrong')
         },
       })

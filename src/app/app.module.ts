@@ -48,6 +48,7 @@ import { GALLERY_CONFIG, GalleryConfig, GalleryModule } from 'ng-gallery';
 import { LIGHTBOX_CONFIG, LightboxConfig, LightboxModule } from 'ng-gallery/lightbox';
 import { VehicleListComponent } from './user/vehicle-list/vehicle-list.component';
 import { CheckoutComponent } from './user/checkout/checkout.component';
+import { BookingSuccessComponent } from './user/booking-success/booking-success.component';
 // import { PriceCalculationPipe } from './user/pipe/price-calculation.pipe';
 
 
@@ -72,6 +73,7 @@ import { CheckoutComponent } from './user/checkout/checkout.component';
     VehicleDetailsComponent,
     VehicleListComponent,
     CheckoutComponent,
+    BookingSuccessComponent,
     // PriceCalculationPipe,
   ],
   imports: [
