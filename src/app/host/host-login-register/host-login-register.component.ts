@@ -17,6 +17,10 @@ export class HostLoginRegisterComponent implements OnInit {
   hostLoginForm!: FormGroup<any>;
   user: any
   loggedIn: any;
+  StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
+  hideLogin: boolean = true;
+  hideRegister: boolean = true;
+  hideRegisterCpass: boolean = true;
 
   constructor(
     private _fb: FormBuilder,
@@ -63,7 +67,7 @@ export class HostLoginRegisterComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.minLength(10)]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.pattern(this.StrongPasswordRegx)]],
       confirmPass: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator('password', 'confirmPass')} );
 

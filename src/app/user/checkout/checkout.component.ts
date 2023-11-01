@@ -174,7 +174,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.subscribe.add(
       this._service.bookVehicle(bookingDetails).subscribe({
         next: (res: any) => {
-          this._router.navigate(['booking-success', res.bookingId])
+          this._router.navigate(['booking-success', res.bookingId, this.v_id])
           this._toastr.success('Booked Successsfully !')
         },
         error: (err) => {

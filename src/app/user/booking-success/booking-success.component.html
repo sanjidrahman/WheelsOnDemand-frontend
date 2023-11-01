@@ -1,20 +1,59 @@
-<div class="main-container">
-    <div class="check-container">
-        <div class="check-background">
-            <svg viewBox="0 0 65 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 25L27.3077 44L58.5 7" stroke="white" stroke-width="13" stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </svg>
-        </div>
-        <div class="check-shadow"></div>
-    </div>
-    <div class="template-container">
-        <div class="card">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci temporibus voluptatibus, laboriosam eius
-            soluta fugit quidem neque laborum a non at in dolorem odit eum laudantium dolor, molestias quisquam aut quos
-            praesentium nobis consectetur dicta! Sapiente esse vel placeat magni iste id repellendus soluta!
-        </div>
-    </div>
-</div>
+<app-header></app-header>
 
-<div id="map"></div>
+<section>
+    <div class="container">
+        <div class="card">
+            <div class="wrapper">
+                <svg>
+                    <text x="50%" y="50%" dy=".35em" text-anchor="middle">
+                        Booked Succesfully 
+                    </text>
+                </svg>
+            </div>
+            <div class="card-body" *ngIf="vehicleDetails | async as v">
+                <div class="row">
+                    <div class="v-image d-flex justify-content-center">
+                        <img [src]="getImage(v.images ? v.images[0].toString() : '')" style="width: 258px;"
+                            alt="vehicle image">
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6 text-center">
+                        <h3>Start Date : </h3>
+                    </div>
+                    <div class="col-lg-6 col-sm-6  text-center">
+                        <h3>End Date : </h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6  text-center">
+                        <h3><b>{{ startDate | date }} </b></h3>
+                    </div>
+                    <div class="col-lg-6 col-sm-6  text-center">
+                        <h3><b>{{ endDate | date }} </b></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6  text-center">
+                        <h3>Pickup Location : </h3>
+                    </div>
+                    <div class="col-lg-6 col-sm-6  text-center">
+                        <h3>Dropoff Location : </h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6  text-center">
+                        <h3><b>{{ pickup }} </b></h3>
+                    </div>
+                    <div class="col-lg-6 col-sm-6  text-center">
+                        <h3><b>{{ dropoff }} </b></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<app-footer></app-footer>

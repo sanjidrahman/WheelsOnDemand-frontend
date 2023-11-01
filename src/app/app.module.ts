@@ -24,7 +24,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { hostReducer, userReducer } from './store/state/app.reducers';
 import { AppState } from './store/global/App.state';
 import { AppEffects } from './store/state/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -49,7 +48,7 @@ import { LIGHTBOX_CONFIG, LightboxConfig, LightboxModule } from 'ng-gallery/ligh
 import { VehicleListComponent } from './user/vehicle-list/vehicle-list.component';
 import { CheckoutComponent } from './user/checkout/checkout.component';
 import { BookingSuccessComponent } from './user/booking-success/booking-success.component';
-// import { PriceCalculationPipe } from './user/pipe/price-calculation.pipe';
+import { PriceCalculationPipe } from './user/pipe/price-calculation.pipe';
 
 
 @NgModule({
@@ -74,7 +73,7 @@ import { BookingSuccessComponent } from './user/booking-success/booking-success.
     VehicleListComponent,
     CheckoutComponent,
     BookingSuccessComponent,
-    // PriceCalculationPipe,
+    PriceCalculationPipe,
   ],
   imports: [
     BrowserModule,

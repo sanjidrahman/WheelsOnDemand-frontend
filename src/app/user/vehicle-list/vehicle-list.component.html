@@ -1,5 +1,5 @@
 <div>
-    <div class="col-lg-3 mt-4 car-card" *ngFor="let v of vehicleList; let i = index">
+    <div class="col-lg-3 mt-4 car-card" *ngFor="let v of vehicleList | pricecalculation: daysChild">
         <div class="row">
             <div class="v-image col-lg-12">
                 <img style="margin-left: 36px;"
@@ -33,7 +33,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h2 class="price mt-1">{{ customPrice[i] | currency:'INR':'symbol':'1.2-2' }}</h2>
+                        <h2 class="price mt-1">{{ v.price | currency:'INR':'symbol':'1.2-2' }}</h2>
                     </div>
                     <div class="col-md-3">
                     </div>

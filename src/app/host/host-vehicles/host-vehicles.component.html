@@ -20,10 +20,31 @@
                 <h1>{{ v.brand }} {{ v.name }}</h1>
                 <p class="price">{{ v.price | currency:'INR':'symbol':'1.2-2' }}</p>
                 <div class="card-body">
-                    <p>{{ v.model }}</p>
-                    <p>{{ v.transmission }}</p>
+                    <div class="row">
+                        <div class="col-lg-1 ms-2">
+                            <i class="fas fa-gas-pump"></i>
+                        </div>
+                        <div class="col-lg-3">
+                            <p>{{ v.fuel }}</p>
+                        </div>
+                        <div class="col-lg-1">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="col-lg-3">
+                            <p>{{ v.model }}</p>
+                        </div>
+                        <div class="col-lg-1">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="col-lg-2">
+                            <p>{{ v.transmission == 'Automatic' ? 'AT' : 'MT' }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <p><i class="fas fa-map-marker-alt"></i><b> {{ v.location }}</b></p>
+                    </div>
                 </div>
-                <p>{{ v.fuel }}</p>
+               
                 <button class="mx-1" mat-raised-button [routerLink]="['/host/h/edit-vehicle', v._id]" color="primary">Edit</button>
                 <button mat-raised-button (click)="deleteVehicle(v._id)" color="warn">Delete</button>
             </div>

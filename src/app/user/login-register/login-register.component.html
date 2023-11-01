@@ -23,10 +23,10 @@
                             <mat-form-field class="example-full-width">
                                 <mat-label>Password</mat-label>
                                 <input [type]="hideLogin ? 'password' : 'text'" formControlName="password" matInput>
-                                <button mat-icon-button matSuffix (click)="hideLogin = !hideLogin"
+                                <a mat-icon-button matSuffix (click)="hideLogin = !hideLogin"
                                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideLogin">
                                     <mat-icon>{{hideLogin ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                </button>
+                                </a>
                             </mat-form-field>
                             <div style="width: 468px;" *ngIf="submit && loginForm.controls['password'].errors"
                                 class="text-danger">
@@ -100,10 +100,10 @@
                             <mat-form-field class="example-full-width">
                                 <mat-label>Password</mat-label>
                                 <input [type]="hide ? 'password' : 'text'" formControlName="password" matInput>
-                                <button mat-icon-button matSuffix (click)="hide = !hide"
+                                <a mat-icon-button matSuffix (click)="hide = !hide"
                                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                </button>
+                                </a>
                             </mat-form-field>
                             <div style="width: 423px;"
                                 *ngIf="localform.submitted && registerForm.controls['password'].errors"
@@ -139,10 +139,10 @@
                                 <mat-label>Confirm Password</mat-label>
                                 <input type="password" [type]="hideConfirm ? 'password' : 'text'" formControlName="confirmPass"
                                     matInput>
-                                <button mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm"
+                                <a mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm"
                                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirm">
                                     <mat-icon>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                </button>
+                                </a>
                             </mat-form-field>
                             <div style="width: 500px;"
                                 *ngIf="localform.submitted && registerForm.controls['confirmPass'].errors"

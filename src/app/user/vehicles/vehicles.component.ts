@@ -35,13 +35,13 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     private _store: Store<userState>,
     private _service: UserService,
     private _toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const token = localStorage.getItem('userToken');
     if (token) {
       this.userid = jwt_decode(token)
-    } 
+    }
     this._store.dispatch(retrieveuser())
     this.userDetails = this._store.pipe(
       select(getuser),
@@ -58,7 +58,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
       this.userDetails.forEach((i) => {
         this.userChoices = i?.choices
       })
-    },50)
+    }, 50)
 
     setTimeout(() => {
       this.pickup = this.userChoices.pickup
@@ -69,8 +69,8 @@ export class VehiclesComponent implements OnInit, OnDestroy {
       this.formattedEndDate = this.endDate.toISOString().split('T')[0]
       const timeDiff = this.endDate.getTime() - this.startDate.getTime()
       this.days = timeDiff / (1000 * 3600 * 24)
-    },100)
- 
+    }, 100)
+
   }
 
   addMonthsToDate(date: Date, months: number) {
@@ -88,7 +88,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     const token = localStorage.getItem('userToken');
     if (token) {
       this.userid = jwt_decode(token)
-    } 
+    }
     this._store.dispatch(retrieveuser())
     this.userDetails = this._store.pipe(
       select(getuser),
@@ -99,7 +99,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
       this.userDetails.forEach((i) => {
         this.userChoices = i?.choices
       })
-    },50)
+    }, 50)
 
     setTimeout(() => {
       this.pickup = this.userChoices.pickup
@@ -110,7 +110,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
       this.formattedEndDate = this.endDate.toISOString().split('T')[0]
       const timeDiff = this.endDate.getTime() - this.startDate.getTime()
       this.days = timeDiff / (1000 * 3600 * 24)
-    },100)
+    }, 100)
   }
 
   editChoice() {
@@ -120,19 +120,22 @@ export class VehiclesComponent implements OnInit, OnDestroy {
       pickup: this.pickup,
       dropoff: this.dropoff
     }
-    console.log(choice.startDate, choice.endDate);
-    this.subscribe.add(
-      this._service.storeChoice(choice).subscribe({
-        next: () => {
-          this.update()
-          this.isEditable = false
-          this._toastr.success('Editted Successfully')
-        },
-        error: (err) => {
-          this._toastr.error(err)
-        }
-      })
-    )
+    if (this.formattedEndDate <= this.formattedStartDate) {
+      this._toastr.error('Droppoff date cannot be lesser or equal to start date')
+    } else {
+      this.subscribe.add(
+        this._service.storeChoice(choice).subscribe({
+          next: () => {
+            this.update()
+            this.isEditable = false
+            this._toastr.success('Editted Successfully')
+          },
+          error: (err) => {
+            this._toastr.error(err)
+          }
+        })
+      )
+    }
   }
 
   ngOnDestroy(): void {

@@ -37,26 +37,27 @@ export class VehicleListComponent implements OnInit, OnDestroy {
   ){}
 
   ngOnInit(): void {
-    this.subscribe.add(
-      this._service.getVehicle().subscribe((res: any) => {
-        this.vehicleList = res.vehicleData
-      })
-    )
-
     setTimeout(() => {
-      if(this.daysChild >= 7) {
-        this.vehicleList.forEach((v) => {
-          const dis = (v.price * this.daysChild) * 10 / 100
-          const price = (v.price * this.daysChild) - dis
-          this.customPrice.push(price)
+      this.subscribe.add(
+        this._service.getVehicle().subscribe((res: any) => {
+          this.vehicleList = res.vehicleData
         })
-      }else{
-        this.vehicleList.forEach((v) => {
-          const price = v.price * this.daysChild
-          this.customPrice.push(price)
-        })
-      }
-    },200)
+      )
+    },100)
+
+
+    // setTimeout(() => {
+    //   if(this.daysChild >= 7) {
+    //     this.vehicleList.map((v) => {
+    //       const dis = (v.price * this.daysChild) * 10 / 100
+    //       v.price = v.price * this.daysChild - dis
+    //     })
+    //   } else {
+    //     this.vehicleList.map((v) => {
+    //       v.price = v.price * this.daysChild
+    //     })
+    //   }
+    // }, 200);
 
   }
 

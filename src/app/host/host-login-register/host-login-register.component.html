@@ -22,7 +22,11 @@
                             </div>
                             <mat-form-field class="example-full-width">
                                 <mat-label>Password</mat-label>
-                                <input type="password" formControlName="password" matInput>
+                                <input [type]="hideLogin ? 'password' : 'text'" formControlName="password" matInput>
+                                <a mat-icon-button matSuffix (click)="hideLogin = !hideLogin"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideLogin">
+                                    <mat-icon>{{hideLogin ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </a>
                             </mat-form-field>
                             <div style="width: 423px;" *ngIf="submit && hostLoginForm.controls['password'].errors"
                                 class="text-danger">
@@ -41,11 +45,9 @@
                                     mat-button>Login</button>
                             </div>
                             <div class="google-btn mt-4">
-                                <asl-google-signin-button 
-                                type='standard' size='medium' 
-                                shape="pill" 
-                                text="continue_with">
-                            </asl-google-signin-button>
+                                <asl-google-signin-button type='standard' size='medium' shape="pill"
+                                    text="continue_with">
+                                </asl-google-signin-button>
                             </div>
                         </form>
                     </div>
@@ -59,11 +61,14 @@
                                 <input formControlName="name" matInput>
                             </mat-form-field>
                             <div style="width: 423px;"
-                                *ngIf="hostregform.submitted && hostRegisterForm.controls['name'].errors" class="text-danger">
-                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['name'].errors['required']">
+                                *ngIf="hostregform.submitted && hostRegisterForm.controls['name'].errors"
+                                class="text-danger">
+                                <p
+                                    *ngIf="hostregform.submitted && hostRegisterForm.controls['name'].errors['required']">
                                     Name is required
                                 </p>
-                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['name'].errors['minlength']">
+                                <p
+                                    *ngIf="hostregform.submitted && hostRegisterForm.controls['name'].errors['minlength']">
                                     Name must have at least 4 characters.
                                 </p>
                             </div>
@@ -74,7 +79,8 @@
                             <div style="width: 423px;"
                                 *ngIf="hostregform.submitted && hostRegisterForm.controls['email'].errors"
                                 class="text-danger">
-                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['email'].errors['required']">
+                                <p
+                                    *ngIf="hostregform.submitted && hostRegisterForm.controls['email'].errors['required']">
                                     Email is required
                                 </p>
                                 <p *ngIf="hostregform.submitted && hostRegisterForm.controls['email'].errors['email']">
@@ -88,30 +94,62 @@
                             <div style="width: 500px;"
                                 *ngIf="hostregform.submitted && hostRegisterForm.controls['phone'].errors"
                                 class="text-danger">
-                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['phone'].errors['required']">
+                                <p
+                                    *ngIf="hostregform.submitted && hostRegisterForm.controls['phone'].errors['required']">
                                     Phone is required
                                 </p>
-                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['phone'].getError('minlength')">
+                                <p
+                                    *ngIf="hostregform.submitted && hostRegisterForm.controls['phone'].getError('minlength')">
                                     Phone must have 10 numbers.
                                 </p>
                             </div>
                             <mat-form-field class="example-full-width">
                                 <mat-label>Password</mat-label>
-                                <input type="password" formControlName="password" matInput>
+                                <input [type]="hideRegister ? 'password' : 'text'" formControlName="password" matInput>
+                                <a mat-icon-button matSuffix (click)="hideRegister = !hideRegister"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRegister">
+                                    <mat-icon>{{hideRegister ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </a>
                             </mat-form-field>
                             <div style="width: 423px;"
                                 *ngIf="hostregform.submitted && hostRegisterForm.controls['password'].errors"
                                 class="text-danger">
-                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['password'].errors['required']">
+                                <p
+                                    *ngIf="hostregform.submitted && hostRegisterForm.controls['password'].errors['required']">
                                     Password is required
                                 </p>
-                                <p *ngIf="hostregform.submitted && hostRegisterForm.controls['password'].getError('minlength')">
-                                    Password must have at least 8 characters.
-                                </p>
+                                <div class="text-red-400 text-sm mb-3"
+                                    *ngIf="hostRegisterForm.controls['password'].dirty">
+                                    <span class="block"
+                                        [ngClass]="{'text-dark': hostRegisterForm.controls['password'].value?.match('^(?=.*[A-Z])')}">At
+                                        least one uppercase letter.</span><br>
+
+                                    <span class="block"
+                                        [ngClass]="{'text-dark': hostRegisterForm.controls['password'].value?.match('(?=.*[a-z])')}">At
+                                        least one lowercase letter.</span><br>
+
+                                    <span class="block"
+                                        [ngClass]="{'text-dark': hostRegisterForm.controls['password'].value?.match('(.*[0-9].*)')}">At
+                                        least one digit.</span><br>
+
+                                    <span class="block"
+                                        [ngClass]="{'text-dark': hostRegisterForm.controls['password'].value?.match('(?=.*[!@#$%^&*])')}">At
+                                        least one special character.</span><br>
+
+                                    <span class="block"
+                                        [ngClass]="{'text-dark': hostRegisterForm.controls['password'].value?.match('.{8,}')}">At
+                                        least 8 characters long.</span><br>
+
+                                </div>
                             </div>
                             <mat-form-field class="example-full-width">
                                 <mat-label>Confirm Password</mat-label>
-                                <input type="password" formControlName="confirmPass" matInput>
+                                <input [type]="hideRegisterCpass ? 'password' : 'text'" formControlName="password"
+                                    matInput>
+                                <a mat-icon-button matSuffix (click)="hideRegisterCpass = !hideRegisterCpass"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRegisterCpass">
+                                    <mat-icon>{{hideRegisterCpass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </a>
                             </mat-form-field>
                             <div style="width: 500px;"
                                 *ngIf="hostregform.submitted && hostRegisterForm.controls['confirmPass'].errors"
@@ -139,4 +177,3 @@
 </div>
 
 <app-host-footer></app-host-footer>
-

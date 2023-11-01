@@ -1,147 +1,62 @@
-/* HTML font size can define checkbox size */
-html,
-body {
-	font-size: 24px;
+/* Apply flexbox to center the content */
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* This ensures it takes up at least the full viewport height */
 }
 
-/* Sample container */
-.main-container {
-	width: 100%;
-	height: 100vh;
-	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	align-items: center;
+/* .container {
+   
+} */
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Main CSS */
-.check-container {
-	width: 6.25rem;
-	height: 7.5rem;
-	display: flex;
-	flex-flow: column;
-	align-items: center;
-	justify-content: space-between;
+.card-body {
+    width: 40%;
 }
 
-.check-container .check-background {
-	width: 100%;
-	height: calc(100% - 1.25rem);
-	background: linear-gradient(to bottom right, #5de593, #41d67c);
-	box-shadow: 0px 0px 0px 65px rgba(255, 255, 255, 0.25) inset, 0px 0px 0px 65px rgba(255, 255, 255, 0.25) inset;
-	transform: scale(0.84);
-	border-radius: 50%;
-	animation: animateContainer 0.75s ease-out forwards 0.75s;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	opacity: 0;
+@media (max-width: 768px) {
+    .card-body {
+        width: 50%;
+    }
 }
 
-.check-container .check-background svg {
-	width: 65%;
-	transform: translateY(0.25rem);
-	stroke-dasharray: 80;
-	stroke-dashoffset: 80;
-	animation: animateCheck 0.35s forwards 1.25s ease-out;
+@media (max-width: 575px) {
+    .card-body {
+        width: 50%;
+    }
 }
 
-.check-container .check-shadow {
-	bottom: calc(-15% - 5px);
-	left: 0;
-	border-radius: 50%;
-	background: radial-gradient(closest-side, rgba(73, 218, 131, 1), transparent);
-	animation: animateShadow 0.75s ease-out forwards 0.75s;
+text {
+    font-family: 'Poppins', sans-serif;
 }
 
-@keyframes animateContainer {
-	0% {
-		opacity: 0;
-		transform: scale(0);
-		box-shadow: 0px 0px 0px 65px rgba(255, 255, 255, 0.25) inset, 0px 0px 0px 65px rgba(255, 255, 255, 0.25) inset;
+svg {
+	font-family: "Russo One", sans-serif;
+	width: 100%; height: 100%;
+}
+svg text {
+	animation: stroke 5s infinite alternate;
+	stroke-width: 2;
+	stroke: #5A2D0E;
+	font-size: 30px;
+}
+@keyframes stroke {
+	0%   {
+		fill: rgba(0,0,0,0); stroke: rgba(90,45,14,1);
+		stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 2;
 	}
-	25% {
-		opacity: 1;
-		transform: scale(0.9);
-		box-shadow: 0px 0px 0px 65px rgba(255, 255, 255, 0.25) inset, 0px 0px 0px 65px rgba(255, 255, 255, 0.25) inset;
-	}
-	43.75% {
-		transform: scale(1.15);
-		box-shadow: 0px 0px 0px 43.334px rgba(255, 255, 255, 0.25) inset, 0px 0px 0px 65px rgba(255, 255, 255, 0.25) inset;
-	}
-	62.5% {
-		transform: scale(1);
-		box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0.25) inset, 0px 0px 0px 21.667px rgba(255, 255, 255, 0.25) inset;
-	}
-	81.25% {
-		box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0.25) inset, 0px 0px 0px 0px rgba(255, 255, 255, 0.25) inset;
-	}
+	70%  {fill: rgba(0,0,0,0); stroke: rgba(90,45,14,1); }
+	80%  {fill: rgba(0,0,0,0); stroke: rgba(90,45,14,1); stroke-width: 3; }
 	100% {
-		opacity: 1;
-		box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0.25) inset, 0px 0px 0px 0px rgba(255, 255, 255, 0.25) inset;
+		fill: rgba(0,0,0,1); stroke: rgba(90,45,14,0);
+		stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 0;
 	}
 }
 
-@keyframes animateCheck {
-	from {
-		stroke-dashoffset: 80;
-	}
-	to {
-		stroke-dashoffset: 0;
-	}
-}
-
-@keyframes animateShadow {
-	0% {
-		opacity: 0;
-		width: 100%;
-		height: 15%;
-	}
-	25% {
-		opacity: 0.25;
-	}
-	43.75% {
-		width: 40%;
-		height: 7%;
-		opacity: 0.35;
-	}
-	100% {
-		width: 85%;
-		height: 15%;
-		opacity: 0.25;
-	}
-}
-
-
-
-/* Your existing styles for the checkmark and animation */
-
-/* Additional style for the template */
-.template-container {
-	display: none; /* Initially hidden */
-	opacity: 0;
-	transform: translateY(-100%); /* Start offscreen above */
-	transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-/* Add an animation to make the template appear from the top */
-.template-container.appear {
-	display: block; /* Show the template */
-	opacity: 1;
-	transform: translateY(0); /* Slide down to its original position */
-}
-
-
-#map {
-	height: 100%;
-  }
-  
-  /* 
-   * Optional: Makes the sample page fill the window. 
-   */
-  html,
-  body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-  }
+.wrapper {background-color: #FFFFFF};

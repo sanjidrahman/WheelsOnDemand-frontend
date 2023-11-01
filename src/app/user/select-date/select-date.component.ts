@@ -73,7 +73,11 @@ export class SelectDateComponent implements OnInit, OnDestroy {
             this._router.navigate(['vehicles'])
           },
           error: (err) => {
-            this._toastr.error('Something went wrong' , err)
+            if(err.status == 401) {
+              this._toastr.warning('Please login to proceed !' , err.error.message)
+            }else {
+              this._toastr.error('Something went wrong' , err.error.message)
+            }
           }
         })
       )

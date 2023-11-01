@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'vehicles', title: 'Vehicle', component: VehiclesComponent},
   { path: 'vehicle-details/:id', title: 'Vehicle Details', component: VehicleDetailsComponent},
   { path: 'checkout/:id' , title: 'Checkout', component: CheckoutComponent},
-  { path: 'booking-success/:b_id', title: 'Booking Success', component: BookingSuccessComponent},
+  { path: 'booking-success/:b_id/:v_id', title: 'Booking Success', component: BookingSuccessComponent},
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'host', loadChildren: () => import('./host/host.module').then(m => m.HostModule) }
 ];

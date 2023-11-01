@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { ImageItem, GalleryItem } from 'ng-gallery';
@@ -86,6 +86,10 @@ export class VehicleDetailsComponent implements OnInit {
     }, 50);
 
   }
+
+  // ngAfterContentInit(): void {
+  //   this.loadImage()
+  // }
 
   loadImage() {
     this.vehicleDetails.forEach((item) => {

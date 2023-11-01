@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { vehicleModel } from 'src/app/models/vehicle.model';
 import { environment } from 'src/environments/environment.development';
+declare var google: any;
 
 @Injectable({
   providedIn: 'root'
@@ -66,4 +67,31 @@ export class UserService {
       withCredentials: true
     })
   }
+
+
+  // initMap() {
+  //   const myLatlng = { lat: -25.363, lng: 131.044 };
+  //   const map = new google.maps.Map(document.getElementById('map'), {
+  //     zoom: 4,
+  //     center: myLatlng,
+  //   });
+
+  //   let infoWindow = new google.maps.InfoWindow({
+  //     content: 'Click the map to get Lat/Lng!',
+  //     position: myLatlng,
+  //   });
+
+  //   infoWindow.open(map);
+
+  //   map.addListener('click', (mapsMouseEvent: any) => {
+  //     infoWindow.close();
+  //     infoWindow = new google.maps.InfoWindow({
+  //       position: mapsMouseEvent.latLng,
+  //     });
+  //     infoWindow.setContent(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
+  //     infoWindow.open(map);
+  //   });
+  // }
+
+
 }
