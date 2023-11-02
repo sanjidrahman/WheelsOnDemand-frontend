@@ -78,7 +78,8 @@ export class HostLoginRegisterComponent implements OnInit {
       return
     }else{
       let hostData = this.hostRegisterForm.getRawValue()
-      this._service.registerHost(hostData).subscribe(() => {
+      this._service.registerHost(hostData).subscribe((res) => {
+        console.log(res, 'RES');
         this._router.navigate(['host/host-otp-verify'])
       })
     }

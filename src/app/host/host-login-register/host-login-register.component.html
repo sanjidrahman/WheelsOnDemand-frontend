@@ -144,7 +144,7 @@
                             </div>
                             <mat-form-field class="example-full-width">
                                 <mat-label>Confirm Password</mat-label>
-                                <input [type]="hideRegisterCpass ? 'password' : 'text'" formControlName="password"
+                                <input [type]="hideRegisterCpass ? 'password' : 'text'" formControlName="confirmPass"
                                     matInput>
                                 <a mat-icon-button matSuffix (click)="hideRegisterCpass = !hideRegisterCpass"
                                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRegisterCpass">

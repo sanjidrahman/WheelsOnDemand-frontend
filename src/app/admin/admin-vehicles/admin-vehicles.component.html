@@ -52,11 +52,13 @@
                     <button class="mx-1" mat-raised-button [routerLink]="['/admin/a/edit-vehicle',v._id]" color="primary">Edit</button>
                     <button mat-raised-button (click)="deleteVehicle(v._id)" color="warn">Delete</button>
                 </div>
-                <div class="card-body" *ngIf="v.createdBy && !v.isVerified">
-                    <button class="mx-1" mat-raised-button (click)="verifyVehicle(v._id, v.createdBy)" color="primary">Verify</button>
-                    <button mat-raised-button (click)="rejectVehiclePopup(v.createdBy)" color="warn">Reject</button>
+                <div class="card-body" *ngIf="v.createdBy">
+                    <button mat-raised-button [routerLink]="['/admin/a/host-vehicle-details', v._id]" color="primary">View Details</button>
                 </div>
             </div>
         </div>
     </div>    
 </div>
+
+<!-- <button class="mx-1" mat-raised-button (click)="verifyVehicle(v._id, v.createdBy)" color="primary">Verify</button>
+<button mat-raised-button (click)="rejectVehiclePopup(v.createdBy)" color="warn">Reject</button> -->

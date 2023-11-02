@@ -17,7 +17,7 @@ import { userModel } from 'src/app/models/user.model';
   templateUrl: './vehicle-list.component.html',
   styleUrls: ['./vehicle-list.component.css']
 })
-export class VehicleListComponent implements OnInit, OnDestroy {
+export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() startDateChild!: Date | string
   @Input() endDateChild!: Date | string
@@ -45,7 +45,6 @@ export class VehicleListComponent implements OnInit, OnDestroy {
       )
     },100)
 
-
     // setTimeout(() => {
     //   if(this.daysChild >= 7) {
     //     this.vehicleList.map((v) => {
@@ -59,6 +58,11 @@ export class VehicleListComponent implements OnInit, OnDestroy {
     //   }
     // }, 200);
 
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('I am change', changes);
+    this.ngOnInit()
   }
 
   getImage(file: any) {

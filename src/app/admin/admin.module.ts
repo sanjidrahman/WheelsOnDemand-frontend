@@ -39,6 +39,10 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { AdminFooterComponent } from './admin-footer/admin-footer.component';
 import { MatSelectModule } from '@angular/material/select';
 import { AdminEditVehicleComponent } from './admin-edit-vehicle/admin-edit-vehicle.component';
+import { AdminHostVehicleDetailsComponent } from './admin-host-vehicle-details/admin-host-vehicle-details.component';
+import { LightboxModule } from 'ng-gallery/lightbox';
+import { GalleryModule } from 'ng-gallery';
+import { MatStepperModule } from '@angular/material/stepper';
 
 
 @NgModule({
@@ -55,7 +59,8 @@ import { AdminEditVehicleComponent } from './admin-edit-vehicle/admin-edit-vehic
     AdminHostlistComponent,
     AdminVehiclesComponent,
     AdminAddVehicleComponent,
-    AdminEditVehicleComponent
+    AdminEditVehicleComponent,
+    AdminHostVehicleDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -82,9 +87,12 @@ import { AdminEditVehicleComponent } from './admin-edit-vehicle/admin-edit-vehic
     MatPaginatorModule,
     MatTableModule,
     MatDialogModule,
+    MatStepperModule,
     NgConfirmModule,
     FileUploadModule,
     MatSelectModule,
+    GalleryModule,
+    LightboxModule
   ],
   providers: [AdminService , MessageService],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]

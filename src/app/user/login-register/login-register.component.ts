@@ -98,8 +98,12 @@ export class LoginRegisterComponent implements OnInit , OnDestroy {
     } else {
       let regUser = this.registerForm.value
       console.log(regUser);
-      this._service.registerUser(regUser).subscribe(() => {
-        this._router.navigate(['host/otp-verify'])
+      this._service.registerUser(regUser).subscribe((res) => {
+        console.log(res , "Res");
+        // if(res.status == 200) {
+          this._router.navigate(['/otp-verify']);
+        // }  
+        // this._router.navigate(['host/otp-verify'])
         // if(res.message == 'Success') {
         //   this.router.navigate([''])
         // }

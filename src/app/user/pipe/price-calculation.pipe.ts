@@ -9,18 +9,18 @@ export class PriceCalculationPipe implements PipeTransform {
   transform(vehicleList: vehicleModel[], days: number): any[] {
     const second = new Date()
     if(!Array.isArray(vehicleList)) {
-        console.log(second.getSeconds());
-        console.log('IN or OUT');
+        // console.log(second.getSeconds());
+        // console.log('IN or OUT');
         return vehicleList
     }
     
        return vehicleList.map((v) => {
-        console.log(v , 'AAA');
+        // console.log(v , 'AAA');
         if (days >= 7) {
           const dis = (v.price * days * 10) / 100;
-          console.log(v.price , dis, 'DIS');
+          // console.log(v.price , dis, 'DIS');
           v.price = v.price * days - dis;
-          console.log(v.price);
+          // console.log(v.price);
         } else {
           v.price = v.price * days;
         }

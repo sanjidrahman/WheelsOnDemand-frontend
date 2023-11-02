@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: '', title: 'Home', component: HomeComponent },
   { path: 'home' , redirectTo: '' , pathMatch: 'full'},
   { path: 'login', title: 'Login', component: LoginRegisterComponent, canActivate: [userGuardLogged]},
-  { path: 'otp-verify', title: 'OTP-Verify', component: OtpCompComponent, canActivate:[userGuardLogout] },
+  { path: 'otp-verify', title: 'OTP-Verify', component: OtpCompComponent },
   { path: 'mail-verify', title: 'Mail Verify', component: MailVerifyComponent },
   { path: 'select' , title: 'Select Date' , component: SelectDateComponent},
   { path: 'vehicles', title: 'Vehicle', component: VehiclesComponent},

@@ -27,7 +27,6 @@ export class AdminVehiclesComponent implements OnInit, OnDestroy {
   constructor(
     private _service: AdminService,
     private _store: Store<vehicleState>,
-    private _dialog: MatDialog,
     private _toastr: ToastrService,
     private _ngConfirm: NgConfirmService,
   ) { }
@@ -70,31 +69,6 @@ export class AdminVehiclesComponent implements OnInit, OnDestroy {
       )
     }, () => {
       this._ngConfirm.closeConfirm()
-    })
-  }
-
-  verifyVehicle(vehicleid: string, hostid: any) {
-    this.subscribe.add(
-      this._service.verifyVehicle(vehicleid, hostid._id).subscribe({
-        next: () => {
-          this.update()
-          this._toastr.success('Vehicle Verified !')
-        },
-        error: (err) => {
-          this._toastr.error('Something went wrong')
-          console.log(err);
-        }
-      })
-    )
-  }
-
-  rejectVehiclePopup(hostid: any) {
-    this._dialog.open(SubmitRejectvehicleComponent, {
-      data: hostid._id,
-      width: '50%',
-      maxHeight: '90vh',
-      enterAnimationDuration: '300ms',
-      exitAnimationDuration: '300ms',
     })
   }
 

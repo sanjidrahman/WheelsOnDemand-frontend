@@ -76,7 +76,9 @@ export class AdminService {
   }
 
   addvehicle(data: any) {
-    console.log(data);
+    data.forEach((e: any ,v: any) => {
+      console.log(e , v);
+    });
     return this._http.post(`${this.commonUrl}/admin/add-vehicle`, data, {
       withCredentials: true
     })

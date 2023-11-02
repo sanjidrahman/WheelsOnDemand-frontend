@@ -16,6 +16,10 @@ export class AdminAddVehicleComponent {
   vehicleForm!: FormGroup
   transmission: string[] = ['Automatic', 'Manual'];
   fuel: string[] = ['Petrol', 'Diesel', 'Electric']
+  isLinear = false;
+  document!: File | null
+  firstFormGroup!: FormGroup
+  secondFormGroup!: FormGroup
 
   constructor(
     private _fb: FormBuilder,
@@ -34,6 +38,14 @@ export class AdminAddVehicleComponent {
       location: ['', Validators.required],
       price: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
     })
+
+    this.firstFormGroup = this._fb.group({
+      firstCtrl: ['', Validators.required],
+    });
+    this.secondFormGroup = this._fb.group({
+      secondCtrl: ['', Validators.required],
+    });
+   
   }
 
   getFile(event: any) {
@@ -56,9 +68,30 @@ export class AdminAddVehicleComponent {
     return filename.split('.').pop();
   }
 
+  getDocument(event: any) {
+    const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    this.document = <File>event.target.files[0];
+
+    if (this.document) {
+      console.log(this.document);
+      const fileExtension = this.getFileExtensionn(this.document.name);
+
+      if (!allowedExtensions.includes(fileExtension)) {
+        this.document = null;
+        alert('Please select a valid image file (jpg, jpeg, png, or gif).');
+      }
+    }
+  }
+  getFileExtensionn(filename: string): any {
+    return filename.split('.').pop();
+  }
+
+  click() {
+    console.log(this.firstFormGroup.controls ,this.secondFormGroup.controls);
+  }
 
   onSubmit() {
-    if (this.vehicleForm.invalid) {
+    if (this.vehicleForm.invalid && this.firstFormGroup && this.secondFormGroup) {
       return
     }
     const form = new FormData()
@@ -70,12 +103,14 @@ export class AdminAddVehicleComponent {
     form.append('fuel', data.fuel);
     form.append('location', data.location);
     form.append('price', data.price);
+    if(this.document) form.append('doc', this.document, this.document?.name)
     for (const file of this.selectedfiles) {
       form.append('files', file, file.name);
     }
 
     this._service.addvehicle(form).subscribe({
-      next: () => {
+      next: (res) => {
+        console.log(res);
         this._router.navigate(['/admin/a/vehicles'])
         this._toastr.success('Registered vehicle to collection!')
       },

@@ -1,0 +1,74 @@
+<div class="container mt-3">
+    <mat-tab-group preserveContent>
+        <mat-tab label="Vehicle Details">
+            <div class="container">
+                <div class="card mt-3" *ngIf="vehicleDetails | async as v">
+                    <div class="card-title m-2">
+                        <h1>Vehicle Details</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h3>Name : <b>{{ v.brand}} {{ v.name }}</b></h3> 
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-lg-6">
+                                <h3>Model : <b>{{ v.model }}</b></h3> 
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-lg-6">
+                                <h3>Transmission : <b>{{ v.transmission }}</b></h3> 
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-lg-6">
+                                <h3>Fuel : <b>{{ v.fuel }}</b></h3> 
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-lg-6">
+                                <h3>Location : <b>{{ v.location }}</b></h3> 
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-lg-6">
+                                <h3>Price : <b>{{ v.price | currency:'INR' }}</b></h3> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Vehicle Images">
+            <div class="container">
+                <div class="card mt-3">
+                    <div class="card-title m-2">
+                        <h1>Vehicle Images</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="v-image row">
+                            <div class="main col-lg-6" *ngIf="vehicleDetails | async as v">
+                                <gallery gallerize [items]="images"></gallery>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Vehicle Documents">
+            <div class="container">
+                <div class="card mt-3">
+                    <div class="card-title m-2">
+                        <h1>Vehicle Documents</h1>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+    <div class="container mt-3"  *ngIf="vehicleDetails | async as v">
+        <button class="mx-1" mat-raised-button (click)="verifyVehicle(v._id, v.createdBy)" color="primary">Verify</button>
+        <button mat-raised-button (click)="rejectVehiclePopup(v.createdBy)" color="warn">Reject</button>
+    </div>
+</div>
