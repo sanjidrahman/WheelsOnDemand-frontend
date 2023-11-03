@@ -114,6 +114,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   }
 
   editChoice() {
+    console.log(this.formattedStartDate);
     const choice = {
       startDate: this.formattedStartDate,
       endDate: this.formattedEndDate,
@@ -123,6 +124,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     if (this.formattedEndDate <= this.formattedStartDate) {
       this._toastr.error('Droppoff date cannot be lesser or equal to start date')
     } else {
+      console.log(choice, 'FROM VEHICLES');
       this.subscribe.add(
         this._service.storeChoice(choice).subscribe({
           next: () => {

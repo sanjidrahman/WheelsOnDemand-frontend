@@ -39,6 +39,7 @@ export class UserService {
   }
 
   storeChoice(choice: any) {
+    console.log(choice , 'FROM SERVICE');
     return this._http.put(`${this.commonUrl}/user/store-choice`, choice, {
       withCredentials: true
     } )

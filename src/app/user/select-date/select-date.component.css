@@ -6,7 +6,7 @@ body {
 }
 
 .background-image {
-    /* background-image: url('../../../assets/images/portrait-car-mercedes-benz.jpg'); */
+    background-image: url('../../../assets/images/portrait-car-mercedes-benz.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -25,6 +25,7 @@ body {
 .card {
     width: 660px;
     margin: 0 auto;
+    opacity: 0.9;
 }
 
 @media (max-width: 600px) {

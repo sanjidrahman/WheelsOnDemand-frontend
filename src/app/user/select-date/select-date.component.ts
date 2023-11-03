@@ -65,7 +65,7 @@ export class SelectDateComponent implements OnInit, OnDestroy {
         dropoff: dropoffData.dropoff,
       };
 
-      console.log(dateDate.startDate, dateDate.endDate, pickupData.pickup, dropoffData.dropoff);
+      console.log(queryParams , 'FROM SELECT DATE');
 
       this.subscribe.add(
         this._service.storeChoice(queryParams).subscribe({

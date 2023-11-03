@@ -40,7 +40,7 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
     setTimeout(() => {
       this.subscribe.add(
         this._service.getVehicle().subscribe((res: any) => {
-          this.vehicleList = res.vehicleData
+          this.vehicleList = res.vehicles
         })
       )
     },100)
@@ -61,7 +61,6 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('I am change', changes);
     this.ngOnInit()
   }
 

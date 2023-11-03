@@ -18,7 +18,7 @@
                 </li>
             </ul>
             <button class="btn btn-success me-2" *ngIf="!isAuth" routerLink="/login">Signup</button>
-            <a class="account mx-4 text-dark" *ngIf="isAuth">My Account</a>
+            <a class="account mx-4 text-dark" routerLink="/user-profile" *ngIf="isAuth">My Account</a>
             <button class="btn btn-success me-2" *ngIf="isAuth" (click)="logout()">Logout</button>
         </div>
     </div>

@@ -83,7 +83,7 @@ export class VehicleDetailsComponent implements OnInit {
 
     setTimeout(() => {
       this.loadImage()
-    }, 50);
+    }, 70);
 
   }
 
