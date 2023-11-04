@@ -63,6 +63,9 @@
                     <div class="card-title m-2">
                         <h1>Vehicle Documents</h1>
                     </div>
+                    <div class="card-body"  *ngIf="vehicleDetails | async as v">
+                        <img [src]="getDoc(v.document ? v.document.toString() : '')" width="250px" alt="">
+                    </div>
                 </div>
             </div>
         </mat-tab>

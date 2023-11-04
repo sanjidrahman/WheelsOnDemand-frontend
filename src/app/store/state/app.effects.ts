@@ -36,9 +36,9 @@ export class AppEffects {
             ofType(retrievehost),
             exhaustMap((action) => {
                 return this.servive.getAllHost().pipe(
-                    map((data) => {
+                    map((data: any) => {
                         // console.log(data , 'I AM DATA FROM EFFECTS');
-                        return retrievehostsuccess({ hostlist: data as hostModel[] })
+                        return retrievehostsuccess({ hostlist: data.vehicles as hostModel[] })
                     }),
                     catchError(() => EMPTY)
                 )

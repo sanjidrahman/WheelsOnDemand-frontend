@@ -6,9 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent {
-logout() {
-throw new Error('Method not implemented.');
-}
-isHandset$:any
+
+  isHandset$: any
+
+  logout() {
+    throw new Error('Method not implemented.');
+  }
+  
 
 }

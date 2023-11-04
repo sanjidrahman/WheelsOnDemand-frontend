@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription, map, startWith, Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Country, State, City, IState, ICity } from 'country-state-city';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-select-date',
@@ -17,7 +19,12 @@ export class SelectDateComponent implements OnInit, OnDestroy {
   rangeSelect!: FormGroup;
   pickupLocation!: FormGroup;
   dropLocation!: FormGroup;
+  statectrl!: FormControl
   isLinear = true;
+  state!: IState[]
+  city!: ICity[]
+  filteredstate!: Observable<IState[]>
+  disable: boolean = true;
   private subscribe = new Subscription()
 
   constructor(
@@ -36,13 +43,41 @@ export class SelectDateComponent implements OnInit, OnDestroy {
     })
 
     this.pickupLocation = this._fb.group({
-      pickup: ['', Validators.required]
+      pickup: ['', [Validators.required, this.valid()]],
+      pickupcity: [{ value: '', disabled: this.disable }, Validators.required]
     })
 
     this.dropLocation = this._fb.group({
       dropoff: ['', Validators.required]
     })
 
+    this.state = State.getAllStates().filter(item => item.countryCode == 'IN');
+
+    this.statectrl = new FormControl()
+    this.filteredstate = this.statectrl.valueChanges
+    .pipe(
+      startWith(''),
+      map(state => state ? this.filterStates(state) : this.state.slice())
+    )
+
+  }
+
+  filterStates(stateInput: string): IState[] {
+    console.log(stateInput , "FILTER");
+    const filterValue = stateInput.toLowerCase();
+    return this.state.filter(state => state.name.toLowerCase().startsWith(filterValue));
+  }
+
+  valid() {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const pickup = control.value;
+      console.log(pickup , 'pp');
+      if (pickup) {
+        this.city = City.getCitiesOfState('IN', pickup.isoCode)
+        this.disable = false
+      }
+      return null;
+    };
   }
 
   addMonthsToDate(date: Date, months: number) {
@@ -65,7 +100,7 @@ export class SelectDateComponent implements OnInit, OnDestroy {
         dropoff: dropoffData.dropoff,
       };
 
-      console.log(queryParams , 'FROM SELECT DATE');
+      console.log(queryParams, 'FROM SELECT DATE');
 
       this.subscribe.add(
         this._service.storeChoice(queryParams).subscribe({
@@ -73,10 +108,10 @@ export class SelectDateComponent implements OnInit, OnDestroy {
             this._router.navigate(['vehicles'])
           },
           error: (err) => {
-            if(err.status == 401) {
-              this._toastr.warning('Please login to proceed !' , err.error.message)
-            }else {
-              this._toastr.error('Something went wrong' , err.error.message)
+            if (err.status == 401) {
+              this._toastr.warning('Please login to proceed !', err.error.message)
+            } else {
+              this._toastr.error('Something went wrong', err.error.message)
             }
           }
         })

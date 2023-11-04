@@ -1,3 +1,4 @@
+import { bookingModel } from 'src/app/models/booking.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -58,7 +59,13 @@ export class UserService {
   }
 
   getBookDetails(id: string | null) {
-    return this._http.get(`${this.commonUrl}/user/booking-details/${id}`, {
+    return this._http.get<bookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
+      withCredentials: true
+    })
+  }
+
+  getBookings() {
+    return this._http.get<bookingModel[]>(`${this.commonUrl}/user/user-booking` , {
       withCredentials: true
     })
   }

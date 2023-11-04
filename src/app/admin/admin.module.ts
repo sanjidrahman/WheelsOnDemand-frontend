@@ -87,12 +87,12 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatPaginatorModule,
     MatTableModule,
     MatDialogModule,
-    MatStepperModule,
     NgConfirmModule,
     FileUploadModule,
     MatSelectModule,
     GalleryModule,
-    LightboxModule
+    LightboxModule,
+    MatStepperModule,
   ],
   providers: [AdminService , MessageService],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]

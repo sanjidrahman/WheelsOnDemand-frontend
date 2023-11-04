@@ -38,6 +38,9 @@ import { HostVehiclesComponent } from './host-vehicles/host-vehicles.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { HostEditVehicleComponent } from './host-edit-vehicle/host-edit-vehicle.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { LightboxModule } from 'ng-gallery/lightbox';
+import { GalleryModule } from 'ng-gallery';
 
 @NgModule({
   declarations: [
@@ -83,6 +86,9 @@ import { HostEditVehicleComponent } from './host-edit-vehicle/host-edit-vehicle.
     MatDialogModule,
     MatSelectModule,
     NgConfirmModule,
+    GalleryModule,
+    LightboxModule,
+    MatStepperModule,
   ],
   providers:[HostService],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]

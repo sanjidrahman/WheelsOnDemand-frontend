@@ -73,6 +73,10 @@ export class AdminHostVehicleDetailsComponent implements OnInit, AfterViewInit{
     );
   }
 
+  getDoc(file: any) {
+    return `${environment.STATIC_FILE_API}${file}`
+  }
+
   verifyVehicle(vehicleid: string, hostid: any) {
     this.subscribe.add(
       this._service.verifyVehicle(vehicleid, hostid._id).subscribe({

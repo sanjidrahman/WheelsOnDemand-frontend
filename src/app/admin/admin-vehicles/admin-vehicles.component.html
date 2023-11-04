@@ -15,11 +15,13 @@
     <div class="row">
         <div class="col-md-4" *ngFor="let v of vehiclelist">
             <div class="card">
-                <img [src]="getImage(v.images[0] ? v.images[0].toString() : '')" alt="Vehicle Image" width="250px" height="250px">
+                <img [src]="getImage(v.images[0] ? v.images[0].toString() : '')" alt="Vehicle Image" width="250px"
+                    height="250px">
                 <h1>
                     {{v.brand}} {{ v.name }}
                     <span *ngIf="v.isVerified">
-                        <mat-icon style="color: green; font-size: 20px; position: absolute; margin-top: 6px; padding-left: 4px;">check_circle</mat-icon>
+                        <mat-icon
+                            style="color: green; font-size: 20px; position: absolute; margin-top: 6px; padding-left: 4px;">check_circle</mat-icon>
                     </span>
                 </h1>
                 <p class="price">{{ v.price | currency:'INR':'symbol':'1.2-2' }}</p>
@@ -49,15 +51,36 @@
                     </div>
                 </div>
                 <div class="card-body" *ngIf="!v.createdBy">
-                    <button class="mx-1" mat-raised-button [routerLink]="['/admin/a/edit-vehicle',v._id]" color="primary">Edit</button>
+                    <button class="mx-1" mat-raised-button [routerLink]="['/admin/a/edit-vehicle',v._id]"
+                        color="primary">Edit</button>
                     <button mat-raised-button (click)="deleteVehicle(v._id)" color="warn">Delete</button>
                 </div>
                 <div class="card-body" *ngIf="v.createdBy">
-                    <button mat-raised-button [routerLink]="['/admin/a/host-vehicle-details', v._id]" color="primary">View Details</button>
+                    <button mat-raised-button [routerLink]="['/admin/a/host-vehicle-details', v._id]"
+                        color="primary">View Details</button>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+    <div class="mt-4 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
 
 <!-- <button class="mx-1" mat-raised-button (click)="verifyVehicle(v._id, v.createdBy)" color="primary">Verify</button>

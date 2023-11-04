@@ -14,9 +14,13 @@ export class HostAddVehicleComponent implements OnInit {
 
   files: File[] = [];
   selectedfiles: File[] = []
+  document!: File | null;
   vehicleForm!: FormGroup
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
   transmission: string[] = ['Automatic', 'Manual'];
   fuel: string[] = ['Petrol', 'Diesel', 'Electric']
+  isLinear = false;
 
   constructor(
     private _fb: FormBuilder,
@@ -35,6 +39,14 @@ export class HostAddVehicleComponent implements OnInit {
       location: ['', Validators.required],
       price: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
     })
+
+    this.firstFormGroup = this._fb.group({
+      firstCtrl: ['', Validators.required],
+    });
+    this.secondFormGroup = this._fb.group({
+      secondCtrl: ['', Validators.required],
+    });
+    
   }
 
   getFile(event: any) {
@@ -57,6 +69,24 @@ export class HostAddVehicleComponent implements OnInit {
     return filename.split('.').pop();
   }
 
+  getDocument(event: any) {
+    const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    this.document = <File>event.target.files[0];
+
+    if (this.document) {
+      console.log(this.document);
+      const fileExtension = this.getFileExtensionn(this.document.name);
+
+      if (!allowedExtensions.includes(fileExtension)) {
+        this.document = null;
+        alert('Please select a valid image file (jpg, jpeg, png, or gif).');
+      }
+    }
+  }
+  getFileExtensionn(filename: string): any {
+    return filename.split('.').pop();
+  }
+
   
   onSubmit() {
     if (this.vehicleForm.invalid) {
@@ -71,6 +101,7 @@ export class HostAddVehicleComponent implements OnInit {
     form.append('fuel', data.fuel);
     form.append('location', data.location);
     form.append('price', data.price);
+    if(this.document) form.append('doc', this.document, this.document?.name)
     for (const file of this.selectedfiles) {
       form.append('files', file , file.name);
     }
@@ -80,6 +111,7 @@ export class HostAddVehicleComponent implements OnInit {
           this._toastr.success('Vehicle Registered, after verification it would be display on your page') 
       },
       error: (err) => {
+        console.log(err);
         this._toastr.error('Something went wrong');
         console.log('Something went wrong');
       }

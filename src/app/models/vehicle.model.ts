@@ -10,5 +10,6 @@ export interface vehicleModel {
     createdBy: string
     isVerified: boolean
     images: string[]
+    document: string
     __v: number
 }

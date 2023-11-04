@@ -19,7 +19,6 @@ import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { OtpCompComponent } from './user/otp-comp/otp-comp.component';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -49,7 +48,17 @@ import { VehicleListComponent } from './user/vehicle-list/vehicle-list.component
 import { CheckoutComponent } from './user/checkout/checkout.component';
 import { BookingSuccessComponent } from './user/booking-success/booking-success.component';
 import { PriceCalculationPipe } from './user/pipe/price-calculation.pipe';
-
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { BookingsComponent } from './user/bookings/bookings.component';
+import { ProfileComponent } from './user/profile/profile.component';
+import { MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { UserProfileBookingDetailsComponent } from './user/user-profile-booking-details/user-profile-booking-details.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -74,6 +83,10 @@ import { PriceCalculationPipe } from './user/pipe/price-calculation.pipe';
     CheckoutComponent,
     BookingSuccessComponent,
     PriceCalculationPipe,
+    UserProfileComponent,
+    BookingsComponent,
+    ProfileComponent,
+    UserProfileBookingDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,7 +114,13 @@ import { PriceCalculationPipe } from './user/pipe/price-calculation.pipe';
     MatDatepickerModule,
     MatNativeDateModule,
     GalleryModule,
-    LightboxModule
+    LightboxModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatAutocompleteModule,
   ],
   providers: [
     {

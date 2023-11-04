@@ -1,5 +1,4 @@
 export interface userModel {
-    document: any
     _id: string
     name: string
     email: string
@@ -8,4 +7,5 @@ export interface userModel {
     isBlocked: boolean
     __v: number
     choices: object
+    profile: string
 }

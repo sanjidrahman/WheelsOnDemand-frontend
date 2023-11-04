@@ -1,0 +1,17 @@
+/* Apply flexbox to center the content */
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; 
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-body {
+    width: 40%;
+}

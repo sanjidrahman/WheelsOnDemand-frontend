@@ -22,6 +22,7 @@ export class AdminVehiclesComponent implements OnInit, OnDestroy {
 
   vehiclelist!: vehicleModel[]
   createdby!: any
+  totalPage!:number
   private subscribe = new Subscription()
 
   constructor(
@@ -36,14 +37,18 @@ export class AdminVehiclesComponent implements OnInit, OnDestroy {
     this.subscribe.add(
       this._store.select(getvehicles).subscribe((res) => {
         this.vehiclelist = res
-      })
+      }),
     )
+    this._service.pagiantion().subscribe((res: any) => {
+      this.totalPage = res.totalPage
+    })
   }
 
   update() {
     this._store.dispatch(retrievevehicles())
     this.subscribe.add(
-      this._store.select(getvehicles).subscribe((res) => {
+      this._store.select(getvehicles).subscribe((res: any) => {
+        console.log(res);
         this.vehiclelist = res
       })
     )

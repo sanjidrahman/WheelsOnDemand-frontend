@@ -1,1 +1,32 @@
-<p>profile works!</p>
+<section>
+    <div class="container mt-5">
+      <div class="card-body" *ngIf="userDetails | async as u">
+        <div class="row justify-content-around">
+            <div class="col-lg-2">
+                <div class="text-center" (mouseenter)="isHovered = true" (mouseleave)="isHovered = false">
+                    <img
+                     src="../../../assets/images/block user.png"
+                      alt=""
+                      class="rounded-circle"
+                      style="width: 150px; height: 150px"
+                    />
+                    <div class="edit-profile" *ngIf="isHovered" (click)="openFileInput.click()">
+                        <a><h4 class="bn35">Button</h4></a>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+          <h2>{{ u.name }}</h2>
+          <p>Email: <b>{{ u.email }}</b></p>
+          <p>Phone: <b>{{ u.phone }}</b></p>
+          <p>License: </p>
+        </div>
+        <!-- Hidden input to trigger file input dialog -->
+        <input type="file" #openFileInput style="display: none" (change)="onFileSelected($event)" accept="image/*">
+      </div>
+    </div>
+  </section>
+
+  <!-- [src]="getImage(u.profile ? u.profile.toString() : '../../../assets/images/no-image.avif')" -->
+  

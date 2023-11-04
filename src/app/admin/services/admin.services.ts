@@ -75,10 +75,11 @@ export class AdminService {
     })
   }
 
+  pagiantion() {
+    return this._http.get(`${this.commonUrl}/admin/pagination`)
+  }
+
   addvehicle(data: any) {
-    data.forEach((e: any ,v: any) => {
-      console.log(e , v);
-    });
     return this._http.post(`${this.commonUrl}/admin/add-vehicle`, data, {
       withCredentials: true
     })
