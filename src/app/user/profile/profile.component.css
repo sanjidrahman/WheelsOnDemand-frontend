@@ -1,3 +1,7 @@
 .bn35 {
   text-decoration: underline;
 }
+
+.btn {
+    cursor: pointer;
+}

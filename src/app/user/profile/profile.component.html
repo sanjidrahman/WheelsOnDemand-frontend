@@ -1,32 +1,114 @@
 <section>
-    <div class="container mt-5">
-      <div class="card-body" *ngIf="userDetails | async as u">
-        <div class="row justify-content-around">
-            <div class="col-lg-2">
-                <div class="text-center" (mouseenter)="isHovered = true" (mouseleave)="isHovered = false">
-                    <img
-                     src="../../../assets/images/block user.png"
-                      alt=""
-                      class="rounded-circle"
-                      style="width: 150px; height: 150px"
-                    />
-                    <div class="edit-profile" *ngIf="isHovered" (click)="openFileInput.click()">
-                        <a><h4 class="bn35">Button</h4></a>
+    <mat-tab-group dynamicHeight>
+        <mat-tab label="Profile">
+            <div class="container">
+                <div class="container mt-3">
+                    <div class="card-body" *ngIf="userDetails | async as u">
+                        <div class="row justify-content-around">
+                            <div class="d-flex justify-content-end">
+                                <a class="edit-icon" (click)="edit()"><i class="fas fa-pencil-alt"></i></a>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-center" (mouseenter)="isHovered = true"
+                                    (mouseleave)="isHovered = false">
+                                    <img [src]="getImage(u.profile ? u.profile.toString() : '')" alt=""
+                                        class="rounded-circle" style="width: 150px; height: 150px" />
+                                    <div class="edit-profile" *ngIf="isHovered && profile == null"
+                                        (click)="openFileInput.click()">
+                                        <button>Edit Profile</button>
+                                    </div>
+                                    <div *ngIf="profile">
+                                        <div>
+                                            <p class="text-center"><b>Upload {{ this.profile ? this.profile.name : '' }}
+                                                    ?</b>
+                                            </p>
+                                            <a class="upload-btn">
+                                                <button> Upload </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <form [formGroup]="userForm">
+                                <div class="row justify-content-around">
+                                    <div class="col-lg-6">
+                                        <mat-form-field appearance="outline" style="width: 61%;"
+                                            class="example-full-width">
+                                            <mat-label>Name</mat-label>
+                                            <input formControlName="name" [ngModel]="u.name" matInput
+                                                [readonly]="!isEditable">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-around">
+                                    <div class="col-lg-6">
+                                        <mat-form-field appearance="outline" style="width: 61%;"
+                                            class="example-full-width">
+                                            <mat-label>Email</mat-label>
+                                            <input formControlName="email" [ngModel]="u.email" matInput
+                                                [readonly]="!isEditable">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-around">
+                                    <div class="col-lg-6">
+                                        <mat-form-field appearance="outline" style="width: 61%;"
+                                            class="example-full-width">
+                                            <mat-label>Phone</mat-label>
+                                            <input formControlName="phone" [ngModel]="u.phone" matInput
+                                                [readonly]="!isEditable">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="text-center" *ngIf="isEditable">
+                                    <button class="mb-3" color="primary" mat-raised-button type="submit">Save
+                                        Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Hidden input to trigger file input dialog -->
+                        <input type="file" #openFileInput style="display: none" (change)="onProfileSelected($event)"
+                            accept="image/*">
                     </div>
-                  </div>
+                </div>
             </div>
-        </div>
-        <div class="text-center mt-3">
-          <h2>{{ u.name }}</h2>
-          <p>Email: <b>{{ u.email }}</b></p>
-          <p>Phone: <b>{{ u.phone }}</b></p>
-          <p>License: </p>
-        </div>
-        <!-- Hidden input to trigger file input dialog -->
-        <input type="file" #openFileInput style="display: none" (change)="onFileSelected($event)" accept="image/*">
-      </div>
-    </div>
-  </section>
+        </mat-tab>
+        <mat-tab label="Change Password">
+            <div class="container text-center" style="margin-top: 80px;">
+                <form [formGroup]="changePassForm">
+                    <div class="row justify-content-around">
+                        <div class="col-lg-6">
+                            <mat-form-field appearance="outline" style="width: 60%;" class="example-full-width">
+                                <mat-label>Name</mat-label>
+                                <input formControlName="oldpass" matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row justify-content-around">
+                        <div class="col-lg-6">
+                            <mat-form-field appearance="outline" style="width: 60%;" class="example-full-width">
+                                <mat-label>Email</mat-label>
+                                <input formControlName="newpass" matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row justify-content-around">
+                        <div class="col-lg-6">
+                            <mat-form-field appearance="outline" style="width: 60%;" class="example-full-width">
+                                <mat-label>Phone</mat-label>
+                                <input formControlName="confirmpass" matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button mat-raised-button color="primary" type="submit">Change Password</button>
+                    </div>
+                </form>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</section>
 
-  <!-- [src]="getImage(u.profile ? u.profile.toString() : '../../../assets/images/no-image.avif')" -->
-  
+<!-- [src]="getImage(u.profile ? u.profile.toString() : '../../../assets/images/no-image.avif')" -->
