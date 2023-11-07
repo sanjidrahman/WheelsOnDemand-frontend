@@ -14,6 +14,7 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
 import { BookingsComponent } from './user/bookings/bookings.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { UserProfileBookingDetailsComponent } from './user/user-profile-booking-details/user-profile-booking-details.component';
+import { ImageCropperComponent } from './user/image-cropper/image-cropper.component';
 
 const routes: Routes = [
   { path: '', title: 'Home', component: HomeComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
     { path: 'profile', component: ProfileComponent},
   ]},
   { path: 'booking-details/:b_id', title: 'Booking Details', component: UserProfileBookingDetailsComponent},
+  { path: 'crop' , component: ImageCropperComponent },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'host', loadChildren: () => import('./host/host.module').then(m => m.HostModule) }
 ];

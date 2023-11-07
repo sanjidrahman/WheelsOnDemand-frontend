@@ -23,7 +23,7 @@
                                                     ?</b>
                                             </p>
                                             <a class="upload-btn">
-                                                <button> Upload </button>
+                                                <button (click)="updateProfile()"> Upload </button>
                                             </a>
                                         </div>
                                     </div>
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="text-center mt-3">
-                            <form [formGroup]="userForm">
+                            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
                                 <div class="row justify-content-around">
                                     <div class="col-lg-6">
                                         <mat-form-field appearance="outline" style="width: 61%;"
@@ -47,8 +47,7 @@
                                         <mat-form-field appearance="outline" style="width: 61%;"
                                             class="example-full-width">
                                             <mat-label>Email</mat-label>
-                                            <input formControlName="email" [ngModel]="u.email" matInput
-                                                [readonly]="!isEditable">
+                                            <input formControlName="email" [ngModel]="u.email" matInput readonly>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -76,30 +75,58 @@
             </div>
         </mat-tab>
         <mat-tab label="Change Password">
-            <div class="container text-center" style="margin-top: 80px;">
-                <form [formGroup]="changePassForm">
-                    <div class="row justify-content-around">
+            <div class="container text-center mt-5">
+                <form [formGroup]="changePassForm" (ngSubmit)="onSubmitPass()" #passForm="ngForm">
+                    <div class="row justify-content-center">
                         <div class="col-lg-6">
-                            <mat-form-field appearance="outline" style="width: 60%;" class="example-full-width">
-                                <mat-label>Name</mat-label>
+                            <mat-form-field appearance="outline" style="width: 61%;" class="example-full-width">
+                                <mat-label>Old Password</mat-label>
                                 <input formControlName="oldpass" matInput>
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="row justify-content-around">
+                    <div class="row justify-content-center">
                         <div class="col-lg-6">
-                            <mat-form-field appearance="outline" style="width: 60%;" class="example-full-width">
-                                <mat-label>Email</mat-label>
+                            <mat-form-field appearance="outline" style="width: 61%;" class="example-full-width">
+                                <mat-label>New Password</mat-label>
                                 <input formControlName="newpass" matInput>
                             </mat-form-field>
+                            <div class="text-danger mb-3 text-left"
+                                *ngIf="passForm.submitted && changePassForm.controls['newpass'].errors">
+                                <div *ngIf="changePassForm.controls['newpass'].dirty">
+                                    <span class="block"
+                                        [ngClass]="{'text-primary': changePassForm.controls['newpass'].value?.match('^(?=.*[A-Z])')}">At
+                                        least uppercase letter.</span><br>
+                                    <span class="block"
+                                        [ngClass]="{'text-primary': changePassForm.controls['newpass'].value?.match('(?=.*[a-z])')}">At
+                                        least one lowercase letter.</span><br>
+                                    <span class="block"
+                                        [ngClass]="{'text-primary': changePassForm.controls['newpass'].value?.match('(.*[0-9].*)')}">At
+                                        least one digit.</span><br>
+                                    <span class="block"
+                                        [ngClass]="{'text-primary': changePassForm.controls['newpass'].value?.match('(?=.*[!@#$%^&*])')}">At
+                                        least one special character.</span><br>
+                                    <span class="block"
+                                        [ngClass]="{'text-primary': changePassForm.controls['newpass'].value?.match('.{8,}')}">At
+                                        least 8 characters long.</span><br>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row justify-content-around">
+                    <div class="row justify-content-center">
                         <div class="col-lg-6">
-                            <mat-form-field appearance="outline" style="width: 60%;" class="example-full-width">
-                                <mat-label>Phone</mat-label>
+                            <mat-form-field appearance="outline" style="width: 61%;" class="example-full-width">
+                                <mat-label>Confirm Password</mat-label>
                                 <input formControlName="confirmpass" matInput>
                             </mat-form-field>
+                            <div style="width: 500px;"
+                                *ngIf="passForm.submitted && changePassForm.controls['confirmpass'].errors"
+                                class="text-danger text-left">
+                                <p
+                                    *ngIf="passForm.submitted && changePassForm.controls['confirmpass'].getError('passwordMismatch')">
+                                    Confirm Password doesn't match.
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div class="text-center">

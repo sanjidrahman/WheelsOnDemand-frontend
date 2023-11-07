@@ -43,8 +43,8 @@ export class SelectDateComponent implements OnInit, OnDestroy {
     })
 
     this.pickupLocation = this._fb.group({
-      pickup: ['', [Validators.required, this.valid()]],
-      pickupcity: [{ value: '', disabled: this.disable }, Validators.required]
+      pickup: ['', [Validators.required]],
+      // pickupcity: [{ value: '', disabled: this.disable }, Validators.required]
     })
 
     this.dropLocation = this._fb.group({
@@ -99,8 +99,6 @@ export class SelectDateComponent implements OnInit, OnDestroy {
         pickup: pickupData.pickup,
         dropoff: dropoffData.dropoff,
       };
-
-      console.log(queryParams, 'FROM SELECT DATE');
 
       this.subscribe.add(
         this._service.storeChoice(queryParams).subscribe({

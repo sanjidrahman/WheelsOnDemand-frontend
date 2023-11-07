@@ -1,0 +1,25 @@
+<form [formGroup]="reasonForm" (ngSubmit)="saveClick()" #issueform="ngForm">
+    <div class="container">
+        <h2>Submit Reason</h2>
+        <div class="content">
+            <mat-dialog-content>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Reason</mat-label>
+                    <textarea matInput formControlName="reason" class="text-input"></textarea>
+                </mat-form-field>
+            </mat-dialog-content>
+            <div style="padding-left: 25px;" *ngIf="issueform.submitted && reasonForm.controls['reason'].errors" class="text-danger">
+                <p *ngIf="issueform.submitted && reasonForm.controls['reason'].errors['required']">reason is required</p>
+                <p *ngIf="issueform.submitted && reasonForm.controls['reason'].errors['minlength']">Should have minumum 4
+                    characters</p>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <mat-dialog-actions>
+                <button mat-raised-button class="proceed-button" color="warn" type="submit">Proceed</button>
+                <button mat-raised-button (click)="closepopup()" type="button" class="cancel-button">Cancel</button>
+            </mat-dialog-actions>
+        </div>
+    </div>
+</form>

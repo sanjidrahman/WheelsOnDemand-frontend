@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription, map } from 'rxjs';
 import { userModel } from 'src/app/models/user.model';
@@ -8,13 +8,14 @@ import { retrieveuser } from 'src/app/store/state/app.actions';
 import { getuser } from 'src/app/store/state/app.selectors';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-vehicles',
   templateUrl: './vehicles.component.html',
   styleUrls: ['./vehicles.component.css']
 })
-export class VehiclesComponent implements OnInit, OnDestroy {
+export class VehiclesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   startDate!: Date
   endDate!: Date
@@ -29,6 +30,11 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   userDetails!: Observable<userModel | undefined>
   userChoices: any
   isEditable: boolean = false
+  panelOpenState: boolean = false;
+  fuelOptions: string[] = ['Petrol', 'Diesel']
+  transmissionOptions: string[] = ['Manual', 'Automatic']
+  fuelSelected: string | undefined
+  transmissionSelected: string | undefined
   private subscribe = new Subscription();
 
   constructor(
@@ -54,13 +60,14 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     this.minDate = today.toISOString().split('T')[0];
     this.maxDate = sixMonthsFromNow.toISOString().split('T')[0];
 
-    setTimeout(() => {
+    // setTimeout(() => {
       this.userDetails.forEach((i) => {
         this.userChoices = i?.choices
       })
-    }, 50)
+    // }, 50)
 
-    setTimeout(() => {
+    // setTimeout(() => {
+      console.log(this.userChoices);
       this.pickup = this.userChoices.pickup
       this.dropoff = this.userChoices.dropoff
       this.startDate = new Date(this.userChoices.startDate)
@@ -69,8 +76,24 @@ export class VehiclesComponent implements OnInit, OnDestroy {
       this.formattedEndDate = this.endDate.toISOString().split('T')[0]
       const timeDiff = this.endDate.getTime() - this.startDate.getTime()
       this.days = timeDiff / (1000 * 3600 * 24)
-    }, 100)
+    // }, 100)
 
+  }
+
+  ngAfterViewInit(): void {
+    // this.userDetails.forEach((i) => {
+    //   this.userChoices = i?.choices
+    // })
+
+
+    // this.pickup = this.userChoices.pickup
+    // this.dropoff = this.userChoices.dropoff
+    // this.startDate = new Date(this.userChoices.startDate)
+    // this.endDate = new Date(this.userChoices.endDate)
+    // this.formattedStartDate = this.startDate.toISOString().split('T')[0]
+    // this.formattedEndDate = this.endDate.toISOString().split('T')[0]
+    // const timeDiff = this.endDate.getTime() - this.startDate.getTime()
+    // this.days = timeDiff / (1000 * 3600 * 24)
   }
 
   addMonthsToDate(date: Date, months: number) {
@@ -113,8 +136,19 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     }, 100)
   }
 
+  ontransmissionSelected(event: MatRadioChange) {
+    this.transmissionSelected = event.value
+  }
+  onfuelSelected(event: MatRadioChange) {
+    this.fuelSelected = event.value
+  }
+
+  reset() {
+    this.fuelSelected = undefined
+    this.transmissionSelected = undefined
+  }
+
   editChoice() {
-    console.log(this.formattedStartDate);
     const choice = {
       startDate: this.formattedStartDate,
       endDate: this.formattedEndDate,
@@ -124,7 +158,6 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     if (this.formattedEndDate <= this.formattedStartDate) {
       this._toastr.error('Droppoff date cannot be lesser or equal to start date')
     } else {
-      console.log(choice, 'FROM VEHICLES');
       this.subscribe.add(
         this._service.storeChoice(choice).subscribe({
           next: () => {

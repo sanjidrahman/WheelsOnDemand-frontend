@@ -1,5 +1,6 @@
+import { MinimaDark, MinimaLight } from '@alyle/ui/themes/minima';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, isDevMode } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -53,12 +54,23 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 import { BookingsComponent } from './user/bookings/bookings.component';
 import { ProfileComponent } from './user/profile/profile.component';
-import { MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { UserProfileBookingDetailsComponent } from './user/user-profile-booking-details/user-profile-booking-details.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatRadioModule } from '@angular/material/radio';
+import { LyImageCropperModule } from '@alyle/ui/image-cropper';
+import { LySliderModule } from '@alyle/ui/slider';
+import { LyButtonModule } from '@alyle/ui/button';
+import { LyIconModule } from '@alyle/ui/icon';
+import { ImageCropperComponent } from './user/image-cropper/image-cropper.component';
+import { LY_THEME, LY_THEME_NAME, LyHammerGestureConfig, LyTheme2, StyleRenderer } from '@alyle/ui';
+import { BookingCancelReasonComponent } from './popups/booking-cancel-reason/booking-cancel-reason.component';
+
 
 @NgModule({
   declarations: [
@@ -87,6 +99,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     BookingsComponent,
     ProfileComponent,
     UserProfileBookingDetailsComponent,
+    ImageCropperComponent,
+    BookingCancelReasonComponent,
   ],
   imports: [
     BrowserModule,
@@ -121,6 +135,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatMenuModule,
     MatSelectModule,
     MatAutocompleteModule,
+    LyImageCropperModule,
+    LySliderModule,
+    LyButtonModule,
+    LyIconModule,
+    MatExpansionModule,
+    MatRadioModule,
+    MatDialogModule
   ],
   providers: [
     {
@@ -154,7 +175,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
         keyboardShortcuts: false,
         exitAnimationTime: 1000
       } as LightboxConfig
-    }
+    },
+    [LyTheme2],
+    [StyleRenderer],
+    { provide: LY_THEME_NAME, useValue: 'minima-light' },
+    { provide: LY_THEME, useClass: MinimaLight, multi: true }, // name: `minima-light`
+    { provide: LY_THEME, useClass: MinimaDark, multi: true }, // name: `minima-dark`
+    { provide: HAMMER_GESTURE_CONFIG, useClass: LyHammerGestureConfig } // Required for <ly-carousel>
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Observable, Subscription, map } from 'rxjs';
 import { vehicleModel } from 'src/app/models/vehicle.model';
 import { environment } from 'src/environments/environment.development';
@@ -15,7 +15,7 @@ import { userModel } from 'src/app/models/user.model';
 @Component({
   selector: 'app-vehicle-list',
   templateUrl: './vehicle-list.component.html',
-  styleUrls: ['./vehicle-list.component.css']
+  styleUrls: ['./vehicle-list.component.css'],
 })
 export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
 
@@ -24,6 +24,8 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
   @Input() pickupChild!: string
   @Input() dropoffChild!: string
   @Input() daysChild!: number
+  @Input() transmissionChild: string | undefined
+  @Input() fuelChild: string | undefined
   vehicleList!: vehicleModel[];
   customPrice: number[] = []
   userid!: string
@@ -37,26 +39,20 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
   ){}
 
   ngOnInit(): void {
-    setTimeout(() => {
+
+      const query: any = {}
+      if(this.fuelChild) query.fuel = this.fuelChild
+      if(this.transmissionChild) query.transmission = this.transmissionChild
       this.subscribe.add(
-        this._service.getVehicle().subscribe((res: any) => {
-          this.vehicleList = res.vehicles
+        this._service.getVehicle(query).subscribe({
+          next: (res: any) => {
+            this.vehicleList = res.vehicles
+          },
+          error : (err) => {
+            console.log(err);
+          }
         })
       )
-    },100)
-
-    // setTimeout(() => {
-    //   if(this.daysChild >= 7) {
-    //     this.vehicleList.map((v) => {
-    //       const dis = (v.price * this.daysChild) * 10 / 100
-    //       v.price = v.price * this.daysChild - dis
-    //     })
-    //   } else {
-    //     this.vehicleList.map((v) => {
-    //       v.price = v.price * this.daysChild
-    //     })
-    //   }
-    // }, 200);
 
   }
 
@@ -69,7 +65,7 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    
+    this.subscribe.unsubscribe()
   }
 
 }

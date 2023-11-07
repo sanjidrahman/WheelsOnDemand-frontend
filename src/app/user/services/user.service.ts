@@ -1,5 +1,5 @@
 import { bookingModel } from 'src/app/models/booking.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { vehicleModel } from 'src/app/models/vehicle.model';
@@ -40,14 +40,19 @@ export class UserService {
   }
 
   storeChoice(choice: any) {
-    console.log(choice , 'FROM SERVICE');
     return this._http.put(`${this.commonUrl}/user/store-choice`, choice, {
       withCredentials: true
     } )
   }
 
-  getVehicle() {
+  getVehicle(filters?: any) {
+    let params = new HttpParams()
+    if(filters) {
+      if(filters.fuel) params = params.append('fuel', filters.fuel)
+      if(filters.transmission) params = params.append('transmission', filters.transmission)
+    }
     return this._http.get<vehicleModel[]>(`${this.commonUrl}/user/vehicles`, {
+      params,
       withCredentials: true
     })
   }
@@ -66,6 +71,30 @@ export class UserService {
 
   getBookings() {
     return this._http.get<bookingModel[]>(`${this.commonUrl}/user/user-booking` , {
+      withCredentials: true
+    })
+  }
+
+  updateUser(data: any) {
+    return this._http.patch(`${this.commonUrl}/user/update-user`, data , {
+      withCredentials: true
+    })
+  }
+
+  updateProfile(file: any) {
+    return this._http.patch(`${this.commonUrl}/user/update-profile` , file , {
+      withCredentials: true
+    })
+  }
+
+  changePass(data: any) {
+    return this._http.patch(`${this.commonUrl}/user/change-password`, data , { 
+      withCredentials: true
+    })
+  }
+
+  cancelbooking(reason: string, b_id: string) {
+    return this._http.patch(`${this.commonUrl}/user/cancel-booking/${b_id}`, reason , {
       withCredentials: true
     })
   }

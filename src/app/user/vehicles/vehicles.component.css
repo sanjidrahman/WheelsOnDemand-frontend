@@ -1,0 +1,29 @@
+.card {
+  padding: 10px;
+  box-shadow: 2px 4px 7px #969595;
+  margin: 50px;
+  padding-bottom: 20px;
+}
+
+.car-card {
+  padding: 10px;
+  box-shadow: 2px 4px 7px #969595;
+  margin: 50px;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.reset {
+  text-decoration: none;
+  color: #ffc107;
+  cursor: pointer;
+}
+
+.mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+}
+
+.vertical-radio-group {
+  display: flex;
+  flex-direction: column;
+}

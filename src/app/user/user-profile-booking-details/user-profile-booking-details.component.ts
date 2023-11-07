@@ -9,6 +9,8 @@ import { vehicleState } from 'src/app/store/state/app.state';
 import { retrievevehicles } from 'src/app/store/state/app.actions';
 import { getvehicles } from 'src/app/store/state/app.selectors';
 import { environment } from 'src/environments/environment.development';
+import { MatDialog } from '@angular/material/dialog';
+import { BookingCancelReasonComponent } from 'src/app/popups/booking-cancel-reason/booking-cancel-reason.component';
 
 @Component({
   selector: 'app-user-profile-booking-details',
@@ -23,12 +25,17 @@ export class UserProfileBookingDetailsComponent implements OnInit, AfterViewInit
   vehicleId!: string
 
   constructor(
+    private _matdialog: MatDialog,
     private _activatedroute: ActivatedRoute,
     private _service: UserService,
     private _store: Store<vehicleState>
   ){}
 
   ngOnInit(): void {
+    this.update()
+  }
+
+  update() {
     const b_id = this._activatedroute.snapshot.paramMap.get('b_id')
     this.subscribe.add(
       this._service.getBookDetails(b_id).subscribe((res : any) => {
@@ -42,6 +49,16 @@ export class UserProfileBookingDetailsComponent implements OnInit, AfterViewInit
       select(getvehicles),
       map(v => v.find(vehicle => vehicle._id == this.vehicleId))
     )
+  }
+
+  openReasonDialog(bookingId: string) {
+    const dialog = this._matdialog.open(BookingCancelReasonComponent, {
+      data: bookingId,
+      width: '50%'
+    })
+    dialog.afterClosed().subscribe(() => {
+      this.update()
+    })
   }
 
   ngAfterViewInit(): void {

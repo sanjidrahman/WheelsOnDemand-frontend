@@ -36,12 +36,6 @@ export class HostService {
     });
   }
 
-  logout() {
-    return this._http.post(`${this.commonUrl}/host/logout`, {}, {
-      withCredentials: true
-    });
-  }
-
   upload(file: any, id: string) {
     return this._http.post(`${this.commonUrl}/host/upload-doc/${id}`, file, {
       withCredentials: true
@@ -101,4 +95,12 @@ export class HostService {
       withCredentials: true
     })
   }
+
+  logout() {
+    return this._http.post(`${this.commonUrl}/host/logout`, {}, {
+      withCredentials: true
+    });
+  }
+
+  
 }
