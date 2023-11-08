@@ -41,6 +41,9 @@ import { HostEditVehicleComponent } from './host-edit-vehicle/host-edit-vehicle.
 import { MatStepperModule } from '@angular/material/stepper';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { GalleryModule } from 'ng-gallery';
+import { HostBookingsComponent } from './host-bookings/host-bookings.component';
+import { HostBookingsDetailsComponent } from './host-bookings-details/host-bookings-details.component';
+import { CapitalizePipePipe } from '../pipe/capitalize-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,9 @@ import { GalleryModule } from 'ng-gallery';
     HostAddVehicleComponent,
     HostVehiclesComponent,
     HostEditVehicleComponent,
+    HostBookingsComponent,
+    HostBookingsDetailsComponent,
+    CapitalizePipePipe
   ],
   imports: [
     HttpClientModule,

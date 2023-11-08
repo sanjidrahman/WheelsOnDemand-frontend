@@ -48,7 +48,7 @@ import { LIGHTBOX_CONFIG, LightboxConfig, LightboxModule } from 'ng-gallery/ligh
 import { VehicleListComponent } from './user/vehicle-list/vehicle-list.component';
 import { CheckoutComponent } from './user/checkout/checkout.component';
 import { BookingSuccessComponent } from './user/booking-success/booking-success.component';
-import { PriceCalculationPipe } from './user/pipe/price-calculation.pipe';
+import { PriceCalculationPipe } from './pipe/price-calculation.pipe';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';

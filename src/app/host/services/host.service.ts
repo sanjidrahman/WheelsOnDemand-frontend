@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { bookingModel } from 'src/app/models/booking.model';
 import { hostModel } from 'src/app/models/host.model';
 import { vehicleModel } from 'src/app/models/vehicle.model';
 import { environment } from 'src/environments/environment.development';
@@ -92,6 +93,25 @@ export class HostService {
 
   hostVehicle() : Observable<vehicleModel[]> {
     return this._http.get<vehicleModel[]>(`${this.commonUrl}/host/host-vehicles` , {
+      withCredentials: true
+    })
+  }
+
+  hostBooking() {
+    return this._http.get<bookingModel[]>(`${this.commonUrl}/host/host-bookings`, {
+      withCredentials: true
+    })
+  }
+
+  // a common api for user and host (for booking details)
+  getBookDetails(id: string | null) {
+    return this._http.get<bookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
+      withCredentials: true
+    })
+  }
+
+  updateBookingStatus(status: string, b_id: string | null) {
+    return this._http.patch(`${this.commonUrl}/host/edit-booking-status/${b_id}` , {status}, {
       withCredentials: true
     })
   }

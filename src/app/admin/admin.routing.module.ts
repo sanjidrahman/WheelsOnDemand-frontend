@@ -12,6 +12,7 @@ import { adminGuardGuard } from './admin-guards/admin-guard.guard';
 import { adminGuardChildGuard } from './admin-guards/admin-guard-child.guard';
 import { AdminEditVehicleComponent } from './admin-edit-vehicle/admin-edit-vehicle.component';
 import { AdminHostVehicleDetailsComponent } from './admin-host-vehicle-details/admin-host-vehicle-details.component';
+import { AdminBookingListComponent } from './admin-booking-list/admin-booking-list.component';
 
 const routes: Routes = [
   { path: '', title: 'Admin Login', component: AdminLoginRegisterComponent, canActivate: [adminGuardGuard] },
@@ -26,10 +27,11 @@ const routes: Routes = [
           { path: 'userlist', title: 'Admin Userlist', component: AdminUserlistComponent },
           { path: 'hostlist', title: 'Admin Hostlist', component: AdminHostlistComponent },
           { path: 'view-details/:id', title: 'Admin Host Details', component: ViewHostDetailsComponent },
-          { path: 'vehicles', title: 'Admin Vehiclelist' , component: AdminVehiclesComponent},
-          { path: 'add-vehicle' , title: 'Admin Add Vehicle', component: AdminAddVehicleComponent},
-          { path: 'edit-vehicle/:id', title: 'Edit Vehicle', component: AdminEditVehicleComponent},
-          { path: 'host-vehicle-details/:id', title: 'View Vehicle Details', component: AdminHostVehicleDetailsComponent},
+          { path: 'vehicles', title: 'Admin Vehiclelist', component: AdminVehiclesComponent },
+          { path: 'add-vehicle', title: 'Admin Add Vehicle', component: AdminAddVehicleComponent },
+          { path: 'edit-vehicle/:id', title: 'Edit Vehicle', component: AdminEditVehicleComponent },
+          { path: 'host-vehicle-details/:id', title: 'View Vehicle Details', component: AdminHostVehicleDetailsComponent },
+          { path: 'bookings', title: 'Bookings', component: AdminBookingListComponent },
         ]
       },
     ]

@@ -17,6 +17,10 @@
         <mat-icon class="mat-icon-sm">account_circle</mat-icon>
         My Profile
       </a>
+      <a mat-list-item [routerLink]="['bookings']">
+        <mat-icon class="mat-icon-sm">event</mat-icon>
+        My Bookings
+      </a>
       <a mat-list-item (click)="logout()">
         <mat-icon class="mat-icon-sm">logout</mat-icon>
         Logout

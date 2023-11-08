@@ -40,24 +40,28 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
 
-      const query: any = {}
-      if(this.fuelChild) query.fuel = this.fuelChild
-      if(this.transmissionChild) query.transmission = this.transmissionChild
-      this.subscribe.add(
-        this._service.getVehicle(query).subscribe({
-          next: (res: any) => {
-            this.vehicleList = res.vehicles
-          },
-          error : (err) => {
-            console.log(err);
-          }
-        })
-      )
+    this.listVehicle()
 
   }
 
+  listVehicle() {
+    const query: any = {}
+    if(this.fuelChild) query.fuel = this.fuelChild
+    if(this.transmissionChild) query.transmission = this.transmissionChild
+    this.subscribe.add(
+      this._service.getVehicle(query).subscribe({
+        next: (res: any) => {
+          this.vehicleList = res.vehicles
+        },
+        error : (err) => {
+          console.log(err);
+        }
+      })
+    )
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
-    this.ngOnInit()
+   this.listVehicle()
   }
 
   getImage(file: any) {

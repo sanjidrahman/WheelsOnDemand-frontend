@@ -49,7 +49,6 @@ export class HostLoginRegisterComponent implements OnInit {
     this._authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
-      console.log(this.user)
       this._service.googleLogin(this.user).subscribe((res) => {
         localStorage.setItem('userToken', res.token)
         this._router.navigate([''])

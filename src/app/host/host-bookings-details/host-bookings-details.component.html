@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="card mt-3">
+        <div class="card-title mx-3 mt-3">
+            <h2>Booking Details</h2>
+        </div>
+        <div class="card-body" *ngIf="bookingDetails && vehicleDetails | async as v">
+            <div class="row">
+                <div class="col-6">
+                    <div class="content">
+                        <p>Bookind id : <b>{{ bookingDetails[0]._id }}</b></p>
+                        <p>Name : <b>{{ v.name }}</b></p>
+                        <p>Brand : <b>{{ v.brand }}</b></p>
+                        <p>Start Date : <b>{{ bookingDetails[0].startDate | date }}</b></p>
+                        <p>End Date : <b>{{ bookingDetails[0].endDate | date }}</b></p>
+                        <p>Pickup Location : <b>{{ bookingDetails[0].pickup }}</b></p>
+                        <p>Dropoff Location : <b>{{ bookingDetails[0].dropoff }}</b></p>
+                        <p>Price : <b>{{ bookingDetails[0].grandTotal | currency: 'INR' }}</b></p>
+                        <p>Status : <b [ngClass]="customClass(bookingDetails[0].status)">{{ bookingDetails[0].status | capitalize }}</b></p>
+                    </div>
+                    <div class="update-status">
+                        <h2><b>Update Status :</b></h2>
+                        <select id="statusDropdown" [(ngModel)]="statusCurr" (ngModelChange)="onStatusChange()">
+                          <option value="cancelled">Mark as Cancelled</option>
+                          <option value="completed">Mark as Completed</option>
+                        </select>
+                      </div>                      
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- *ngIf="bookingDetails[0].status == 'Booked'" -->

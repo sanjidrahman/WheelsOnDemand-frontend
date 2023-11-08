@@ -43,6 +43,8 @@ import { AdminHostVehicleDetailsComponent } from './admin-host-vehicle-details/a
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { GalleryModule } from 'ng-gallery';
 import { MatStepperModule } from '@angular/material/stepper';
+import { AdminBookingListComponent } from './admin-booking-list/admin-booking-list.component';
+import { CapitalizePipePipe } from '../pipe/capitalize-pipe.pipe';
 
 
 @NgModule({
@@ -60,7 +62,9 @@ import { MatStepperModule } from '@angular/material/stepper';
     AdminVehiclesComponent,
     AdminAddVehicleComponent,
     AdminEditVehicleComponent,
-    AdminHostVehicleDetailsComponent
+    AdminHostVehicleDetailsComponent,
+    AdminBookingListComponent,
+    CapitalizePipePipe,
   ],
   imports: [
     CommonModule,

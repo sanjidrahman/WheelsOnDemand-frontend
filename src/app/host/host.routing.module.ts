@@ -12,6 +12,8 @@ import { HostVehiclesComponent } from './host-vehicles/host-vehicles.component';
 import { HostEditVehicleComponent } from './host-edit-vehicle/host-edit-vehicle.component';
 import { hostGuardGuard } from './host-guard/host-guard.guard';
 import { hostChildGuardGuard } from './host-guard/host-child-guard.guard';
+import { HostBookingsComponent } from './host-bookings/host-bookings.component';
+import { HostBookingsDetailsComponent } from './host-bookings-details/host-bookings-details.component';
 
 const routes: Routes = [
     { path: '', title: 'Host Login', component: HostLoginRegisterComponent, canActivate: [hostGuardGuard] },
@@ -30,6 +32,8 @@ const routes: Routes = [
                     { path: 'vehicles', title: 'Host Vehicles', component: HostVehiclesComponent },
                     { path: 'add-vehicle', title: 'Host Add Vehicle', component: HostAddVehicleComponent },
                     { path: 'edit-vehicle/:id', title: 'Host Edit Vehicle', component: HostEditVehicleComponent },
+                    { path: 'bookings', title: 'Host Bookings', component: HostBookingsComponent },
+                    { path: 'booking-details/:b_id', title: 'Booking Details', component: HostBookingsDetailsComponent },
                 ]
             }
         ]

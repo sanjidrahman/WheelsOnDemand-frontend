@@ -38,7 +38,7 @@ export class AppEffects {
                 return this.servive.getAllHost().pipe(
                     map((data: any) => {
                         // console.log(data , 'I AM DATA FROM EFFECTS');
-                        return retrievehostsuccess({ hostlist: data.vehicles as hostModel[] })
+                        return retrievehostsuccess({ hostlist: data as hostModel[] })
                     }),
                     catchError(() => EMPTY)
                 )
