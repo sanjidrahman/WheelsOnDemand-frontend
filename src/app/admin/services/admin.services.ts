@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { userModel } from 'src/app/models/user.model';
@@ -69,8 +69,11 @@ export class AdminService {
     })
   }
 
-  getAllVehicles(): Observable<vehicleModel[]> {
+  getAllVehicles(page?: number): Observable<vehicleModel[]> {
+    let params = new HttpParams()
+    if(page) params = params.append('page', page)
     return this._http.get<vehicleModel[]>(`${this.commonUrl}/admin/vehicles`, {
+      params,
       withCredentials: true
     })
   }

@@ -9,6 +9,7 @@ import { hostState } from 'src/app/store/state/app.state';
 import { retrievehost } from 'src/app/store/state/app.actions';
 import { gethost } from 'src/app/store/state/app.selectors';
 import { hostModel } from 'src/app/models/host.model';
+import { environment } from 'src/environments/environment.development';
 
 
 @Component({
@@ -61,6 +62,10 @@ export class AdminHostlistComponent implements OnInit, AfterViewInit {
       this._store.dispatch(retrievehost())
       this._toastr.success('Partner unblocked successfully!')
     })
+  }
+
+  getImage(file: string) {
+    return `${environment.STATIC_FILE_API}${file}`
   }
 
 }

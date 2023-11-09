@@ -10,6 +10,7 @@ import { getuser } from 'src/app/store/state/app.selectors';
 import { userState } from 'src/app/store/state/app.state';
 import { AdminService } from '../services/admin.services';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-admin-userlist',
@@ -60,6 +61,10 @@ export class AdminUserlistComponent implements AfterViewInit, OnInit {
       this._toastr.success('User unblocked successfully !')
       this._store.dispatch(retrieveuser())
     })
+  }
+
+  getImage(file: string) {
+    return `${environment.STATIC_FILE_API}${file}`
   }
 
 

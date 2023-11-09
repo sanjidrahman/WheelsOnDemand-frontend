@@ -43,7 +43,7 @@ import { LightboxModule } from 'ng-gallery/lightbox';
 import { GalleryModule } from 'ng-gallery';
 import { HostBookingsComponent } from './host-bookings/host-bookings.component';
 import { HostBookingsDetailsComponent } from './host-bookings-details/host-bookings-details.component';
-import { CapitalizePipePipe } from '../pipe/capitalize-pipe.pipe';
+import { SharedModule } from '../shared-module/shared.module';
 
 @NgModule({
   declarations: [
@@ -61,7 +61,6 @@ import { CapitalizePipePipe } from '../pipe/capitalize-pipe.pipe';
     HostEditVehicleComponent,
     HostBookingsComponent,
     HostBookingsDetailsComponent,
-    CapitalizePipePipe
   ],
   imports: [
     HttpClientModule,
@@ -95,6 +94,7 @@ import { CapitalizePipePipe } from '../pipe/capitalize-pipe.pipe';
     GalleryModule,
     LightboxModule,
     MatStepperModule,
+    SharedModule
   ],
   providers:[HostService],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]

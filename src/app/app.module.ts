@@ -48,7 +48,7 @@ import { LIGHTBOX_CONFIG, LightboxConfig, LightboxModule } from 'ng-gallery/ligh
 import { VehicleListComponent } from './user/vehicle-list/vehicle-list.component';
 import { CheckoutComponent } from './user/checkout/checkout.component';
 import { BookingSuccessComponent } from './user/booking-success/booking-success.component';
-import { PriceCalculationPipe } from './pipe/price-calculation.pipe';
+import { PriceCalculationPipe } from './user/pipe/price-calculation.pipe';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -70,6 +70,7 @@ import { LyIconModule } from '@alyle/ui/icon';
 import { ImageCropperComponent } from './user/image-cropper/image-cropper.component';
 import { LY_THEME, LY_THEME_NAME, LyHammerGestureConfig, LyTheme2, StyleRenderer } from '@alyle/ui';
 import { BookingCancelReasonComponent } from './popups/booking-cancel-reason/booking-cancel-reason.component';
+import { CapitalizePipePipe } from './host/pipe/capitalize-pipe.pipe';
 
 
 @NgModule({
@@ -101,6 +102,7 @@ import { BookingCancelReasonComponent } from './popups/booking-cancel-reason/boo
     UserProfileBookingDetailsComponent,
     ImageCropperComponent,
     BookingCancelReasonComponent,
+    // CapitalizePipePipe
   ],
   imports: [
     BrowserModule,

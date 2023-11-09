@@ -6,7 +6,10 @@
 
         <ng-container matColumnDef="position">
           <th mat-header-cell *matHeaderCellDef> Image </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          <td mat-cell *matCellDef="let element"> 
+            <img [src]="getImage(element.profile ? element.profile.toString() : '')" alt="" width="36px" style="border-radius: 50%;">
+            <img *ngIf="!element.profile" src="../../../assets/images/Multiavatar-9bb90a446ed5280395.png" alt="" width="36px" style="border-radius: 50%;">
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="name">

@@ -5,7 +5,10 @@
             <table mat-table [dataSource]="dataSource">
                 <ng-container matColumnDef="image">
                     <th mat-header-cell *matHeaderCellDef> Image </th>
-                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                    <td mat-cell *matCellDef="let element">
+                        <img [src]="getImage(element.profile ? element.profile.toString() : '')" alt="" width="36px" style="border-radius: 50%;">
+                        <img *ngIf="!element.profile" src="../../../assets/images/Multiavatar-8a081276297f705908.png" alt="" width="36px" style="border-radius: 50%;">
+                    </td>
                 </ng-container>
 
                 <ng-container matColumnDef="name">

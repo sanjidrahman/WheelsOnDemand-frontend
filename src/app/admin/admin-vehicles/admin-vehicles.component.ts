@@ -22,7 +22,8 @@ export class AdminVehiclesComponent implements OnInit, OnDestroy {
 
   vehiclelist!: vehicleModel[]
   createdby!: any
-  totalPage!:number
+  totalPage:number = 150
+  currentPage: number = 1
   private subscribe = new Subscription()
 
   constructor(
@@ -39,9 +40,26 @@ export class AdminVehiclesComponent implements OnInit, OnDestroy {
         this.vehiclelist = res
       }),
     )
-    this._service.pagiantion().subscribe((res: any) => {
-      this.totalPage = res.totalPage
-    })
+    // this._service.pagiantion().subscribe((res: any) => {
+    //   this.totalPage = res.totalPage
+    // })
+  }
+
+  pageArr() {
+    const limit = 5; // Adjust the limit as needed
+    const start = Math.max(1, this.currentPage - Math.floor(limit / 2));
+    const end = Math.min(start + limit - 1, this.totalPage);
+  
+    return Array.from({ length: end - start + 1 }, (_, index) => start + index);
+  }
+
+  callPag(page: number) {
+    this.currentPage = page
+    this.subscribe.add(
+      this._service.getAllVehicles(page).subscribe((res) => {
+        this.vehiclelist = res
+      })
+    )
   }
 
   update() {

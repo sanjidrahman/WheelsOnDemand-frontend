@@ -44,7 +44,7 @@ import { LightboxModule } from 'ng-gallery/lightbox';
 import { GalleryModule } from 'ng-gallery';
 import { MatStepperModule } from '@angular/material/stepper';
 import { AdminBookingListComponent } from './admin-booking-list/admin-booking-list.component';
-import { CapitalizePipePipe } from '../pipe/capitalize-pipe.pipe';
+import { SharedModule } from '../shared-module/shared.module';
 
 
 @NgModule({
@@ -64,7 +64,6 @@ import { CapitalizePipePipe } from '../pipe/capitalize-pipe.pipe';
     AdminEditVehicleComponent,
     AdminHostVehicleDetailsComponent,
     AdminBookingListComponent,
-    CapitalizePipePipe,
   ],
   imports: [
     CommonModule,
@@ -97,6 +96,7 @@ import { CapitalizePipePipe } from '../pipe/capitalize-pipe.pipe';
     GalleryModule,
     LightboxModule,
     MatStepperModule,
+    SharedModule
   ],
   providers: [AdminService , MessageService],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]

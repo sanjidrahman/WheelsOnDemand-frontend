@@ -65,20 +65,22 @@
     <div class="mt-4 d-flex justify-content-center">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" href="#" aria-label="Previous"  [attr.disabled]="currentPage === 1 ? true : null">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
+                <ng-container *ngFor="let page of pageArr()">
+                  <li class="page-item" [class.active]="page === currentPage">
+                    <a class="page-link" (click)="callPag(page)">{{ page }}</a>
+                  </li>
+                </ng-container>
+                <li class="page-item" [class.disabled]="currentPage === totalPage">
+                  <a class="page-link" href="#" aria-label="Next"  [attr.disabled]="currentPage === totalPage ? true : null">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
                 </li>
-            </ul>
+              </ul>              
         </nav>
     </div>
 </div>
