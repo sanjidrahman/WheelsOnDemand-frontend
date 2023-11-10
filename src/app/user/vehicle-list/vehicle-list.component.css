@@ -12,3 +12,7 @@
     display: inline-block;
     border-radius: 2px;
 }
+
+#book-btn {
+    background-color: #ffc107;
+}

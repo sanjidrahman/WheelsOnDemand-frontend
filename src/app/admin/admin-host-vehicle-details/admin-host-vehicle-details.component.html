@@ -2,7 +2,7 @@
     <mat-tab-group preserveContent>
         <mat-tab label="Vehicle Details">
             <div class="container">
-                <div class="card mt-3" *ngIf="vehicleDetails | async as v">
+                <div class="card mt-3" *ngIf="vehicleDetails as v">
                     <div class="card-title m-2">
                         <h1>Vehicle Details</h1>
                     </div>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="card-body">
                         <div class="v-image row">
-                            <div class="main col-lg-6" *ngIf="vehicleDetails | async as v">
+                            <div class="main col-lg-6" *ngIf="images">
                                 <gallery gallerize [items]="images"></gallery>
                             </div>
                         </div>
@@ -63,14 +63,14 @@
                     <div class="card-title m-2">
                         <h1>Vehicle Documents</h1>
                     </div>
-                    <div class="card-body"  *ngIf="vehicleDetails | async as v">
+                    <div class="card-body"  *ngIf="vehicleDetails as v">
                         <img [src]="getDoc(v.document ? v.document.toString() : '')" width="250px" alt="">
                     </div>
                 </div>
             </div>
         </mat-tab>
     </mat-tab-group>
-    <div class="container mt-3"  *ngIf="vehicleDetails | async as v">
+    <div class="container mt-3"  *ngIf="vehicleDetails as v">
         <button class="mx-1" mat-raised-button (click)="verifyVehicle(v._id, v.createdBy)" color="primary">Verify</button>
         <button mat-raised-button (click)="rejectVehiclePopup(v.createdBy)" color="warn">Reject</button>
     </div>

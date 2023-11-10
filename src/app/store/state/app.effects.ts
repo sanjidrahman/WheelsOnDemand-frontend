@@ -51,7 +51,7 @@ export class AppEffects {
             ofType(retrievevehicles),
             exhaustMap((action) => {
                 return this.servive.getAllVehicles().pipe(
-                    map((data) => {
+                    map((data: any) => {
                         // console.log(data , 'I AM DATA FROM EFFECTS');
                         return retrivevehiclessuccess({ vehiclelist: data as vehicleModel[] })
                     }),

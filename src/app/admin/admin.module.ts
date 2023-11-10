@@ -45,6 +45,7 @@ import { GalleryModule } from 'ng-gallery';
 import { MatStepperModule } from '@angular/material/stepper';
 import { AdminBookingListComponent } from './admin-booking-list/admin-booking-list.component';
 import { SharedModule } from '../shared-module/shared.module';
+import { AdminBookingDetailsComponent } from './admin-booking-details/admin-booking-details.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { SharedModule } from '../shared-module/shared.module';
     AdminEditVehicleComponent,
     AdminHostVehicleDetailsComponent,
     AdminBookingListComponent,
+    AdminBookingDetailsComponent,
   ],
   imports: [
     CommonModule,

@@ -18,7 +18,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class HostEditVehicleComponent implements OnInit, OnDestroy {
 
-  vehicle!: Observable<vehicleModel | undefined>;
+  vehicle!: vehicleModel | undefined;
   vehicleForm!: FormGroup;
   transmission: string[] = ['Automatic', 'Manual'];
   fuel: string[] = ['Petrol', 'Diesel', 'Electric'];
@@ -37,11 +37,11 @@ export class HostEditVehicleComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.v_id = this._activatedroute.snapshot.paramMap.get('id')
-    this._store.dispatch(retrievevehicles())
-    this.vehicle = this._store.pipe(
-      select(getvehicles),
-      map(v => v.find(vehicle => vehicle._id == this.v_id)))
+    
+    // ---- for retrieving vehicle details ----
+    this.update()
+    // ----------------------------------------
+
     this.vehicleForm = this._fb.group({
       name: ['', Validators.required],
       brand: ['', [Validators.required, Validators.minLength(3)]],
@@ -55,10 +55,11 @@ export class HostEditVehicleComponent implements OnInit, OnDestroy {
 
   update() {
     this.v_id = this._activatedroute.snapshot.paramMap.get('id')
-    this._store.dispatch(retrievevehicles())
-    this.vehicle = this._store.pipe(
-      select(getvehicles),
-      map(v => v.find(vehicle => vehicle._id == this.v_id)))
+    this.subscribe.add(
+      this._service.getVehicleDetails(this.v_id).subscribe((res) => {
+        this.vehicle = res
+      })
+    )
   }
 
   getImage(file: string) {

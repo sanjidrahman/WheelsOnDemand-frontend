@@ -13,6 +13,7 @@ import { adminGuardChildGuard } from './admin-guards/admin-guard-child.guard';
 import { AdminEditVehicleComponent } from './admin-edit-vehicle/admin-edit-vehicle.component';
 import { AdminHostVehicleDetailsComponent } from './admin-host-vehicle-details/admin-host-vehicle-details.component';
 import { AdminBookingListComponent } from './admin-booking-list/admin-booking-list.component';
+import { AdminBookingDetailsComponent } from './admin-booking-details/admin-booking-details.component';
 
 const routes: Routes = [
   { path: '', title: 'Admin Login', component: AdminLoginRegisterComponent, canActivate: [adminGuardGuard] },
@@ -31,7 +32,8 @@ const routes: Routes = [
           { path: 'add-vehicle', title: 'Admin Add Vehicle', component: AdminAddVehicleComponent },
           { path: 'edit-vehicle/:id', title: 'Edit Vehicle', component: AdminEditVehicleComponent },
           { path: 'host-vehicle-details/:id', title: 'View Vehicle Details', component: AdminHostVehicleDetailsComponent },
-          { path: 'bookings', title: 'Bookings', component: AdminBookingListComponent },
+          { path: 'bookings', title: 'Admin Bookings', component: AdminBookingListComponent },
+          { path: 'booking-details/:b_id', title: 'Admin Booking Details', component: AdminBookingDetailsComponent},
         ]
       },
     ]

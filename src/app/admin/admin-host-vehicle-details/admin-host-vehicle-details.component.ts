@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { AdminService } from '../services/admin.services';
 import { Store, select } from '@ngrx/store';
 import { vehicleState } from 'src/app/store/state/app.state';
@@ -18,12 +18,12 @@ import { SubmitRejectvehicleComponent } from 'src/app/popups/submit-rejectvehicl
   templateUrl: './admin-host-vehicle-details.component.html',
   styleUrls: ['./admin-host-vehicle-details.component.css']
 })
-export class AdminHostVehicleDetailsComponent implements OnInit, AfterViewInit{
+export class AdminHostVehicleDetailsComponent implements OnInit, OnDestroy {
 
   images: GalleryItem[] = []
   data!: string[] | undefined
   imageData!: any[]
-  vehicleDetails!: Observable<vehicleModel | undefined>
+  vehicleDetails!: vehicleModel | undefined
   private subscribe = new Subscription()
 
   constructor(
@@ -32,45 +32,39 @@ export class AdminHostVehicleDetailsComponent implements OnInit, AfterViewInit{
     private _toastr: ToastrService,
     private _activatedroute: ActivatedRoute,
     private _dialog: MatDialog,
-  ){}
+  ) { }
 
   ngOnInit(): void {
     const id = this._activatedroute.snapshot.paramMap.get('id')
-    this._store.dispatch(retrievevehicles())
-    this.vehicleDetails = this._store.pipe(
-      select(getvehicles),
-      map(v => v.find( vehicle => vehicle._id == id))
+    this.subscribe.add(
+      this._service.getVehicleDetails(id).subscribe((res) => {
+        this.vehicleDetails = res
+      })
     )
 
     setTimeout(() => {
       this.loadImage()
-    },50)
-   
-  }
+    }, 50);
 
-  ngAfterViewInit(): void {
-    this.vehicleDetails.forEach((v) => {
-      console.log(v?.images);
-    })
   }
 
   loadImage() {
-    this.vehicleDetails.forEach((item) => {
-      this.data = item?.images
-    })
-    if (this.data) {
-      const data = this.data.map((i) => {
-        const imageUrl = `${environment.STATIC_FILE_API}${i}`
-        return {
-          srcUrl: imageUrl,
-          previewUrl: imageUrl
-        }
-      })
-      this.imageData = data
+    if (this.vehicleDetails) {
+      this.data = this.vehicleDetails?.images
+      if (this.data) {
+        const data = this.data.map((i) => {
+          const imageUrl = `${environment.STATIC_FILE_API}${i}`
+          return {
+            srcUrl: imageUrl,
+            previewUrl: imageUrl
+          }
+        })
+        this.imageData = data
+      }
+      this.images = this.imageData.map(
+        (item: any) => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl })
+      );
     }
-    this.images = this.imageData.map(
-      (item: any) => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl })
-    );
   }
 
   getDoc(file: any) {
@@ -99,6 +93,10 @@ export class AdminHostVehicleDetailsComponent implements OnInit, AfterViewInit{
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '300ms',
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subscribe.unsubscribe()
   }
 
 }

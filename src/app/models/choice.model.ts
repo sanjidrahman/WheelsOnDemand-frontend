@@ -1,6 +1,6 @@
 export interface ChoiceModel {
-    startDate: string;
-    endDate: string;
-    pickup: string;
-    dropoff: string;
+    dropoff: string
+    endDate: string
+    pickup: string
+    startDate: string
 }

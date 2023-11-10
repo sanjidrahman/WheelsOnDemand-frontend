@@ -103,13 +103,22 @@ export class HostService {
     })
   }
 
-  // a common api for user and host (for booking details)
+  // a common api for all interfaces ([user, host, admin] for booking details)
   getBookDetails(id: string | null) {
     return this._http.get<bookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
       withCredentials: true
     })
   }
 
+
+  // a common api all interfaces ([user, host, admin] retrieving single vehicle details) 
+  getVehicleDetails(id: string | null) : Observable<vehicleModel> {
+    return this._http.get<vehicleModel>(`${this.commonUrl}/host/vehicle-details/${id}` , {
+      withCredentials: true
+    })
+  }
+
+  // a common api in admin, host (changing the status of bookings)
   updateBookingStatus(status: string, b_id: string | null) {
     return this._http.patch(`${this.commonUrl}/host/edit-booking-status/${b_id}` , {status}, {
       withCredentials: true

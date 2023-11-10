@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mt-5 justify-content-around">
             <div class="col-md-8">
-                <div class="card" *ngIf="vehicleDetails | async as v">
+                <div class="card" *ngIf="vehicleDetails as v">
                     <h2 class="m-3">{{ v.brand }} {{ v.name }}</h2>
                     <div class="card-body">
                         <div class="row">
@@ -147,7 +147,7 @@
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <button (click)="payNow()" class="mt-3 w-100" color="blue" mat-raised-button>Pay Now</button>
+                            <button (click)="payNow()" id="pay-btn" class="mt-3 w-100" color="blue" mat-raised-button>Pay Now</button>
                         </div>
                     </div>
                 </div>

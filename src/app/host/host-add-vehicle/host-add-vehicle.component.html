@@ -73,7 +73,7 @@
                                 </div>
                                 <div>
                                     <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Price</mat-label>
+                                        <mat-label>Price / day</mat-label>
                                         <input formControlName="price" matInput>
                                     </mat-form-field>
                                     <div *ngIf="form.submitted && vehicleForm.controls['price'].errors"
@@ -81,6 +81,10 @@
                                         <p *ngIf="form.submitted && vehicleForm.controls['price'].errors['pattern']">
                                             Price should be digits
                                         </p>
+                                    </div>
+                                    <div *ngIf="vehicleForm.controls['price'].dirty">
+                                        <p>{{ vehicleForm.controls['price'].value }} - 20% = {{ vehicleForm.controls['price'].value * 0.8 | currency: 'INR' }}</p>
+                                        <p>20% has been deducted. This is the amount you will get on this vehicle on order.</p>
                                     </div>
                                 </div>
                                 <div>

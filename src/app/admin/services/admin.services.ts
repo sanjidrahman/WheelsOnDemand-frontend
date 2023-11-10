@@ -5,6 +5,7 @@ import { userModel } from 'src/app/models/user.model';
 import { environment } from 'src/environments/environment.development';
 import { hostModel } from 'src/app/models/host.model';
 import { vehicleModel } from 'src/app/models/vehicle.model';
+import { bookingModel } from 'src/app/models/booking.model';
 
 @Injectable({
   providedIn: 'any'
@@ -69,6 +70,12 @@ export class AdminService {
     })
   }
 
+  getVehicleDetails(id: string | null) : Observable<vehicleModel> {
+    return this._http.get<vehicleModel>(`${this.commonUrl}/host/vehicle-details/${id}` , {
+      withCredentials: true
+    })
+  }
+
   getAllVehicles(page?: number): Observable<vehicleModel[]> {
     let params = new HttpParams()
     if(page) params = params.append('page', page)
@@ -114,6 +121,26 @@ export class AdminService {
 
   deleteVehicle(id: string) {
     return this._http.delete(`${this.commonUrl}/admin/delete-vehicle/${id}` , {
+      withCredentials: true
+    })
+  }
+
+  getBookings() {
+    return this._http.get<bookingModel[]>(`${this.commonUrl}/admin/all-bookings` , {
+      withCredentials: true
+    })
+  }
+
+   // a common api for all interfaces ([user, host, admin] for booking details)
+   getBookDetails(id: string | null) {
+    return this._http.get<bookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
+      withCredentials: true
+    })
+  }
+
+  // a common api in admin, host (changing the status of bookings)
+  updateBookingStatus(status: string, b_id: string | null) {
+    return this._http.patch(`${this.commonUrl}/host/edit-booking-status/${b_id}` , {status}, {
       withCredentials: true
     })
   }

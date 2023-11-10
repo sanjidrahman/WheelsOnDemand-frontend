@@ -17,7 +17,7 @@
                         <p>Price : <b>{{ bookingDetails[0].grandTotal | currency: 'INR' }}</b></p>
                         <p>Status : <b [ngClass]="customClass(bookingDetails[0].status)">{{ bookingDetails[0].status | capitalize }}</b></p>
                     </div>
-                    <div class="update-status">
+                    <div class="update-status" *ngIf="vehicleDetails.createdBy == null">
                         <h2><b>Update Status :</b></h2>
                         <select id="statusDropdown" [(ngModel)]="statusCurr" (ngModelChange)="onStatusChange()">
                           <option value="cancelled">Mark as Cancelled</option>
@@ -30,4 +30,4 @@
     </div>
 </div>
 
-<!-- *ngIf="bookingDetails[0].status == 'Booked'" -->
+<!-- "bookingDetails[0].status == 'Booked' &&  -->

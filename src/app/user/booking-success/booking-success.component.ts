@@ -17,7 +17,7 @@ import { getvehicles } from 'src/app/store/state/app.selectors';
 export class BookingSuccessComponent implements OnInit, OnDestroy {
 
   booking: any
-  vehicleDetails!: Observable<vehicleModel | undefined>
+  vehicleDetails!: vehicleModel | undefined
   startDate!: string;
   endDate!: string;
   dropoff!: string;
@@ -53,16 +53,12 @@ export class BookingSuccessComponent implements OnInit, OnDestroy {
       this.dropoff = this.booking[0].dropoff
     }, 50);
 
-    this._store.dispatch(retrievevehicles())
-    this.vehicleDetails = this._store.pipe(
-      select(getvehicles),
-      map(v => v.find(vehicle => vehicle._id == vehicleId))
+    this.subscribe.add(
+      this._service.getVehicleDetails(vehicleId).subscribe((res) => {
+        this.vehicleDetails = res
+      })
     )
 
-  }
-
-  ngco() {
-    console.log(this.booking[0].startDate);
   }
 
   getImage(file: any) {

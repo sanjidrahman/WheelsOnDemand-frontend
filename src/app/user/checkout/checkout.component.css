@@ -1,4 +1,9 @@
-.mat-raised-button.mat-blue, .mat-flat-button.mat-blue{
-    background-color: blue;
-    color: white;
- }
+.mat-raised-button.mat-blue,
+.mat-flat-button.mat-blue {
+  background-color: blue;
+  color: white;
+}
+
+#pay-btn {
+    background-color: #00A87E ;
+}

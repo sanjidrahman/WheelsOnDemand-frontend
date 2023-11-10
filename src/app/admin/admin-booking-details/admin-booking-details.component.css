@@ -1,0 +1,52 @@
+.card-title {
+  text-decoration: underline;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.status-cancelled {
+  color: red;
+}
+
+.status-booked {
+  color: orange;
+}
+
+.status-completed {
+  color: green;
+}
+
+.update-status {
+  display: flex;
+  align-items: center;
+}
+
+.update-status h2 {
+  margin-right: 10px;
+  margin-bottom: 1px;
+}
+
+#statusDropdown {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  appearance: none;
+}
+
+/* Style for the dropdown options */
+#statusDropdown option {
+  font-size: 16px;
+}
+
+/* Style for hover/focus states (optional) */
+#statusDropdown:hover,
+#statusDropdown:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}

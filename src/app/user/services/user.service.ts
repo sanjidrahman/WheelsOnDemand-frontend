@@ -42,14 +42,14 @@ export class UserService {
   storeChoice(choice: any) {
     return this._http.put(`${this.commonUrl}/user/store-choice`, choice, {
       withCredentials: true
-    } )
+    })
   }
 
   getVehicle(filters?: any) {
     let params = new HttpParams()
-    if(filters) {
-      if(filters.fuel) params = params.append('fuel', filters.fuel)
-      if(filters.transmission) params = params.append('transmission', filters.transmission)
+    if (filters) {
+      if (filters.fuel) params = params.append('fuel', filters.fuel)
+      if (filters.transmission) params = params.append('transmission', filters.transmission)
     }
     return this._http.get<vehicleModel[]>(`${this.commonUrl}/user/vehicles`, {
       params,
@@ -58,7 +58,7 @@ export class UserService {
   }
 
   bookVehicle(bookData: object) {
-    return this._http.post(`${ this.commonUrl }/user/book-vehicle` , bookData , {
+    return this._http.post(`${this.commonUrl}/user/book-vehicle`, bookData, {
       withCredentials: true
     })
   }
@@ -70,31 +70,44 @@ export class UserService {
   }
 
   getBookings() {
-    return this._http.get<bookingModel[]>(`${this.commonUrl}/user/user-booking` , {
+    return this._http.get<bookingModel[]>(`${this.commonUrl}/user/user-booking`, {
       withCredentials: true
     })
   }
 
   updateUser(data: any) {
-    return this._http.patch(`${this.commonUrl}/user/update-user`, data , {
+    return this._http.patch(`${this.commonUrl}/user/update-user`, data, {
       withCredentials: true
     })
   }
 
   updateProfile(file: any) {
-    return this._http.patch(`${this.commonUrl}/user/update-profile` , file , {
+    return this._http.patch(`${this.commonUrl}/user/update-profile`, file, {
+      withCredentials: true
+    })
+  }
+
+  // a common api all interfaces ([user, host, admin] retrieving single vehicle details) 
+  getVehicleDetails(id: string | null): Observable<vehicleModel> {
+    return this._http.get<vehicleModel>(`${this.commonUrl}/host/vehicle-details/${id}`, {
       withCredentials: true
     })
   }
 
   changePass(data: any) {
-    return this._http.patch(`${this.commonUrl}/user/change-password`, data , { 
+    return this._http.patch(`${this.commonUrl}/user/change-password`, data, {
+      withCredentials: true
+    })
+  }
+
+  getUser() {
+    return this._http.get(`${this.commonUrl}/user/getuser`, {
       withCredentials: true
     })
   }
 
   cancelbooking(reason: string, b_id: string) {
-    return this._http.patch(`${this.commonUrl}/user/cancel-booking/${b_id}`, reason , {
+    return this._http.patch(`${this.commonUrl}/user/cancel-booking/${b_id}`, reason, {
       withCredentials: true
     })
   }

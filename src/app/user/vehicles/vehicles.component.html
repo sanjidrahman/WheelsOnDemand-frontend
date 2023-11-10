@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-3" *ngIf="isEditable">
-                        <button mat-raised-button (click)="editChoice()">Submit</button>
+                        <button id="submit-btn" mat-raised-button (click)="editChoice()">Submit</button>
                     </div>
                 </div>
                 <app-vehicle-list [startDateChild]="startDate" [endDateChild]="endDate" [pickupChild]="pickup"

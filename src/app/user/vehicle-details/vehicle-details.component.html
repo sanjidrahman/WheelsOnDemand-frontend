@@ -2,7 +2,7 @@
 
 <section>
     <div class="container">
-        <div class="car-details" *ngIf="vehicleDetails | async as v">
+        <div class="car-details" *ngIf="vehicleDetails as v">
             <div class="row">
                 <div class="main col-lg-5" *ngIf="v.images">
                     <gallery gallerize [items]="images"></gallery>
@@ -15,7 +15,7 @@
                     <h4>Fuel : {{ v.fuel }}</h4>
                     <h4>Transmission : {{ v.transmission }}</h4>
                     <h2 class="price mt-1">{{ v_price | currency:'INR':'symbol':'1.2-2' }}</h2>
-                    <button mat-raised-button [routerLink]="['/checkout', v._id]">Book Now</button>
+                    <button mat-raised-button id="book-btn" [routerLink]="['/checkout', v._id]">Book Now</button>
                 </div>
             </div>
         </div>

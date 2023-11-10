@@ -22,7 +22,7 @@ declare var Razorpay: any;
 export class CheckoutComponent implements OnInit, OnDestroy {
 
 
-  vehicleDetails!: Observable<vehicleModel | undefined>;
+  vehicleDetails!: vehicleModel | undefined;
   userDetails!: Observable<userModel | undefined>;
   u_id: any;
   v_id!: string | null;
@@ -54,10 +54,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.v_id = this._activaterouter.snapshot.paramMap.get('id');
-    this._vstore.dispatch(retrievevehicles())
-    this.vehicleDetails = this._vstore.pipe(
-      select(getvehicles),
-      map(v => v.find(vehicle => vehicle._id == this.v_id))
+    this.subscribe.add(
+      this._service.getVehicleDetails(this.v_id).subscribe((res) => {
+       this.vehicleDetails = res
+      })
     )
 
     const token = localStorage.getItem('userToken');
@@ -96,18 +96,16 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       const timeDiff = endDate.getTime() - startDate.getTime()
       const days = timeDiff / (1000 * 3600 * 24)
       if (days >= 7) {
-        this.vehicleDetails.forEach((v) => {
-          if (v) {
-            const dis = (v.price * days) * 10 / 100
-            this.v_price = (v.price * days) - dis
-          }
-        })
+        if(this.vehicleDetails) {
+          const vprice = this.vehicleDetails.price
+          const dis = (vprice * days) * 10 / 100
+          this.v_price = (vprice * days) - dis
+        }          
       } else {
-        this.vehicleDetails.forEach((v) => {
-          if (v) {
-            this.v_price = v.price * days
-          }
-        })
+        if(this.vehicleDetails) {
+          const vprice = this.vehicleDetails?.price
+          this.v_price = vprice * days
+        }
       }
 
       this.sgst = Math.floor((this.v_price * 14) / 100)
