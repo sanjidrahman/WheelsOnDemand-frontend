@@ -1,3 +1,10 @@
+type Choice = {
+    stateDate: string,
+    endDate: string,
+    pickup: string,
+    dropoff: string
+}
+
 export interface userModel {
     _id: string
     name: string
@@ -6,6 +13,6 @@ export interface userModel {
     password: string
     isBlocked: boolean
     __v: number
-    choices: object
+    choices: Choice | null
     profile: string
 }

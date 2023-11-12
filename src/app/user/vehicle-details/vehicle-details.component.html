@@ -1,35 +1,53 @@
 <app-header></app-header>
 
 <section>
-    <div class="container">
-        <div class="car-details" *ngIf="vehicleDetails as v">
-            <div class="row">
-                <div class="main col-lg-5" *ngIf="v.images">
-                    <gallery gallerize [items]="images"></gallery>
-                </div>
-                <div class="col-lg-7">
-                    <div class="row mt-5">
-                        <h1>{{ v.brand }} {{ v.name }}</h1>
-                    </div>
-                    <h4>Model : {{ v.model }}</h4>
-                    <h4>Fuel : {{ v.fuel }}</h4>
-                    <h4>Transmission : {{ v.transmission }}</h4>
-                    <h2 class="price mt-1">{{ v_price | currency:'INR':'symbol':'1.2-2' }}</h2>
-                    <button mat-raised-button id="book-btn" [routerLink]="['/checkout', v._id]">Book Now</button>
-                </div>
-            </div>
+  <div class="container">
+    <div class="car-details" *ngIf="vehicleDetails as v">
+      <div class="row">
+        <div class="main col-lg-5" *ngIf="v.images">
+          <gallery gallerize [items]="images"></gallery>
         </div>
-        <div class="container review">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem porro magni quae velit illum a autem dolor
-            assumenda vel amet quasi voluptatibus officia nesciunt, repudiandae qui accusamus modi dolorem. Illum,
-            doloremque facilis! Labore, molestias ipsum itaque officia error, quaerat doloremque omnis minima voluptate
-            accusamus inventore, consequuntur quam repellendus fugit autem aspernatur? Praesentium maxime recusandae
-            ipsum reiciendis distinctio earum esse hic iure unde maiores eveniet eum odio quia autem fuga quisquam
-            exercitationem saepe dolores corrupti, sapiente blanditiis. Nihil, veritatis quam illum dolorum quisquam
-            aspernatur perspiciatis ab eligendi velit, fugit sed aliquam minus, possimus est dolor consequatur iure quos
-            distinctio culpa. Tempora!
+        <div class="col-lg-7">
+          <div class="row mt-5">
+            <h1>{{ v.brand }} {{ v.name }}</h1>
+          </div>
+          <h4>Model : {{ v.model }}</h4>
+          <h4>Fuel : {{ v.fuel }}</h4>
+          <h4>Transmission : {{ v.transmission }}</h4>
+          <h2 class="price mt-1">
+            {{ v_price | currency : "INR" : "symbol" : "1.2-2" }}
+          </h2>
+          <button
+            mat-raised-button
+            id="book-btn"
+            [routerLink]="['/checkout', v._id]"
+          >
+            Book Now
+          </button>
         </div>
+      </div>
     </div>
+    <div class="container review">
+      <h1>Reviews</h1>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <img src="../../../assets/images/Multiavatar-8a081276297f705908.png" width="35px" alt="">
+                    <h4 class="ms-3" style="padding-top: 15px;">Sanjid Rahman</h4>
+                </div>                
+              <div>
+                <h3><b>Review : Good car nice one</b></h3>
+                <h3><b>Ratings : Good car nice one</b></h3>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <app-footer></app-footer>

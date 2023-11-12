@@ -1,9 +1,10 @@
-import { bookingModel } from 'src/app/models/booking.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { vehicleModel } from 'src/app/models/vehicle.model';
-import { environment } from 'src/environments/environment.development';
+import { environment } from '../../../environments/environment.development';
+import { vehicleModel } from '../../models/vehicle.model';
+import { bookingModel } from '../../models/booking.model';
+import { userModel } from '../../models/user.model';
 declare var google: any;
 
 @Injectable({
@@ -100,8 +101,8 @@ export class UserService {
     })
   }
 
-  getUser() {
-    return this._http.get(`${this.commonUrl}/user/getuser`, {
+  getUser() : Observable<userModel> {
+    return this._http.get<userModel>(`${this.commonUrl}/user/getuser`, {
       withCredentials: true
     })
   }

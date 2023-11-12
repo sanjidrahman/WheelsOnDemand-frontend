@@ -1,18 +1,17 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { ImageItem, GalleryItem } from 'ng-gallery';
 import jwt_decode from 'jwt-decode';
 import { Observable, Subscription, map } from 'rxjs';
 import { vehicleModel } from 'src/app/models/vehicle.model';
-import { retrieveuser } from 'src/app/store/state/app.actions';
-import { getuser } from 'src/app/store/state/app.selectors';
 import { userState } from 'src/app/store/state/app.state';
 import { environment } from 'src/environments/environment.development';
 import { userModel } from 'src/app/models/user.model';
 import { UserService } from '../services/user.service';
 import { ChoiceModel } from 'src/app/models/choice.model';
-
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -26,7 +25,6 @@ export class VehicleDetailsComponent implements OnInit {
   vehicleDetails!: vehicleModel | undefined
   data!: string[] | undefined
   imageData!: any[]
-  userDetails!: Observable<userModel | undefined>
   userid!: any
   userChoices!: ChoiceModel
   v_price!: number
@@ -34,22 +32,19 @@ export class VehicleDetailsComponent implements OnInit {
 
   constructor(
     private _service: UserService,
-    private _userstore: Store<userState>,
     private _activatedroute: ActivatedRoute,
-  ) { }
+  ) {}
 
   ngOnInit() {
     const id = this._activatedroute.snapshot.paramMap.get('id')
 
     this.subscribe.add(
       this._service.getVehicleDetails(id).subscribe((res) => {
-        console.log(res);
         this.vehicleDetails = res
-        // this.handleData()
+        this.handleData()
       })
     )
     this._service.getUser().subscribe((res: any) => {
-      console.log(res.choices);
       this.userChoices = res.choices
       this.handleData()
     })

@@ -71,6 +71,7 @@ import { ImageCropperComponent } from './user/image-cropper/image-cropper.compon
 import { LY_THEME, LY_THEME_NAME, LyHammerGestureConfig, LyTheme2, StyleRenderer } from '@alyle/ui';
 import { BookingCancelReasonComponent } from './popups/booking-cancel-reason/booking-cancel-reason.component';
 import { CapitalizePipePipe } from './host/pipe/capitalize-pipe.pipe';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -143,7 +144,8 @@ import { CapitalizePipePipe } from './host/pipe/capitalize-pipe.pipe';
     LyIconModule,
     MatExpansionModule,
     MatRadioModule,
-    MatDialogModule
+    MatDialogModule,
+    ScrollingModule,
   ],
   providers: [
     {

@@ -1,4 +1,11 @@
-export interface vehicleModel {
+interface Review  {
+    userId: string
+    review: string
+    _id: string
+    replay?: string
+}
+
+export interface vehicleModel  {
     _id: string
     name: string
     price: number
@@ -11,5 +18,5 @@ export interface vehicleModel {
     isVerified: boolean
     images: string[]
     document: string
-    __v: number
+    review: Review
 }

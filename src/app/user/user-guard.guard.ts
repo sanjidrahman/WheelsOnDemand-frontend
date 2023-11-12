@@ -4,7 +4,6 @@ import { CanActivateFn, Router } from '@angular/router';
 
 export const userGuardLogged: CanActivateFn = (route, state) => {
   const token = localStorage.getItem('userToken')
-  console.log(token)
   const router = inject(Router)
   if(!token){
     return true
@@ -16,7 +15,6 @@ export const userGuardLogged: CanActivateFn = (route, state) => {
 
 export const userGuardLogout: CanActivateFn = (route, state) => {
   const token = localStorage.getItem('userToken')
-  console.log(token)
   const router = inject(Router)
   if(token){
     return true
