@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, map } from 'rxjs';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { retrievevehicles } from 'src/app/store/state/app.actions';
 import { getvehicles } from 'src/app/store/state/app.selectors';
 import { vehicleState } from 'src/app/store/state/app.state';
@@ -18,7 +18,7 @@ import { AdminService } from '../services/admin.services';
 })
 export class AdminEditVehicleComponent implements OnInit, OnDestroy {
 
-  vehicle!: Observable<vehicleModel | undefined>;
+  vehicle!: Observable<IVehicleModel | undefined>;
   vehicleForm!: FormGroup;
   transmission: string[] = ['Automatic', 'Manual'];
   fuel: string[] = ['Petrol', 'Diesel', 'Electric'];

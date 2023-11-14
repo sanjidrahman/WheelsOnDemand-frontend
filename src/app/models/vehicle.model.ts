@@ -1,11 +1,13 @@
-interface Review  {
-    userId: string
+import { IUserModel } from "./user.model"
+
+export interface IReview  {
+    userId: IUserModel
     review: string
     _id: string
     replay?: string
 }
 
-export interface vehicleModel  {
+export interface IVehicleModel  {
     _id: string
     name: string
     price: number
@@ -18,5 +20,5 @@ export interface vehicleModel  {
     isVerified: boolean
     images: string[]
     document: string
-    review: Review
+    review: IReview
 }

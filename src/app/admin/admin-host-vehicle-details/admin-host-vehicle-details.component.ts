@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { vehicleState } from 'src/app/store/state/app.state';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, map } from 'rxjs';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { retrievevehicles } from 'src/app/store/state/app.actions';
 import { getvehicles } from 'src/app/store/state/app.selectors';
 import { ActivatedRoute } from '@angular/router';
@@ -23,7 +23,7 @@ export class AdminHostVehicleDetailsComponent implements OnInit, OnDestroy {
   images: GalleryItem[] = []
   data!: string[] | undefined
   imageData!: any[]
-  vehicleDetails!: vehicleModel | undefined
+  vehicleDetails!: IVehicleModel | undefined
   private subscribe = new Subscription()
 
   constructor(

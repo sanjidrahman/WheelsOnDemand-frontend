@@ -8,7 +8,7 @@ import { NgConfirmService } from 'ng-confirm-box';
 import { hostState } from 'src/app/store/state/app.state';
 import { retrievehost } from 'src/app/store/state/app.actions';
 import { gethost } from 'src/app/store/state/app.selectors';
-import { hostModel } from 'src/app/models/host.model';
+import { IHostModel } from 'src/app/models/host.model';
 import { environment } from 'src/environments/environment.development';
 
 
@@ -27,7 +27,7 @@ export class AdminHostlistComponent implements OnInit, AfterViewInit {
   ) {}
 
   displayedColumns: string[] = ['image', 'name', 'email', 'phone' ,'verified' , 'showdetails' ,'actions'];
-  dataSource = new MatTableDataSource<hostModel>([]);
+  dataSource = new MatTableDataSource<IHostModel>([]);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;

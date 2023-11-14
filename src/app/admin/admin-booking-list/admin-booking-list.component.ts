@@ -1,10 +1,10 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
-import { bookingModel } from 'src/app/models/booking.model';
+import { IBookingModel } from 'src/app/models/booking.model';
 import { AdminService } from '../services/admin.services';
 import { MatPaginator } from '@angular/material/paginator';
-import { hostModel } from 'src/app/models/host.model';
+import { IHostModel } from 'src/app/models/host.model';
 
 @Component({
   selector: 'app-admin-booking-list',
@@ -14,12 +14,12 @@ import { hostModel } from 'src/app/models/host.model';
 })
 export class AdminBookingListComponent {
 
-  bookingdetails!: bookingModel[]
-  ifHost!: hostModel | null
+  bookingdetails!: IBookingModel[]
+  ifHost!: IHostModel | null
   displayedColumns: string[] = ['id', 'vehicle', 'date', 'amount', 'details'];
-  dataSource = new MatTableDataSource<bookingModel>([]);
-  dataSourceCompleted = new MatTableDataSource<bookingModel>([]);
-  dataSourceCancelled = new MatTableDataSource<bookingModel>([]);
+  dataSource = new MatTableDataSource<IBookingModel>([]);
+  dataSourceCompleted = new MatTableDataSource<IBookingModel>([]);
+  dataSourceCancelled = new MatTableDataSource<IBookingModel>([]);
   private subscribe = new Subscription()
 
   constructor(

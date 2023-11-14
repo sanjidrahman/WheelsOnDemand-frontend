@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
-import { bookingModel } from 'src/app/models/booking.model';
+import { IBookingModel } from 'src/app/models/booking.model';
 import { HostService } from '../services/host.service';
 
 @Component({
@@ -12,11 +12,11 @@ import { HostService } from '../services/host.service';
 })
 export class HostBookingsComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  bookingdetails!: bookingModel[]
+  bookingdetails!: IBookingModel[]
   displayedColumns: string[] = ['id', 'vehicle', 'date', 'amount', 'details'];
-  dataSource = new MatTableDataSource<bookingModel>([]);
-  dataSourceCompleted = new MatTableDataSource<bookingModel>([]);
-  dataSourceCancelled = new MatTableDataSource<bookingModel>([]);
+  dataSource = new MatTableDataSource<IBookingModel>([]);
+  dataSourceCompleted = new MatTableDataSource<IBookingModel>([]);
+  dataSourceCancelled = new MatTableDataSource<IBookingModel>([]);
   private subscribe = new Subscription()
 
   constructor(

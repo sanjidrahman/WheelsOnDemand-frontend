@@ -1,0 +1,31 @@
+<div class="container mt-5">
+    <div class="card">
+        <ng-container *ngIf="reviews.length > 0; else noReview">
+            <div class="card-body" *ngFor="let r of reviews">
+                <div class="d-flex align-items-center">
+                    <img [src]="getImage(r.userId.profile ? r.userId.profile.toString() : '')" width="35px" alt="" />
+                    <h4 class="ms-3" style="padding-top: 15px">
+                        {{ r.userId.name }}
+                    </h4>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="mx-3" mat-icon-button (click)="deleteReview(r._id)">
+                        <mat-icon color="warn">delete</mat-icon>
+                    </button>
+                </div>
+                <div>
+                    <h3>
+                        <b>Review : {{ r.review }}</b>
+                    </h3>
+                    <h3><b>Ratings : Good car nice one</b></h3>
+                </div>
+                <hr />
+            </div>
+        </ng-container>
+        <ng-template #noReview>
+            <div class="text-center mt-3">
+                <p>No reviews yet.</p>
+            </div>
+        </ng-template>
+    </div>
+</div>

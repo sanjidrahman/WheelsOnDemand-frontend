@@ -1,7 +1,7 @@
 import { Observable, Subscription, find, map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { vehicleModel } from '../../../../src/app/models/vehicle.model';
+import { IVehicleModel } from '../../../../src/app/models/vehicle.model';
 import { vehicleState } from '../../../../src/app/store/state/app.state';
 import { retrievevehicles } from '../../../../src/app/store/state/app.actions';
 import { getvehicles } from '../../../../src/app/store/state/app.selectors';
@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HostVehiclesComponent implements OnInit {
 
-  hostVehicles!: vehicleModel[]
+  hostVehicles!: IVehicleModel[]
   token!: any
   private subscribe = new Subscription()
 

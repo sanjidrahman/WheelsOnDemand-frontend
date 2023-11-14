@@ -2,9 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
-import { vehicleModel } from '../../models/vehicle.model';
-import { bookingModel } from '../../models/booking.model';
-import { userModel } from '../../models/user.model';
+import { IVehicleModel } from '../../models/vehicle.model';
+import { IBookingModel } from '../../models/booking.model';
+import { IUserModel } from '../../models/user.model';
 declare var google: any;
 
 @Injectable({
@@ -52,7 +52,7 @@ export class UserService {
       if (filters.fuel) params = params.append('fuel', filters.fuel)
       if (filters.transmission) params = params.append('transmission', filters.transmission)
     }
-    return this._http.get<vehicleModel[]>(`${this.commonUrl}/user/vehicles`, {
+    return this._http.get<IVehicleModel[]>(`${this.commonUrl}/user/vehicles`, {
       params,
       withCredentials: true
     })
@@ -65,13 +65,13 @@ export class UserService {
   }
 
   getBookDetails(id: string | null) {
-    return this._http.get<bookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
+    return this._http.get<IBookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
       withCredentials: true
     })
   }
 
   getBookings() {
-    return this._http.get<bookingModel[]>(`${this.commonUrl}/user/user-booking`, {
+    return this._http.get<IBookingModel[]>(`${this.commonUrl}/user/user-booking`, {
       withCredentials: true
     })
   }
@@ -89,8 +89,8 @@ export class UserService {
   }
 
   // a common api all interfaces ([user, host, admin] retrieving single vehicle details) 
-  getVehicleDetails(id: string | null): Observable<vehicleModel> {
-    return this._http.get<vehicleModel>(`${this.commonUrl}/host/vehicle-details/${id}`, {
+  getVehicleDetails(id: string | null): Observable<IVehicleModel> {
+    return this._http.get<IVehicleModel>(`${this.commonUrl}/host/vehicle-details/${id}`, {
       withCredentials: true
     })
   }
@@ -101,14 +101,32 @@ export class UserService {
     })
   }
 
-  getUser() : Observable<userModel> {
-    return this._http.get<userModel>(`${this.commonUrl}/user/getuser`, {
+  getUser(): Observable<IUserModel> {
+    return this._http.get<IUserModel>(`${this.commonUrl}/user/getuser`, {
       withCredentials: true
     })
   }
 
-  cancelbooking(reason: string, b_id: string) {
-    return this._http.patch(`${this.commonUrl}/user/cancel-booking/${b_id}`, reason, {
+  cancelbooking(reason: string, b_id: string, amount: number) {
+    return this._http.patch(`${this.commonUrl}/user/cancel-booking/${b_id}`, {reason, amount}, {
+      withCredentials: true
+    })
+  }
+
+  deleteReview(v_id: string | null, r_id: string | undefined) {
+    return this._http.patch(`${this.commonUrl}/user/delete-review/${v_id}`, { r_id }, {
+      withCredentials: true
+    })
+  }
+
+  forgotPass(email: string) {
+    return this._http.post(`${this.commonUrl}/user/forgot-password`,  email , {
+      withCredentials: true
+    })
+  }
+
+  resetPass(id: string | null, resetData: any) {
+    return this._http.patch(`${this.commonUrl}/user/reset-password/${id}` , resetData , {
       withCredentials: true
     })
   }
@@ -120,29 +138,29 @@ export class UserService {
   }
 
 
-  // initMap() {
-  //   const myLatlng = { lat: -25.363, lng: 131.044 };
-  //   const map = new google.maps.Map(document.getElementById('map'), {
-  //     zoom: 4,
-  //     center: myLatlng,
-  //   });
+  initMap() {
+    const myLatlng = { lat: -25.363, lng: 131.044 };
+    const map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: myLatlng,
+    });
 
-  //   let infoWindow = new google.maps.InfoWindow({
-  //     content: 'Click the map to get Lat/Lng!',
-  //     position: myLatlng,
-  //   });
+    let infoWindow = new google.maps.InfoWindow({
+      content: 'Click the map to get Lat/Lng!',
+      position: myLatlng,
+    });
 
-  //   infoWindow.open(map);
+    infoWindow.open(map);
 
-  //   map.addListener('click', (mapsMouseEvent: any) => {
-  //     infoWindow.close();
-  //     infoWindow = new google.maps.InfoWindow({
-  //       position: mapsMouseEvent.latLng,
-  //     });
-  //     infoWindow.setContent(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
-  //     infoWindow.open(map);
-  //   });
-  // }
+    map.addListener('click', (mapsMouseEvent: any) => {
+      infoWindow.close();
+      infoWindow = new google.maps.InfoWindow({
+        position: mapsMouseEvent.latLng,
+      });
+      infoWindow.setContent(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
+      infoWindow.open(map);
+    });
+  }
 
 
 }

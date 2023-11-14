@@ -1,11 +1,11 @@
-import { vehicleModel } from '../../models/vehicle.model';
+import { IVehicleModel } from '../../models/vehicle.model';
 import { createReducer, on } from "@ngrx/store"
 import { retrievehostsuccess, retrieveusersuccess, retrivevehiclessuccess } from "./app.actions"
-import { userModel } from "src/app/models/user.model"
-import { hostModel } from "src/app/models/host.model"
+import { IUserModel } from "src/app/models/user.model"
+import { IHostModel } from "src/app/models/host.model"
 
 // user reducer 
-export const userinitialState: userModel[] = []
+export const userinitialState: IUserModel[] = []
 const _userReducer = createReducer(userinitialState,
     on(retrieveusersuccess, (state, { userlist }) => {
         // console.log(state , userlist , 'I AM INSIDE REDUCER')
@@ -17,7 +17,7 @@ export function userReducer(state: any, action: any) {
 }
 
 // host reducer
-export const hostintialState: hostModel[] = []
+export const hostintialState: IHostModel[] = []
 const _hostReducer = createReducer(hostintialState,
     on(retrievehostsuccess, (state, { hostlist }) => {
         console.log(state , hostlist , 'I AM INSIDE REDUCER')
@@ -29,7 +29,7 @@ export function hostReducer(state: any, action: any) {
 }
 
 // vehicle reducer 
-export const vehicleintialState: vehicleModel[] = []
+export const vehicleintialState: IVehicleModel[] = []
 const _vehicleReducer = createReducer(vehicleintialState,
     on(retrivevehiclessuccess, (state, { vehiclelist }) => {
         // console.log(state , vehiclelist , 'I AM INSIDE REDUCER')

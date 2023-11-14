@@ -1,53 +1,76 @@
 <app-header></app-header>
 
 <section>
-  <div class="container">
-    <div class="car-details" *ngIf="vehicleDetails as v">
-      <div class="row">
-        <div class="main col-lg-5" *ngIf="v.images">
-          <gallery gallerize [items]="images"></gallery>
-        </div>
-        <div class="col-lg-7">
-          <div class="row mt-5">
-            <h1>{{ v.brand }} {{ v.name }}</h1>
-          </div>
-          <h4>Model : {{ v.model }}</h4>
-          <h4>Fuel : {{ v.fuel }}</h4>
-          <h4>Transmission : {{ v.transmission }}</h4>
-          <h2 class="price mt-1">
-            {{ v_price | currency : "INR" : "symbol" : "1.2-2" }}
-          </h2>
-          <button
-            mat-raised-button
-            id="book-btn"
-            [routerLink]="['/checkout', v._id]"
-          >
-            Book Now
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="container review">
-      <h1>Reviews</h1>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <img src="../../../assets/images/Multiavatar-8a081276297f705908.png" width="35px" alt="">
-                    <h4 class="ms-3" style="padding-top: 15px;">Sanjid Rahman</h4>
-                </div>                
-              <div>
-                <h3><b>Review : Good car nice one</b></h3>
-                <h3><b>Ratings : Good car nice one</b></h3>
-              </div>
-              <hr />
+    <div class="container">
+        <div class="car-details" *ngIf="vehicleDetails as v">
+            <div class="row">
+                <div class="main col-lg-5" *ngIf="v.images">
+                    <gallery gallerize [items]="images"></gallery>
+                </div>
+                <div class="col-lg-7">
+                    <div class="row mt-5">
+                        <h1>{{ v.brand }} {{ v.name }}</h1>
+                    </div>
+                    <h4>Model : {{ v.model }}</h4>
+                    <h4>Fuel : {{ v.fuel }}</h4>
+                    <h4>Transmission : {{ v.transmission }}</h4>
+                    <h2 class="price mt-1">
+                        {{ v_price | currency : "INR" : "symbol" : "1.2-2" }}
+                    </h2>
+                    <button mat-raised-button id="book-btn" [routerLink]="['/checkout', v._id]">
+                        Book Now
+                    </button>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+        <div class="container review">
+            <div class="row">
+                <div class="d-flex justify-content-between">
+                    <h1>Reviews</h1>
+                    <button mat-raised-button color="primary">Add Review</button>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <ng-container *ngIf="reviews.length > 0; else noReview">
+                            <div class="card-body" *ngFor="let r of reviews">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <img [src]="getImage(r.userId.profile ? r.userId.profile.toString() : '')"
+                                            width="35px" alt="" />
+                                        <h4 class="user-name ms-3">
+                                            {{ r.userId.name }}
+                                        </h4>
+                                    </div>
+                                    <button class="mx-3" mat-icon-button *ngIf="r.userId._id === userId"
+                                        (click)="deleteReview(r._id)">
+                                        <mat-icon color="warn">delete</mat-icon>
+                                    </button>
+                                </div>
+                                <div>
+                                    <h3>
+                                        <b>Review : {{ r.review }}</b>
+                                    </h3>
+                                    <h3><b>Ratings : Good car nice one</b></h3>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="mx-3 mb-3" *ngIf="reviews.length > 2">
+                                <a [routerLink]="['/view-reviews', vehicleDetails?._id]">View all {{ reviews.length }}
+                                    reviews</a>
+                            </div>
+                        </ng-container>
+                        <ng-template #noReview>
+                            <div class="text-center mt-3">
+                                <p>No reviews yet.</p>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
-
 <app-footer></app-footer>

@@ -1,22 +1,22 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { userModel } from "src/app/models/user.model";
+import { IUserModel } from "src/app/models/user.model";
 import { hostState, userState, vehicleState } from "./app.state";
-import { hostModel } from "src/app/models/host.model";
-import { vehicleModel } from "src/app/models/vehicle.model";
+import { IHostModel } from "src/app/models/host.model";
+import { IVehicleModel } from "src/app/models/vehicle.model";
 
 const getuserstate = (state: userState) => state.userlist
-export const getuser = createSelector(getuserstate, (state: userModel[]) => {
+export const getuser = createSelector(getuserstate, (state: IUserModel[]) => {
     // console.log(state , 'I AM SELECTOR')
     return state
 })
 
 const gethoststate = (state: hostState) => state.hostlist
-export const gethost = createSelector(gethoststate , (state : hostModel[]) => {
+export const gethost = createSelector(gethoststate , (state : IHostModel[]) => {
     return state
 })
 
 const getvehiclestate = (state : vehicleState) => state.vehiclelist
-export const getvehicles = createSelector(getvehiclestate , (state: vehicleModel[]) => {
+export const getvehicles = createSelector(getvehiclestate , (state: IVehicleModel[]) => {
     // console.log(state , 'I AM SELECTOR')
     return state
 })

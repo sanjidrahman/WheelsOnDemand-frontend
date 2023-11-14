@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Observable, Subscription, map } from 'rxjs';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +10,7 @@ import { Store, select } from '@ngrx/store';
 import jwt_decode from "jwt-decode";
 import { retrieveuser } from 'src/app/store/state/app.actions';
 import { getuser } from 'src/app/store/state/app.selectors';
-import { userModel } from 'src/app/models/user.model';
+import { IUserModel } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -26,10 +26,10 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
   @Input() daysChild!: number
   @Input() transmissionChild: string | undefined
   @Input() fuelChild: string | undefined
-  vehicleList!: vehicleModel[];
+  vehicleList!: IVehicleModel[];
   customPrice: number[] = []
   userid!: string
-  userDetails!: Observable<userModel | undefined>
+  userDetails!: Observable<IUserModel | undefined>
   private subscribe = new Subscription();
 
   constructor(

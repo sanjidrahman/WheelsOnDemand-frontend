@@ -2,8 +2,8 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Observable, Subscription, map, of, switchMap } from 'rxjs';
-import { bookingModel } from 'src/app/models/booking.model';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IBookingModel } from 'src/app/models/booking.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { Store, select } from '@ngrx/store';
 import { vehicleState } from 'src/app/store/state/app.state';
 import { retrievevehicles } from 'src/app/store/state/app.actions';
@@ -21,8 +21,8 @@ import { ToastrService } from 'ngx-toastr';
 export class UserProfileBookingDetailsComponent implements OnInit, AfterViewInit {
 
   private subscribe = new Subscription()
-  bookingDetails!: bookingModel[]
-  vehicleDetails!: vehicleModel | undefined
+  bookingDetails!: IBookingModel[]
+  vehicleDetails!: IVehicleModel | undefined
   vehicleId!: string
 
   constructor(

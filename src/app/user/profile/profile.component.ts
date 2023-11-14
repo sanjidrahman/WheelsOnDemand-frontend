@@ -5,7 +5,7 @@ import { userState } from 'src/app/store/state/app.state';
 import { retrieveuser } from "src/app/store/state/app.actions";
 import { getuser } from "src/app/store/state/app.selectors";
 import { Observable, Subscription, map } from "rxjs";
-import { userModel } from "src/app/models/user.model";
+import { IUserModel } from "src/app/models/user.model";
 import { environment } from "src/environments/environment.development";
 import { UserService } from "../services/user.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   isHovered: boolean = false;
   userid: any
-  userDetails!: Observable<userModel | undefined>
+  userDetails!: Observable<IUserModel | undefined>
   profile!: File | null
   userForm!: FormGroup
   changePassForm!: FormGroup

@@ -1,4 +1,4 @@
-export interface hostModel {
+export interface IHostModel {
     _id: string
     name: string
     email: string

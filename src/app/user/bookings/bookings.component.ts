@@ -3,7 +3,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
-import { bookingModel } from 'src/app/models/booking.model';
+import { IBookingModel } from 'src/app/models/booking.model';
 
 @Component({
   selector: 'app-bookings',
@@ -13,11 +13,11 @@ import { bookingModel } from 'src/app/models/booking.model';
 export class BookingsComponent implements AfterViewInit, OnInit, OnDestroy {
 
   private subscribe = new Subscription()
-  bookingdetails!: bookingModel[]
+  bookingdetails!: IBookingModel[]
   displayedColumns: string[] = ['id', 'vehicle', 'date', 'amount', 'details'];
-  dataSource = new MatTableDataSource<bookingModel>([]);
-  dataSourceCompleted = new MatTableDataSource<bookingModel>([]);
-  dataSourceCancelled = new MatTableDataSource<bookingModel>([]);
+  dataSource = new MatTableDataSource<IBookingModel>([]);
+  dataSourceCompleted = new MatTableDataSource<IBookingModel>([]);
+  dataSourceCancelled = new MatTableDataSource<IBookingModel>([]);
 
   constructor(
     private _service: UserService,

@@ -1,4 +1,4 @@
-export interface ChoiceModel {
+export interface IChoiceModel {
     dropoff: string
     endDate: string
     pickup: string

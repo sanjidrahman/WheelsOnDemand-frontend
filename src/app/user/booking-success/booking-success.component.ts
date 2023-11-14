@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription, map, Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { environment } from 'src/environments/environment.development';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { Store, select } from '@ngrx/store';
 import { vehicleState } from 'src/app/store/state/app.state';
 import { retrievevehicles } from 'src/app/store/state/app.actions';
@@ -17,7 +17,7 @@ import { getvehicles } from 'src/app/store/state/app.selectors';
 export class BookingSuccessComponent implements OnInit, OnDestroy {
 
   booking: any
-  vehicleDetails!: vehicleModel | undefined
+  vehicleDetails!: IVehicleModel | undefined
   startDate!: string;
   endDate!: string;
   dropoff!: string;

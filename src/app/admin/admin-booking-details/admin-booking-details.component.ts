@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, of, switchMap } from 'rxjs';
-import { bookingModel } from 'src/app/models/booking.model';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IBookingModel } from 'src/app/models/booking.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { AdminService } from '../services/admin.services';
 import { NgConfirmService } from 'ng-confirm-box';
 
@@ -14,9 +14,9 @@ import { NgConfirmService } from 'ng-confirm-box';
 })
 export class AdminBookingDetailsComponent {
 
-  bookingDetails!: bookingModel[]
+  bookingDetails!: IBookingModel[]
   vehicleId!: string
-  vehicleDetails!: vehicleModel | undefined
+  vehicleDetails!: IVehicleModel | undefined
   status: string[] = ['complete', 'cancel']
   statusCurr!: string
   bookingId!: string | null

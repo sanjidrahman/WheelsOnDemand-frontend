@@ -1,7 +1,7 @@
 import { hostState } from './../../store/state/app.state';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { HostService } from '../services/host.service';
-import { hostModel } from 'src/app/models/host.model';
+import { IHostModel } from 'src/app/models/host.model';
 import { environment } from 'src/environments/environment.development';
 import { MatDialog } from '@angular/material/dialog';
 import { EditHostDialogComponent } from 'src/app/popups/edit-host-dialog/edit-host-dialog.component';
@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HostProfileComponent implements OnInit {
 
-  hostDetails!: hostModel;
+  hostDetails!: IHostModel;
   file!: File | null
   isHidden = false
 

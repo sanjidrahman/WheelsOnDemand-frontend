@@ -3,9 +3,9 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { retrievehost, retrievehostsuccess, retrieveuser, retrieveusersuccess, retrievevehicles, retrivevehiclessuccess } from "./app.actions";
 import { EMPTY, catchError, exhaustMap, map } from "rxjs";
 import { ToastrService } from "ngx-toastr";
-import { userModel } from "src/app/models/user.model";
-import { hostModel } from "src/app/models/host.model";
-import { vehicleModel } from "src/app/models/vehicle.model";
+import { IUserModel } from "src/app/models/user.model";
+import { IHostModel } from "src/app/models/host.model";
+import { IVehicleModel } from "src/app/models/vehicle.model";
 import { AdminService } from "src/app/admin/services/admin.services";
 
 @Injectable()
@@ -23,7 +23,7 @@ export class AppEffects {
                 return this.servive.getAllUser().pipe(
                     map((data) => {
                         // console.log(data , 'I AM DATA FROM EFFECTS');
-                        return retrieveusersuccess({ userlist: data as userModel[] });
+                        return retrieveusersuccess({ userlist: data as IUserModel[] });
                     }),
                     catchError(() => EMPTY)
                 );
@@ -38,7 +38,7 @@ export class AppEffects {
                 return this.servive.getAllHost().pipe(
                     map((data: any) => {
                         // console.log(data , 'I AM DATA FROM EFFECTS');
-                        return retrievehostsuccess({ hostlist: data as hostModel[] })
+                        return retrievehostsuccess({ hostlist: data as IHostModel[] })
                     }),
                     catchError(() => EMPTY)
                 )
@@ -53,7 +53,7 @@ export class AppEffects {
                 return this.servive.getAllVehicles().pipe(
                     map((data: any) => {
                         // console.log(data , 'I AM DATA FROM EFFECTS');
-                        return retrivevehiclessuccess({ vehiclelist: data as vehicleModel[] })
+                        return retrivevehiclessuccess({ vehiclelist: data as IVehicleModel[] })
                     }),
                     catchError(() => EMPTY)
                 )

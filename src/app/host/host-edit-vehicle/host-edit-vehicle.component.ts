@@ -6,7 +6,7 @@ import { vehicleState } from 'src/app/store/state/app.state';
 import { HostService } from '../services/host.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, map } from 'rxjs';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { retrievevehicles } from 'src/app/store/state/app.actions';
 import { getvehicles } from 'src/app/store/state/app.selectors';
 import { environment } from 'src/environments/environment.development';
@@ -18,7 +18,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class HostEditVehicleComponent implements OnInit, OnDestroy {
 
-  vehicle!: vehicleModel | undefined;
+  vehicle!: IVehicleModel | undefined;
   vehicleForm!: FormGroup;
   transmission: string[] = ['Automatic', 'Manual'];
   fuel: string[] = ['Petrol', 'Diesel', 'Electric'];

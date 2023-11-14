@@ -34,7 +34,7 @@ import { environment } from 'src/environments/environment.development';
 import { AppInterceptor } from './http-interceptor/interceptor.interceptor';
 import { EditHostDialogComponent } from './popups/edit-host-dialog/edit-host-dialog.component';
 import { ChangePassComponent } from './popups/change-pass/change-pass.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
 import { MailVerifyComponent } from './forgot-password/mail-verify/mail-verify.component';
 import { SubmitRejectvehicleComponent } from './popups/submit-rejectvehicle/submit-rejectvehicle.component';
 import { SelectDateComponent } from './user/select-date/select-date.component';
@@ -72,6 +72,8 @@ import { LY_THEME, LY_THEME_NAME, LyHammerGestureConfig, LyTheme2, StyleRenderer
 import { BookingCancelReasonComponent } from './popups/booking-cancel-reason/booking-cancel-reason.component';
 import { CapitalizePipePipe } from './host/pipe/capitalize-pipe.pipe';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ViewAllReviewsComponent } from './user/view-all-reviews/view-all-reviews.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -87,7 +89,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     SubmitNotverifiedComponent,
     EditHostDialogComponent,
     ChangePassComponent,
-    ForgotPasswordComponent,
+    ResetPasswordComponent,
     MailVerifyComponent,
     SubmitRejectvehicleComponent,
     SelectDateComponent,
@@ -103,6 +105,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     UserProfileBookingDetailsComponent,
     ImageCropperComponent,
     BookingCancelReasonComponent,
+    ViewAllReviewsComponent,
+    NotFoundComponent,
     // CapitalizePipePipe
   ],
   imports: [

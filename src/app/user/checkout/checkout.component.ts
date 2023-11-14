@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, map } from 'rxjs';
-import { userModel } from 'src/app/models/user.model';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IUserModel } from 'src/app/models/user.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { retrieveuser, retrievevehicles } from 'src/app/store/state/app.actions';
 import { getuser, getvehicles } from 'src/app/store/state/app.selectors';
 import { userState, vehicleState } from 'src/app/store/state/app.state';
@@ -22,8 +22,8 @@ declare var Razorpay: any;
 export class CheckoutComponent implements OnInit, OnDestroy {
 
 
-  vehicleDetails!: vehicleModel | undefined;
-  userDetails!: Observable<userModel | undefined>;
+  vehicleDetails!: IVehicleModel | undefined;
+  userDetails!: Observable<IUserModel | undefined>;
   u_id: any;
   v_id!: string | null;
   startDate!: Date;
@@ -41,6 +41,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   userName!: string | undefined;
   userPhone!: number | undefined;
   userEmail!: string | undefined;
+  userWallet!: number | undefined
+  useWallet: boolean = false;
   private subscribe = new Subscription()
 
   constructor(
@@ -56,7 +58,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.v_id = this._activaterouter.snapshot.paramMap.get('id');
     this.subscribe.add(
       this._service.getVehicleDetails(this.v_id).subscribe((res) => {
-       this.vehicleDetails = res
+        this.vehicleDetails = res
       })
     )
 
@@ -76,6 +78,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         this.userName = i?.name
         this.userEmail = i?.email
         this.userPhone = i?.phone
+        this.userWallet = i?.wallet
       })
     }, 50)
 
@@ -96,13 +99,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       const timeDiff = endDate.getTime() - startDate.getTime()
       const days = timeDiff / (1000 * 3600 * 24)
       if (days >= 7) {
-        if(this.vehicleDetails) {
+        if (this.vehicleDetails) {
           const vprice = this.vehicleDetails.price
           const dis = (vprice * days) * 10 / 100
           this.v_price = (vprice * days) - dis
-        }          
+        }
       } else {
-        if(this.vehicleDetails) {
+        if (this.vehicleDetails) {
           const vprice = this.vehicleDetails?.price
           this.v_price = vprice * days
         }
@@ -117,6 +120,20 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   getImage(file: any) {
     return `${environment.STATIC_FILE_API}${file}`
+  }
+
+  onWalletSelect() {
+    this.useWallet = !this.useWallet;
+
+    if (this.useWallet) {
+      if (this.userWallet) {
+        this.grandTotal -= this.userWallet;
+      }
+    } else {
+      if (this.userWallet) {
+        this.grandTotal += this.userWallet;
+      }
+    }
   }
 
   payNow() {
@@ -135,7 +152,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         email: this.userEmail,
         phone: this.userPhone,
         theme: {
-          color: '#f37354',
+          color: '#ffc107',
         },
         modal: {
           ondismiss: () => {

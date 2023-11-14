@@ -10,7 +10,7 @@ import { AdminService } from '../services/admin.services';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { SubmitNotverifiedComponent } from 'src/app/popups/submit-notverified/submit-notverified.component';
-import { hostModel } from 'src/app/models/host.model';
+import { IHostModel } from 'src/app/models/host.model';
 import { environment } from 'src/environments/environment.development';
 
 @Component({
@@ -20,7 +20,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class ViewHostDetailsComponent implements OnInit {
 
-  user!: Observable<hostModel | undefined>;
+  user!: Observable<IHostModel | undefined>;
   img: any
 
   constructor(

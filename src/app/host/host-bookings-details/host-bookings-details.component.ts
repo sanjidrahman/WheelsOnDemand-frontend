@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HostService } from '../services/host.service';
-import { bookingModel } from 'src/app/models/booking.model';
+import { IBookingModel } from 'src/app/models/booking.model';
 import { vehicleState } from 'src/app/store/state/app.state';
 import { Store, select } from '@ngrx/store';
 import { Subscription, map, Observable, switchMap, of } from 'rxjs';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { retrievevehicles } from 'src/app/store/state/app.actions';
 import { getvehicles } from 'src/app/store/state/app.selectors';
 
@@ -17,9 +17,9 @@ import { getvehicles } from 'src/app/store/state/app.selectors';
 })
 export class HostBookingsDetailsComponent implements OnInit, OnDestroy {
 
-  bookingDetails!: bookingModel[]
+  bookingDetails!: IBookingModel[]
   vehicleId!: string
-  vehicleDetails!: vehicleModel | undefined
+  vehicleDetails!: IVehicleModel | undefined
   status: string[] = ['complete', 'cancel']
   statusCurr!: string
   bookingId!: string | null

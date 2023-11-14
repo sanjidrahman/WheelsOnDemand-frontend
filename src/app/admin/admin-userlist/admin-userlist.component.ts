@@ -1,4 +1,4 @@
-import { userModel } from '../../models/user.model';
+import { IUserModel } from '../../models/user.model';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -31,7 +31,7 @@ export class AdminUserlistComponent implements AfterViewInit, OnInit {
   }
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'hihihi'];
-  dataSource = new MatTableDataSource<userModel>([]);
+  dataSource = new MatTableDataSource<IUserModel>([]);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;

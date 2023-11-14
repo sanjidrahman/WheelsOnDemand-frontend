@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { bookingModel } from 'src/app/models/booking.model';
-import { hostModel } from 'src/app/models/host.model';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IBookingModel } from 'src/app/models/booking.model';
+import { IHostModel } from 'src/app/models/host.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable()
@@ -49,8 +49,8 @@ export class HostService {
     })
   }
 
-  hostdetails(): Observable<hostModel> {
-    return this._http.get<hostModel>(`${this.commonUrl}/host/host-details`, {
+  hostdetails(): Observable<IHostModel> {
+    return this._http.get<IHostModel>(`${this.commonUrl}/host/host-details`, {
       withCredentials: true
     })
   }
@@ -91,29 +91,29 @@ export class HostService {
     })
   }
 
-  hostVehicle() : Observable<vehicleModel[]> {
-    return this._http.get<vehicleModel[]>(`${this.commonUrl}/host/host-vehicles` , {
+  hostVehicle() : Observable<IVehicleModel[]> {
+    return this._http.get<IVehicleModel[]>(`${this.commonUrl}/host/host-vehicles` , {
       withCredentials: true
     })
   }
 
   hostBooking() {
-    return this._http.get<bookingModel[]>(`${this.commonUrl}/host/host-bookings`, {
+    return this._http.get<IBookingModel[]>(`${this.commonUrl}/host/host-bookings`, {
       withCredentials: true
     })
   }
 
   // a common api for all interfaces ([user, host, admin] for booking details)
   getBookDetails(id: string | null) {
-    return this._http.get<bookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
+    return this._http.get<IBookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
       withCredentials: true
     })
   }
 
 
   // a common api all interfaces ([user, host, admin] retrieving single vehicle details) 
-  getVehicleDetails(id: string | null) : Observable<vehicleModel> {
-    return this._http.get<vehicleModel>(`${this.commonUrl}/host/vehicle-details/${id}` , {
+  getVehicleDetails(id: string | null) : Observable<IVehicleModel> {
+    return this._http.get<IVehicleModel>(`${this.commonUrl}/host/vehicle-details/${id}` , {
       withCredentials: true
     })
   }

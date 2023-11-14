@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { vehicleState } from 'src/app/store/state/app.state';
 import { retrievevehicles } from 'src/app/store/state/app.actions';
 import { getvehicles } from 'src/app/store/state/app.selectors';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 import { MatDialog } from '@angular/material/dialog';
 import { SubmitNotverifiedComponent } from 'src/app/popups/submit-notverified/submit-notverified.component';
@@ -20,7 +20,7 @@ import { Subscription } from 'rxjs';
 })
 export class AdminVehiclesComponent implements OnInit, OnDestroy {
 
-  vehiclelist!: vehicleModel[]
+  vehiclelist!: IVehicleModel[]
   createdby!: any
   totalPage!: number
   currentPage: number = 1

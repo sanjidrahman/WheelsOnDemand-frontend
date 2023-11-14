@@ -20,3 +20,8 @@
 .example-item {
   height: 50px;
 }
+
+.user-name {
+  padding-left: 40px; 
+  margin-top: -23px;
+}

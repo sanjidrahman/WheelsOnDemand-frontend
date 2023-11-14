@@ -1,11 +1,6 @@
-type Choice = {
-    stateDate: string,
-    endDate: string,
-    pickup: string,
-    dropoff: string
-}
+import { IChoiceModel } from "./choice.model"
 
-export interface userModel {
+export interface IUserModel {
     _id: string
     name: string
     email: string
@@ -13,6 +8,7 @@ export interface userModel {
     password: string
     isBlocked: boolean
     __v: number
-    choices: Choice | null
+    choices: IChoiceModel | null
     profile: string
+    wallet: number
 }

@@ -1,11 +1,11 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { userModel } from 'src/app/models/user.model';
+import { IUserModel } from 'src/app/models/user.model';
 import { environment } from 'src/environments/environment.development';
-import { hostModel } from 'src/app/models/host.model';
-import { vehicleModel } from 'src/app/models/vehicle.model';
-import { bookingModel } from 'src/app/models/booking.model';
+import { IHostModel } from 'src/app/models/host.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
+import { IBookingModel } from 'src/app/models/booking.model';
 
 @Injectable({
   providedIn: 'any'
@@ -22,14 +22,14 @@ export class AdminService {
     })
   }
 
-  getAllUser(): Observable<userModel[]> {
-    return this._http.get<userModel[]>(`${this.commonUrl}/admin/users`, {
+  getAllUser(): Observable<IUserModel[]> {
+    return this._http.get<IUserModel[]>(`${this.commonUrl}/admin/users`, {
       withCredentials: true
     })
   }
 
-  getAllHost(): Observable<hostModel[]> {
-    return this._http.get<hostModel[]>(`${this.commonUrl}/admin/hosts`, {
+  getAllHost(): Observable<IHostModel[]> {
+    return this._http.get<IHostModel[]>(`${this.commonUrl}/admin/hosts`, {
       withCredentials: true
     })
   }
@@ -70,16 +70,16 @@ export class AdminService {
     })
   }
 
-  getVehicleDetails(id: string | null) : Observable<vehicleModel> {
-    return this._http.get<vehicleModel>(`${this.commonUrl}/host/vehicle-details/${id}` , {
+  getVehicleDetails(id: string | null) : Observable<IVehicleModel> {
+    return this._http.get<IVehicleModel>(`${this.commonUrl}/host/vehicle-details/${id}` , {
       withCredentials: true
     })
   }
 
-  getAllVehicles(page?: number): Observable<vehicleModel[]> {
+  getAllVehicles(page?: number): Observable<IVehicleModel[]> {
     let params = new HttpParams()
     if(page) params = params.append('page', page)
-    return this._http.get<vehicleModel[]>(`${this.commonUrl}/admin/vehicles`, {
+    return this._http.get<IVehicleModel[]>(`${this.commonUrl}/admin/vehicles`, {
       params,
       withCredentials: true
     })
@@ -126,14 +126,14 @@ export class AdminService {
   }
 
   getBookings() {
-    return this._http.get<bookingModel[]>(`${this.commonUrl}/admin/all-bookings` , {
+    return this._http.get<IBookingModel[]>(`${this.commonUrl}/admin/all-bookings` , {
       withCredentials: true
     })
   }
 
    // a common api for all interfaces ([user, host, admin] for booking details)
    getBookDetails(id: string | null) {
-    return this._http.get<bookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
+    return this._http.get<IBookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
       withCredentials: true
     })
   }

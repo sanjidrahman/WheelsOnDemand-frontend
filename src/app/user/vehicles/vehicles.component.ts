@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription, map, shareReplay } from 'rxjs';
-import { userModel } from 'src/app/models/user.model';
+import { IUserModel } from 'src/app/models/user.model';
 import { userState } from 'src/app/store/state/app.state';
 import jwt_decode from "jwt-decode";
 import { retrieveuser } from 'src/app/store/state/app.actions';
@@ -27,7 +27,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   minDate!: string
   maxDate!: string
   userid!: any
-  userDetails!: userModel | undefined
+  userDetails!: IUserModel | undefined
   userChoices: any
   isEditable: boolean = false
   panelOpenState: boolean = false;
@@ -62,7 +62,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     }
 
     this._service.getUser().subscribe({
-      next: (res: userModel) => {
+      next: (res: IUserModel) => {
         this.userChoices = res.choices
         this.showDetails()
       },

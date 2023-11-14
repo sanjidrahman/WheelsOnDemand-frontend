@@ -1,17 +1,17 @@
-import { hostModel } from 'src/app/models/host.model';
-import { userModel } from '../../models/user.model';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IHostModel } from 'src/app/models/host.model';
+import { IUserModel } from '../../models/user.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 
 
 export interface userState {
-    userlist : userModel[]
+    userlist : IUserModel[]
 }
 
 export interface hostState {
-    hostlist : hostModel[]
+    hostlist : IHostModel[]
 }
 
 export interface vehicleState {
-    vehiclelist : vehicleModel[]
+    vehiclelist : IVehicleModel[]
 }
 

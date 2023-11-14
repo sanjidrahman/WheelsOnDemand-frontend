@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { vehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/models/vehicle.model';
 
 @Pipe({
   name: 'pricecalculation'
 })
 export class PriceCalculationPipe implements PipeTransform {
 
-  transform(vehicleList: vehicleModel[], days: number): any[] {
+  transform(vehicleList: IVehicleModel[], days: number): any[] {
     const second = new Date()
     if(!Array.isArray(vehicleList)) {
         // console.log(second.getSeconds());

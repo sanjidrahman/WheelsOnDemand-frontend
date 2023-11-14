@@ -1,17 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store, select } from '@ngrx/store';
 import { ImageItem, GalleryItem } from 'ng-gallery';
 import jwt_decode from 'jwt-decode';
-import { Observable, Subscription, map } from 'rxjs';
-import { vehicleModel } from 'src/app/models/vehicle.model';
-import { userState } from 'src/app/store/state/app.state';
+import { Observable, Subscription } from 'rxjs';
+import { IReview, IVehicleModel } from 'src/app/models/vehicle.model';
 import { environment } from 'src/environments/environment.development';
-import { userModel } from 'src/app/models/user.model';
 import { UserService } from '../services/user.service';
-import { ChoiceModel } from 'src/app/models/choice.model';
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject } from 'rxjs';
+import { IChoiceModel } from 'src/app/models/choice.model';
+import { ToastrService } from 'ngx-toastr';
+import { NgConfirmService } from 'ng-confirm-box';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -19,36 +16,48 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./vehicle-details.component.css'],
 })
 
-export class VehicleDetailsComponent implements OnInit {
+export class VehicleDetailsComponent implements OnInit, OnDestroy {
 
   images: GalleryItem[] = []
-  vehicleDetails!: vehicleModel | undefined
+  vehicleDetails!: IVehicleModel | undefined
   data!: string[] | undefined
   imageData!: any[]
-  userid!: any
-  userChoices!: ChoiceModel
+  userChoices!: IChoiceModel
+  reviews!: IReview[] | any
   v_price!: number
+  v_id!: string | null
+  userId!: string
   private subscribe = new Subscription()
 
   constructor(
     private _service: UserService,
     private _activatedroute: ActivatedRoute,
-  ) {}
+    private _toastr: ToastrService,
+    private _ngConfirm: NgConfirmService,
+  ) { }
 
   ngOnInit() {
-    const id = this._activatedroute.snapshot.paramMap.get('id')
+    this.v_id = this._activatedroute.snapshot.paramMap.get('id')
 
     this.subscribe.add(
-      this._service.getVehicleDetails(id).subscribe((res) => {
+      this._service.getVehicleDetails(this.v_id).subscribe((res: IVehicleModel) => {
         this.vehicleDetails = res
+        this.reviews = res.review
         this.handleData()
       })
     )
-    this._service.getUser().subscribe((res: any) => {
-      this.userChoices = res.choices
-      this.handleData()
-    })
-
+    this.subscribe.add(
+      this._service.getUser().subscribe((res: any) => {
+        this.userChoices = res.choices
+        this.handleData()
+      })
+    )
+    
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      const decoded: any = jwt_decode(token) 
+      this.userId = decoded.id
+    } 
   }
 
   handleData() {
@@ -87,5 +96,30 @@ export class VehicleDetailsComponent implements OnInit {
         (item: any) => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl })
       );
     }
+  }
+
+  getImage(file: string) {
+    return `${environment.STATIC_FILE_API}${file}`
+  }
+
+  deleteReview(r_id: string | undefined) {
+    this._ngConfirm.showConfirm('Are you sure to proceed with action ?', () => {
+      this.subscribe.add(
+        this._service.deleteReview(this.v_id, r_id).subscribe({
+          next: () => {
+            this._toastr.success('Review deleted successfully')
+          },
+          error: (err) => {
+            this._toastr.error('Something went wrong', err.error.message)
+          }
+        })
+      )
+    }, () => {
+      this._ngConfirm.closeConfirm()
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.subscribe.unsubscribe()
   }
 }

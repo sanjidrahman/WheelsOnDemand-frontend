@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { userModel } from 'src/app/models/user.model';
+import { IUserModel } from 'src/app/models/user.model';
 import { loaduser } from 'src/app/store/state/app.actions';
 import { getuser } from 'src/app/store/state/app.selectors';
 
@@ -13,9 +13,9 @@ import { getuser } from 'src/app/store/state/app.selectors';
 })
 export class AdminDashboarddComponent implements OnInit {
 
-  users! : userModel[]
+  users! : IUserModel[]
 
-  constructor(private _store : Store<{userlist: userModel[]}>) {}
+  constructor(private _store : Store<{userlist: IUserModel[]}>) {}
 
   ngOnInit(): void {
     // this.store.dispatch(loaduser())

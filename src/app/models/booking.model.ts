@@ -1,4 +1,4 @@
-export interface bookingModel {
+export interface IBookingModel {
     _id: string
     userId: any
     vehicleId: any
