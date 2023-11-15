@@ -25,10 +25,11 @@
             <mat-step [stepControl]="pickupLocation">
                 <form [formGroup]="pickupLocation">
                     <ng-template matStepLabel>Select Pickup Location</ng-template>
-                    <mat-form-field>
+                    <app-place-autocomplete></app-place-autocomplete>
+                    <!-- <mat-form-field>
                         <mat-label>Pickup Location</mat-label>
                         <input matInput formControlName="pickup" required>
-                    </mat-form-field>
+                    </mat-form-field> -->
                     <!-- <ng-template matStepLabel>Select Pickup Location</ng-template>
                     <mat-form-field>
                         <mat-label>Pickup State</mat-label>

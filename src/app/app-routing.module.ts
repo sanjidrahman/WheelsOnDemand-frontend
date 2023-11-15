@@ -14,7 +14,6 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
 import { BookingsComponent } from './user/bookings/bookings.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { UserProfileBookingDetailsComponent } from './user/user-profile-booking-details/user-profile-booking-details.component';
-import { ImageCropperComponent } from './user/image-cropper/image-cropper.component';
 import { ischoiceGuard } from './user/guards/ischoice-guard.guard';
 import { ViewAllReviewsComponent } from './user/view-all-reviews/view-all-reviews.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -40,7 +39,6 @@ const routes: Routes = [
     ]
   },
   { path: 'booking-details/:b_id', title: 'Booking Details', component: UserProfileBookingDetailsComponent },
-  { path: 'crop', component: ImageCropperComponent },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'host', loadChildren: () => import('./host/host.module').then(m => m.HostModule) },
   { path: '**', pathMatch: 'full', component: NotFoundComponent },
