@@ -37,7 +37,6 @@ export class BookingSuccessComponent implements OnInit, OnDestroy {
       this._service.getBookDetails(bookingId).subscribe({
         next: (res) => {
           this.booking = res
-          console.log(this.booking);
         },
         error: (err) => {
           console.log(err);

@@ -11,6 +11,7 @@ import { userState, vehicleState } from 'src/app/store/state/app.state';
 import jwt_decode from 'jwt-decode';
 import { environment } from 'src/environments/environment.development';
 import { UserService } from '../services/user.service';
+import { sub } from 'date-fns/fp';
 
 declare var Razorpay: any;
 
@@ -37,7 +38,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   v_price!: number;
   sgst!: number;
   cgst!: number;
-  grandTotal!: number;
+  subTotal!: number
+  grandTotal: number = 0
   userName!: string | undefined;
   userPhone!: number | undefined;
   userEmail!: string | undefined;
@@ -113,6 +115,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
       this.sgst = Math.floor((this.v_price * 14) / 100)
       this.cgst = Math.floor((this.v_price * 14) / 100)
+      this.subTotal = this.v_price + this.cgst + this.sgst
       this.grandTotal = this.v_price + this.cgst + this.sgst
 
     }, 100)
@@ -127,13 +130,39 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
     if (this.useWallet) {
       if (this.userWallet) {
-        this.grandTotal -= this.userWallet;
+        this.grandTotal < this.userWallet ? this.grandTotal = 0 : this.grandTotal -= this.userWallet 
       }
     } else {
       if (this.userWallet) {
-        this.grandTotal += this.userWallet;
+        this.grandTotal < this.userWallet ? this.grandTotal = this.subTotal : this.grandTotal += this.userWallet 
       }
     }
+  }
+
+  bookNow() {
+    const bookingDetails = {
+      vehicleId: this.v_id,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      pickup: this.pickup,
+      dropoff: this.dropoff,
+      total: this.subTotal,
+      grandTotal: this.grandTotal,
+      paymentMethod: 'wallet'
+    }
+
+    this.subscribe.add(
+      this._service.bookVehicle(bookingDetails).subscribe({
+        next: (res: any) => {
+          this._router.navigate(['booking-success', res.bookingId, this.v_id])
+          this._toastr.success('Booked Successsfully !')
+        },
+        error: (err) => {
+          console.log(err);
+          this._toastr.error('Something went wrong', err.error.message)
+        }
+      })
+    )
   }
 
   payNow() {
@@ -181,10 +210,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       endDate: this.endDate,
       pickup: this.pickup,
       dropoff: this.dropoff,
-      total: this.v_price,
+      total: this.subTotal,
       grandTotal: this.grandTotal,
-      razorId: res
+      razorId: res,
+      paymentMethod: 'razor'
     }
+
+    if (this.useWallet) bookingDetails.paymentMethod = 'razor n wallet'
 
     this.subscribe.add(
       this._service.bookVehicle(bookingDetails).subscribe({
