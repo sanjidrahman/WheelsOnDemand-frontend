@@ -46,6 +46,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { AdminBookingListComponent } from './admin-booking-list/admin-booking-list.component';
 import { SharedModule } from '../shared-module/shared.module';
 import { AdminBookingDetailsComponent } from './admin-booking-details/admin-booking-details.component';
+import { ChartModule } from 'primeng/chart';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import { AdminBookingDetailsComponent } from './admin-booking-details/admin-book
     GalleryModule,
     LightboxModule,
     MatStepperModule,
-    SharedModule
+    SharedModule,
+    ChartModule
   ],
   providers: [AdminService , MessageService],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]
