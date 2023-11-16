@@ -3,7 +3,7 @@
 <div class="background-image">
     <!-- <div class="center-card"> -->
     <div class="card">
-        <mat-stepper orientation="vertical" [linear]="isLinear" #stepper animationDuration="1000">
+        <mat-stepper orientation="vertical" [linear]="!isLinear" #stepper animationDuration="1000">
             <mat-step [stepControl]="rangeSelect">
                 <form [formGroup]="rangeSelect">
                     <ng-template matStepLabel>Select Date</ng-template>
@@ -25,43 +25,9 @@
             <mat-step [stepControl]="pickupLocation">
                 <form [formGroup]="pickupLocation">
                     <ng-template matStepLabel>Select Pickup Location</ng-template>
-                    <app-place-autocomplete></app-place-autocomplete>
-                    <!-- <mat-form-field>
-                        <mat-label>Pickup Location</mat-label>
-                        <input matInput formControlName="pickup" required>
-                    </mat-form-field> -->
-                    <!-- <ng-template matStepLabel>Select Pickup Location</ng-template>
-                    <mat-form-field>
-                        <mat-label>Pickup State</mat-label>
-                        <input type="text" matInput formControlName="pickup" [formControl]="statectrl"
-                            [matAutocomplete]="auto" class="example-input">
-                        <mat-autocomplete #auto="matAutocomplete">
-                            <mat-option *ngFor="let c of filteredstate | async" [value]="c">
-                                {{ c.name }}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field> -->
-                    <!-- <mat-form-field class="mx-2">
-                        <mat-label>Pickup Location</mat-label>
-                        <mat-select formControlName="pickupcity" [disabled]="disable">
-                            <mat-option *ngFor="let f of city" [value]="f">
-                                {{ f.name }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field> -->
-                    <div>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button matStepperNext>Next</button>
+                    <div class="mt-3">
+                        <app-place-autocomplete (placeSelected)="onPlaceSelected($event)"></app-place-autocomplete>
                     </div>
-                </form>
-            </mat-step>
-            <mat-step [stepControl]="dropLocation">
-                <form [formGroup]="dropLocation">
-                    <ng-template matStepLabel>Select Dropoff Location</ng-template>
-                    <mat-form-field>
-                        <mat-label>Dropoff Location</mat-label>
-                        <input matInput formControlName="dropoff" required>
-                    </mat-form-field>
                     <div>
                         <button mat-button matStepperPrevious>Back</button>
                         <button mat-button matStepperNext>Next</button>

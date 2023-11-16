@@ -97,7 +97,6 @@ export class LoginRegisterComponent implements OnInit , OnDestroy {
       return
     } else {
       let regUser = this.registerForm.value
-      console.log(regUser);
       this._service.registerUser(regUser).subscribe((res) => {
         console.log(res , "Res");
         // if(res.status == 200) {

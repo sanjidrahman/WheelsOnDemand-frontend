@@ -100,6 +100,7 @@ import { PlaceAutocompleteComponent } from './user/place-autocomplete/place-auto
     BookingCancelReasonComponent,
     ViewAllReviewsComponent,
     NotFoundComponent,
+    PlaceAutocompleteComponent,
     // CapitalizePipePipe
   ],
   imports: [

@@ -25,6 +25,7 @@ export class SelectDateComponent implements OnInit, OnDestroy {
   city!: ICity[]
   filteredstate!: Observable<IState[]>
   disable: boolean = true;
+  address: any
   private subscribe = new Subscription()
 
   constructor(
@@ -44,40 +45,12 @@ export class SelectDateComponent implements OnInit, OnDestroy {
 
     this.pickupLocation = this._fb.group({
       pickup: ['', [Validators.required]],
-      // pickupcity: [{ value: '', disabled: this.disable }, Validators.required]
     })
-
-    this.dropLocation = this._fb.group({
-      dropoff: ['', Validators.required]
-    })
-
-    this.state = State.getAllStates().filter(item => item.countryCode == 'IN');
-
-    this.statectrl = new FormControl()
-    this.filteredstate = this.statectrl.valueChanges
-    .pipe(
-      startWith(''),
-      map(state => state ? this.filterStates(state) : this.state.slice())
-    )
 
   }
 
-  filterStates(stateInput: string): IState[] {
-    console.log(stateInput , "FILTER");
-    const filterValue = stateInput.toLowerCase();
-    return this.state.filter(state => state.name.toLowerCase().startsWith(filterValue));
-  }
-
-  valid() {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const pickup = control.value;
-      console.log(pickup , 'pp');
-      if (pickup) {
-        this.city = City.getCitiesOfState('IN', pickup.isoCode)
-        this.disable = false
-      }
-      return null;
-    };
+  onPlaceSelected(place: string) {
+    this.pickupLocation.get('pickup')?.setValue(place)
   }
 
   addMonthsToDate(date: Date, months: number) {
@@ -87,17 +60,16 @@ export class SelectDateComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    if (this.rangeSelect.invalid && this.pickupLocation.invalid && this.dropLocation.invalid) {
+    if (this.rangeSelect.invalid && this.pickupLocation.invalid) {
       return
     } else {
       const dateDate = this.rangeSelect.getRawValue()
       const pickupData = this.pickupLocation.getRawValue()
-      const dropoffData = this.dropLocation.getRawValue()
       const queryParams = {
         startDate: dateDate.startDate,
         endDate: dateDate.endDate,
         pickup: pickupData.pickup,
-        dropoff: dropoffData.dropoff,
+        dropoff: pickupData.pickup,
       };
 
       this.subscribe.add(

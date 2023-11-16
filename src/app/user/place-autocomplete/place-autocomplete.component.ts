@@ -1,26 +1,45 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+declare var google: any;
+
 
 @Component({
   selector: 'app-place-autocomplete',
-  standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './place-autocomplete.component.html',
   styleUrl: './place-autocomplete.component.css'
 })
 export class PlaceAutocompleteComponent implements AfterViewInit {
-  @ViewChild('inputField') inputField!: ElementRef
-  @Input() placeholder = ''
-  autocomplete: google.maps.places.Autocomplete | undefined
+
+  @ViewChild('autocomplete') autocomplete!: ElementRef;
+  @Output() placeSelected = new EventEmitter<string>();
 
   ngAfterViewInit(): void {
-    this.autocomplete = new google.maps.places.Autocomplete(this.inputField.nativeElement);
-    this.autocomplete.addListener('place_changed', () => {
-      const places = this.autocomplete?.getPlace();
-      console.log(places);
-    })
+    this.initMap()
+  }
+
+  initMap() {
+    const inputElement = this.autocomplete.nativeElement;
+    const autocomplete = new google.maps.places.Autocomplete(
+      inputElement,
+      {
+        types: ['establishment'],
+        componentRestrictions: { 'country': ['IN'] },
+        fields: ['place_id', 'geometry', 'name'],
+      });
+
+    autocomplete.addListener('place_changed', () => {
+      this.onSelected(autocomplete);
+    });
+  }
+
+  onSelected(autocomplete: any) {
+    const inputElement = this.autocomplete.nativeElement;
+    const place = autocomplete.getPlace();
+
+    if (!place.geometry) {
+      inputElement.placeholder = 'Enter your location...';
+    } else {
+      this.placeSelected.emit(place.name);
+    }
   }
 
 }

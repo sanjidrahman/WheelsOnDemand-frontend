@@ -22,7 +22,8 @@
                             <mat-expansion-panel-header>
                                 <mat-panel-title>Fuel</mat-panel-title>
                             </mat-expansion-panel-header>
-                            <mat-radio-group [(ngModel)]="fuelSelected" (change)="onfuelSelected($event)" class="vertical-radio-group">
+                            <mat-radio-group [(ngModel)]="fuelSelected" (change)="onfuelSelected($event)"
+                                class="vertical-radio-group">
                                 <mat-radio-button *ngFor="let fuel of fuelOptions" [value]="fuel">
                                     {{ fuel }}
                                 </mat-radio-button>
@@ -46,7 +47,7 @@
                 </div>
             </div>
             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 main2">
-                <div class="card mt-3" *ngIf="userChoices">
+                <div class="card mt-3">
                     <div class="d-flex justify-content-end">
                         <a class="edit-icon" (click)="edit()"><i class="fas fa-pencil-alt"></i></a>
                     </div>
@@ -59,8 +60,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="pickuplocation1">Pickup Location</label>
-                                        <input type="text" id="pickuplocation1" class="form-control"
-                                            [(ngModel)]="pickup" [readonly]="!isEditable">
+                                        <input type="text" #autocomplete class="form-control" [(ngModel)]="pickup"
+                                            placeholder="Enter your location.." [readonly]="!isEditable">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -68,7 +69,7 @@
                                     <div class="form-group">
                                         <label for="pickuplocation2">Dropoff Location</label>
                                         <input type="text" id="pickuplocation2" class="form-control"
-                                            [(ngModel)]="dropoff" [readonly]="!isEditable">
+                                            [(ngModel)]="pickup" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +98,8 @@
                     </div>
                 </div>
                 <app-vehicle-list [startDateChild]="startDate" [endDateChild]="endDate" [pickupChild]="pickup"
-                    [dropoffChild]="dropoff" [daysChild]="days" [transmissionChild]="transmissionSelected" [fuelChild]="fuelSelected">
+                    [dropoffChild]="dropoff" [daysChild]="days" [transmissionChild]="transmissionSelected"
+                    [fuelChild]="fuelSelected">
                 </app-vehicle-list>
             </div>
         </div>

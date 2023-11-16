@@ -138,29 +138,29 @@ export class UserService {
   }
 
 
-  initMap() {
-    const myLatlng = { lat: -25.363, lng: 131.044 };
-    const map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-      center: myLatlng,
-    });
+  // initMap() {
+  //   const myLatlng = { lat: -25.363, lng: 131.044 };
+  //   const map = new google.maps.Map(document.getElementById('autocomplete'), {
+  //     zoom: 4,
+  //     center: myLatlng,
+  //   });
 
-    let infoWindow = new google.maps.InfoWindow({
-      content: 'Click the map to get Lat/Lng!',
-      position: myLatlng,
-    });
+  //   let infoWindow = new google.maps.InfoWindow({
+  //     content: 'Click the map to get Lat/Lng!',
+  //     position: myLatlng,
+  //   });
 
-    infoWindow.open(map);
+  //   infoWindow.open(map);
 
-    map.addListener('click', (mapsMouseEvent: any) => {
-      infoWindow.close();
-      infoWindow = new google.maps.InfoWindow({
-        position: mapsMouseEvent.latLng,
-      });
-      infoWindow.setContent(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
-      infoWindow.open(map);
-    });
-  }
+  //   map.addListener('click', (mapsMouseEvent: any) => {
+  //     infoWindow.close();
+  //     infoWindow = new google.maps.InfoWindow({
+  //       position: mapsMouseEvent.latLng,
+  //     });
+  //     infoWindow.setContent(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
+  //     infoWindow.open(map);
+  //   });
+  // }
 
 
 }

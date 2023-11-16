@@ -18,6 +18,7 @@ import { ischoiceGuard } from './user/guards/ischoice-guard.guard';
 import { ViewAllReviewsComponent } from './user/view-all-reviews/view-all-reviews.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
+import { PlaceAutocompleteComponent } from './user/place-autocomplete/place-autocomplete.component';
 
 const routes: Routes = [
   { path: '', title: 'Home', component: HomeComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'booking-success/:b_id/:v_id', title: 'Booking Success', component: BookingSuccessComponent },
   { path: 'view-reviews/:v_id', title: 'View Reviews', component: ViewAllReviewsComponent },
   { path: 'reset-password/:u_id', title: 'Reset Password', component: ResetPasswordComponent },
+  { path: 'map', title: 'Map', component: PlaceAutocompleteComponent },
   {
     path: 'user-profile', title: 'Profile', component: UserProfileComponent, children: [
       { path: 'bookings', component: BookingsComponent },

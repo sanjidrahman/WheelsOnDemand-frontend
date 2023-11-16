@@ -1,21 +1,20 @@
-import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Observable, Subscription, map, shareReplay } from 'rxjs';
+import { Component, OnDestroy, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { IUserModel } from 'src/app/models/user.model';
-import { userState } from 'src/app/store/state/app.state';
 import jwt_decode from "jwt-decode";
-import { retrieveuser } from 'src/app/store/state/app.actions';
-import { getuser } from 'src/app/store/state/app.selectors';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatRadioChange } from '@angular/material/radio';
+declare var google: any;
 
 @Component({
   selector: 'app-vehicles',
   templateUrl: './vehicles.component.html',
   styleUrls: ['./vehicles.component.css']
 })
-export class VehiclesComponent implements OnInit, OnDestroy {
+export class VehiclesComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  @ViewChild('autocomplete') autocomplete!: ElementRef;
 
   startDate!: Date
   endDate!: Date
@@ -38,7 +37,6 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   private subscribe = new Subscription();
 
   constructor(
-    private _store: Store<userState>,
     private _service: UserService,
     private _toastr: ToastrService
   ) { }
@@ -52,6 +50,10 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     sixMonthsFromNow.setMonth(sixMonthsFromNow.getMonth() + 6);
     this.minDate = today.toISOString().split('T')[0];
     this.maxDate = sixMonthsFromNow.toISOString().split('T')[0];
+  }
+
+  ngAfterViewInit(): void {
+    
   }
 
   // initializes the values to the templete by retrieving from service
@@ -76,7 +78,6 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   showDetails() {
     if (this.userChoices) {
       this.pickup = this.userChoices.pickup
-      this.dropoff = this.userChoices.dropoff
       this.startDate = new Date(this.userChoices.startDate)
       this.endDate = new Date(this.userChoices.endDate)
       this.formattedStartDate = this.startDate.toISOString().split('T')[0]
@@ -94,6 +95,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   }
 
   edit() {
+    this.initMap()
     this.isEditable = true
   }
 
@@ -115,7 +117,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
       startDate: this.formattedStartDate,
       endDate: this.formattedEndDate,
       pickup: this.pickup,
-      dropoff: this.dropoff
+      dropoff: this.pickup
     }
     if (this.formattedEndDate <= this.formattedStartDate) {
       this._toastr.error('Droppoff date cannot be lesser or equal to start date')
@@ -132,6 +134,34 @@ export class VehiclesComponent implements OnInit, OnDestroy {
           }
         })
       )
+    }
+  }
+
+
+  // initializing map autocompletion
+  initMap() {
+    const inputElement = this.autocomplete?.nativeElement;
+    const autocomplete = new google.maps.places.Autocomplete(
+      inputElement,
+      {
+        types: ['establishment'],
+        componentRestrictions: { 'country': ['IN'] },
+        fields: ['place_id', 'geometry', 'name'],
+      });
+
+    autocomplete.addListener('place_changed', () => {
+      this.onSelected(autocomplete);
+    });
+  }
+
+  onSelected(autocomplete: any) {
+    const inputElement = this.autocomplete.nativeElement;
+    const place = autocomplete.getPlace();
+
+    if (!place.geometry) {
+      inputElement.placeholder = 'Enter your location...';
+    } else {
+      this.pickup = place.name
     }
   }
 
