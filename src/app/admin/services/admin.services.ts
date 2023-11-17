@@ -22,6 +22,12 @@ export class AdminService {
     })
   }
 
+  getDashboardData() {
+    return this._http.get(`${this.commonUrl}/admin/dashboard` , {
+      withCredentials: true
+    })
+  }
+
   getAllUser(): Observable<IUserModel[]> {
     return this._http.get<IUserModel[]>(`${this.commonUrl}/admin/users`, {
       withCredentials: true

@@ -31,6 +31,12 @@ export class HostService {
     });
   }
 
+  getDashboard() {
+    return this._http.get(`${ this.commonUrl }/host/dashboard` , {
+      withCredentials: true
+    })
+  }
+
   verifyHost(otp: any) {
     return this._http.post(`${this.commonUrl}/host/verify-otp`, otp, {
       withCredentials: true
