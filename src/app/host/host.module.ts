@@ -44,6 +44,9 @@ import { GalleryModule } from 'ng-gallery';
 import { HostBookingsComponent } from './host-bookings/host-bookings.component';
 import { HostBookingsDetailsComponent } from './host-bookings-details/host-bookings-details.component';
 import { SharedModule } from '../shared-module/shared.module';
+import { ChartModule } from 'primeng/chart';
+import { HostMailVerifyComponent } from './host-forgot-password/host-mail-verify/host-mail-verify.component';
+import { HostResetPasswordComponent } from './host-forgot-password/host-forgot-password/host-reset-password.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +64,8 @@ import { SharedModule } from '../shared-module/shared.module';
     HostEditVehicleComponent,
     HostBookingsComponent,
     HostBookingsDetailsComponent,
+    HostMailVerifyComponent,
+    HostResetPasswordComponent,
   ],
   imports: [
     HttpClientModule,
@@ -94,7 +99,8 @@ import { SharedModule } from '../shared-module/shared.module';
     GalleryModule,
     LightboxModule,
     MatStepperModule,
-    SharedModule
+    SharedModule,
+    ChartModule
   ],
   providers:[HostService],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]

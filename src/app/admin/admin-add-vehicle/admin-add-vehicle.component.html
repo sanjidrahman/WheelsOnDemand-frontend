@@ -5,88 +5,106 @@
     <mat-stepper [linear]="!isLinear" #stepper>
         <mat-step [stepControl]="vehicleForm" label="Upload Vehicle Details">
             <form [formGroup]="vehicleForm" #form="ngForm">
-                <div class="col-lg-12 mb-4 mb-sm-5">
-                    <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
-                        <div class="row">
-                            <div class="col-lg-6 px-xl-10">
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Name</mat-label>
-                                        <input formControlName="name" matInput>
-                                    </mat-form-field>
-                                    <div *ngIf="form.submitted && vehicleForm.controls['name'].errors"
-                                        class="text-danger">
-                                        <p *ngIf="form.submitted && vehicleForm.controls['name'].errors['minlength']">
-                                            Name should have min 4 characters
-                                        </p>
+                <div class="row">
+                    <div class="col-lg-12 mb-4 mb-sm-5">
+                        <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                            <div class="row">
+                                <div class="col-lg-6 px-xl-10">
+                                    <div>
+                                        <mat-form-field appearance="outline" class="example-full-width">
+                                            <mat-label>Name</mat-label>
+                                            <input formControlName="name" matInput>
+                                        </mat-form-field>
+                                        <div *ngIf="form.submitted && vehicleForm.controls['name'].errors"
+                                            class="text-danger">
+                                            <p
+                                                *ngIf="form.submitted && vehicleForm.controls['name'].errors['minlength']">
+                                                Name should have min 4 characters
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <mat-form-field appearance="outline" class="example-full-width">
+                                            <mat-label>Brand</mat-label>
+                                            <input formControlName="brand" matInput>
+                                        </mat-form-field>
+                                        <div *ngIf="form.submitted && vehicleForm.controls['brand'].errors"
+                                            class="text-danger">
+                                            <p
+                                                *ngIf="form.submitted && vehicleForm.controls['brand'].errors['minlength']">
+                                                Brand should have min 3 characters
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <mat-form-field appearance="outline" class="example-full-width">
+                                            <mat-label>Model</mat-label>
+                                            <input formControlName="model" maxlength="4" matInput>
+                                        </mat-form-field>
+                                        <div *ngIf="form.submitted && vehicleForm.controls['model'].errors"
+                                            class="text-danger">
+                                            <p
+                                                *ngIf="form.submitted && vehicleForm.controls['model'].errors['pattern']">
+                                                Model should be digits
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <mat-form-field appearance="outline" class="example-full-width">
+                                            <mat-label>Transmission</mat-label>
+                                            <mat-select formControlName="transmission">
+                                                <mat-option *ngFor="let t of transmission" [value]="t">
+                                                    {{ t }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field appearance="outline" class="example-full-width">
+                                            <mat-label>Fuel</mat-label>
+                                            <mat-select formControlName="fuel">
+                                                <mat-option *ngFor="let f of fuel" [value]="f">
+                                                    {{ f }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field appearance="outline" class="example-full-width">
+                                            <mat-label>Location</mat-label>
+                                            <input id="admin-add-input" placeholder="Enter a location..." matInput>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field appearance="outline" class="example-full-width">
+                                            <mat-label>Price / day</mat-label>
+                                            <input formControlName="price" matInput>
+                                        </mat-form-field>
+                                        <div *ngIf="form.submitted && vehicleForm.controls['price'].errors"
+                                            class="text-danger">
+                                            <p
+                                                *ngIf="form.submitted && vehicleForm.controls['price'].errors['pattern']">
+                                                Price should be digits
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button mat-raised-button color="primary" matStepperNext>Next</button>
                                     </div>
                                 </div>
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Brand</mat-label>
-                                        <input formControlName="brand" matInput>
-                                    </mat-form-field>
-                                    <div *ngIf="form.submitted && vehicleForm.controls['brand'].errors"
-                                        class="text-danger">
-                                        <p *ngIf="form.submitted && vehicleForm.controls['brand'].errors['minlength']">
-                                            Brand should have min 3 characters
-                                        </p>
+                                <div class="col-lg-6">
+                                    <div id="admin-add-map"></div>
+                                    <span>
+                                        <button id="current-btn" (click)="currentLocation()"
+                                            class="btn btn-md btn-neutral">
+                                            Get Current Location
+                                        </button>
+                                    </span>
+                                    <div id="infowindow-content">
+                                        <span id="place-name" class="title"></span><br />
+                                        <span id="place-address"></span>
                                     </div>
                                 </div>
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Model</mat-label>
-                                        <input formControlName="model" maxlength="4" matInput>
-                                    </mat-form-field>
-                                    <div *ngIf="form.submitted && vehicleForm.controls['model'].errors"
-                                        class="text-danger">
-                                        <p *ngIf="form.submitted && vehicleForm.controls['model'].errors['pattern']">
-                                            Model should be digits
-                                        </p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Transmission</mat-label>
-                                        <mat-select formControlName="transmission">
-                                            <mat-option *ngFor="let t of transmission" [value]="t">
-                                                {{ t }}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Fuel</mat-label>
-                                        <mat-select formControlName="fuel">
-                                            <mat-option *ngFor="let f of fuel" [value]="f">
-                                                {{ f }}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Location</mat-label>
-                                        <input formControlName="location" matInput>
-                                    </mat-form-field>
-                                </div>
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Price / day</mat-label>
-                                        <input formControlName="price" matInput>
-                                    </mat-form-field>
-                                    <div *ngIf="form.submitted && vehicleForm.controls['price'].errors"
-                                        class="text-danger">
-                                        <p *ngIf="form.submitted && vehicleForm.controls['price'].errors['pattern']">
-                                            Price should be digits
-                                        </p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button mat-raised-button color="primary" matStepperNext>Next</button>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -109,7 +127,7 @@
                 </div>
                 <div class="mt-4">
                     <button class="me-2" mat-raised-button matStepperPrevious>Back</button>
-                    <button mat-raised-button (click)="click()" matStepperNext>Next</button>
+                    <button mat-raised-button matStepperNext>Next</button>
                 </div>
             </form>
         </mat-step>
@@ -120,7 +138,7 @@
                         <button (click)="fileInputSingle.click()" mat-raised-button color="primary">Upload Photos
                             <input #fileInputSingle formControlName="secondCtrl" (change)="getDocument($event)"
                                 style="opacity: 0; position:absolute; left:0px; top:0px; width:100%; height:100%;"
-                                type="file"/>
+                                type="file" />
                         </button>
                         <ul *ngIf="document">
                             <li class="mt-3">{{ document.name }}</li>
@@ -128,116 +146,10 @@
                     </mat-card>
                 </div>
                 <div class="mt-4">
-                    <button class="me-2" mat-raised-button (click)="stepper.reset()">Reset</button>
+                    <button class="me-2" mat-raised-button>Reset</button>
                     <button mat-raised-button (click)="onSubmit()">Save</button>
                 </div>
             </form>
         </mat-step>
     </mat-stepper>
 </div>
-
-
-
-<!-- <div class="container py-3">
-    <div>
-        <h1 class="mx-2">Add Vehicle</h1>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 mb-4 mb-sm-5">
-            <div class="card card-style1 border-0">
-                <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
-                    <div class="row">
-                        <div class="col-lg-5 mb-4 mb-lg-0">
-                            <mat-card class="input-container">
-                                <button (click)="fileInput.click()" mat-raised-button color="primary">Upload Photos
-                                    <input #fileInput multiple (change)="getFile($event)"
-                                        style="opacity: 0; position:absolute; left:0px; top:0px; width:100%; height:100%;"
-                                        type="file" />
-                                </button>
-                                <ul *ngFor="let file of files">
-                                    <li class="mt-3">{{ file }}</li>
-                                </ul>
-                            </mat-card>
-                        </div>
-                        <div class="col-lg-6 px-xl-10">
-                            <form [formGroup]="vehicleForm" #form="ngForm" (ngSubmit)="onSubmit()">
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Name</mat-label>
-                                        <input formControlName="name" matInput>
-                                    </mat-form-field>
-                                    <div *ngIf="form.submitted && vehicleForm.controls['name'].errors" class="text-danger">
-                                        <p *ngIf="form.submitted && vehicleForm.controls['name'].errors['minlength']">
-                                            Name should have min 4 characters
-                                        </p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Brand</mat-label>
-                                        <input formControlName="brand" matInput>
-                                    </mat-form-field>
-                                    <div *ngIf="form.submitted && vehicleForm.controls['brand'].errors" class="text-danger">
-                                        <p *ngIf="form.submitted && vehicleForm.controls['brand'].errors['minlength']">
-                                            Brand should have min 3 characters
-                                        </p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Model</mat-label>
-                                        <input formControlName="model" maxlength="4" matInput>
-                                    </mat-form-field>
-                                    <div *ngIf="form.submitted && vehicleForm.controls['model'].errors" class="text-danger">
-                                        <p *ngIf="form.submitted && vehicleForm.controls['model'].errors['pattern']">
-                                           Model should be digits
-                                        </p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Transmission</mat-label>
-                                        <mat-select formControlName="transmission">
-                                            <mat-option *ngFor="let t of transmission" [value]="t">
-                                                {{ t }}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Fuel</mat-label>
-                                        <mat-select formControlName="fuel">
-                                            <mat-option *ngFor="let f of fuel" [value]="f">
-                                                {{ f }}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Location</mat-label>
-                                        <input formControlName="location" matInput>
-                                    </mat-form-field>
-                                </div>
-                                <div>
-                                    <mat-form-field appearance="outline" class="example-full-width">
-                                        <mat-label>Price</mat-label>
-                                        <input formControlName="price" matInput>
-                                    </mat-form-field>
-                                    <div *ngIf="form.submitted && vehicleForm.controls['price'].errors" class="text-danger">
-                                        <p *ngIf="form.submitted && vehicleForm.controls['price'].errors['pattern']">
-                                            Price should be digits
-                                        </p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button class="me-2" color="primary" type="submit" mat-raised-button>Save</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->

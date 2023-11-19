@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { UserService } from '../../user/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HostService } from '../../services/host.service';
 
 @Component({
-  selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+  selector: 'app-host-reset-password',
+  templateUrl: './host-reset-password.component.html',
+  styleUrl: './host-reset-password.component.css'
 })
-export class ResetPasswordComponent implements OnInit {
+export class HostResetPasswordComponent implements OnInit, OnDestroy {
 
   hideNewPass = true
   hideConfimPass = true
@@ -21,7 +21,7 @@ export class ResetPasswordComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _toastr: ToastrService,
-    private _service: UserService,
+    private _service: HostService,
     private _activatedroute: ActivatedRoute,
     private _router: Router,
   ) { }
@@ -53,11 +53,11 @@ export class ResetPasswordComponent implements OnInit {
       return
     } else {
       const newPass = this.resetPassForm.getRawValue()
-      const userid = this._activatedroute.snapshot.paramMap.get('u_id')
+      const userid = this._activatedroute.snapshot.paramMap.get('h_id')
       this.subscribe.add(
         this._service.resetPass(userid, newPass).subscribe({
           next: () => {
-            this._router.navigate(['/login'])
+            this._router.navigate(['/host'])
             this._toastr.success('Password changed successfully')
           },
           error: (err) => {
@@ -68,5 +68,8 @@ export class ResetPasswordComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subscribe.unsubscribe()
+  }
 
 }

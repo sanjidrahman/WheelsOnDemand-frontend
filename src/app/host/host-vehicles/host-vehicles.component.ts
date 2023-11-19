@@ -1,10 +1,6 @@
-import { Observable, Subscription, find, map } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
 import { IVehicleModel } from '../../../../src/app/models/vehicle.model';
-import { vehicleState } from '../../../../src/app/store/state/app.state';
-import { retrievevehicles } from '../../../../src/app/store/state/app.actions';
-import { getvehicles } from '../../../../src/app/store/state/app.selectors';
 import jwt_decode from "jwt-decode";
 import { HostService } from '../services/host.service';
 import { environment } from 'src/environments/environment.development';
@@ -18,29 +14,55 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HostVehiclesComponent implements OnInit {
 
+  totalPage!: number
+  currentPage: number = 1
   hostVehicles!: IVehicleModel[]
   token!: any
   private subscribe = new Subscription()
 
   constructor(
     private _service: HostService,
-    private _store: Store<vehicleState>,
     private _ngConfirm: NgConfirmService,
     private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
-    this._service.hostVehicle().subscribe((res) => {
-      this.hostVehicles = res
+    this._service.hostVehicle().subscribe((res: any) => {
+      this.hostVehicles = res.vehicle
+      this.totalPage = res.totalPage
     })
-    const token = localStorage.getItem('hostToken')
-    if(token) this.token = jwt_decode(token) 
-    // this._store.dispatch(retrievevehicles())
-    // this.hostVehicles = this._store.pipe(
-    //   select(getvehicles),
-    //   map(v => v.find(vehicle => vehicle.createdBy == this.token.id)))
-    //   console.log(this.hostVehicles);
   }
+
+  // --------------- pagination --------------- 
+  pageArr() {
+    const limit = 5; 
+    const start = Math.max(1, this.currentPage - Math.floor(limit / 2));
+    const end = Math.min(start + limit - 1, this.totalPage);
+  
+    return Array.from({ length: end - start + 1 }, (_, index) => start + index);
+  }
+
+  callPag(page: number) {
+    this.currentPage = page
+    this.subscribe.add(
+      this._service.hostVehicle(page).subscribe((res: any) => {
+        this.hostVehicles = res.vehicle
+      })
+    )
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPage) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+  // -------------------------------------------
 
   update() {
     this._service.hostVehicle().subscribe((res) => {

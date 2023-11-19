@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IBookingModel } from 'src/app/models/booking.model';
@@ -29,6 +29,18 @@ export class HostService {
     return this._http.post(`${this.commonUrl}/host/auth/login`, idToken, {
       withCredentials: true
     });
+  }
+
+  forgotPass(email: string) {
+    return this._http.post(`${this.commonUrl}/host/forgot-password`,  email , {
+      withCredentials: true
+    })
+  }
+
+  resetPass(id: string | null, resetData: any) {
+    return this._http.patch(`${this.commonUrl}/host/reset-password/${id}` , resetData , {
+      withCredentials: true
+    })
   }
 
   getDashboard() {
@@ -97,8 +109,11 @@ export class HostService {
     })
   }
 
-  hostVehicle() : Observable<IVehicleModel[]> {
+  hostVehicle(page?: number) : Observable<IVehicleModel[]> {
+    let params = new HttpParams()
+    if(page) params = params.append('page', page)
     return this._http.get<IVehicleModel[]>(`${this.commonUrl}/host/host-vehicles` , {
+      params,
       withCredentials: true
     })
   }

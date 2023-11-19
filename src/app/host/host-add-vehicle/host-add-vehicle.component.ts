@@ -198,7 +198,6 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
       console.log('location is not supported');
     }
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
       this.getReverseGeocodingData(position.coords.latitude, position.coords.longitude)
     }, (err) => {
       console.log(err);
@@ -215,7 +214,6 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
       }
 
       if (status === google.maps.GeocoderStatus.OK) {
-        console.log(results[0].address_components[0].short_name);
         const place = results[0];
 
         if (place && place.formatted_address) {

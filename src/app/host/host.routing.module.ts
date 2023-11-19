@@ -14,9 +14,14 @@ import { hostGuardGuard } from './host-guard/host-guard.guard';
 import { hostChildGuardGuard } from './host-guard/host-child-guard.guard';
 import { HostBookingsComponent } from './host-bookings/host-bookings.component';
 import { HostBookingsDetailsComponent } from './host-bookings-details/host-bookings-details.component';
+import { HostMailVerifyComponent } from './host-forgot-password/host-mail-verify/host-mail-verify.component';
+import { HostResetPasswordComponent } from './host-forgot-password/host-forgot-password/host-reset-password.component';
+
 
 const routes: Routes = [
-    { path: '', title: 'Host Login', component: HostLoginRegisterComponent, canActivate: [hostGuardGuard] },
+    { path: '', title: 'Host Login', component: HostLoginRegisterComponent, },
+    { path: 'host-mail-verify', title: 'Mail Verify', component: HostMailVerifyComponent },
+    { path: 'reset-password/:h_id', title: 'Reset Password', component: HostResetPasswordComponent },
     {
         path: '', children: [
             { path: 'host-otp-verify', title: 'Host OTP-verification', component: HostOtpCompComponent },

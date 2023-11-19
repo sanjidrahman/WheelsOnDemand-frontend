@@ -2,42 +2,48 @@
   <h1>Dashboard</h1>
   <div class="row ms-1 me-1">
     <div class="col-lg-3">
-      <div class="card shadow p-3 mb-5 bg-white rounded">
+      <div class="card shadow p-3 mb-5 bg-white rounded" style="height: 80%;">
         <div class="card-title border-bottom">
           <h2>Total Revenue</h2>
         </div>
-        <div class="card-body">
-          <h2></h2>
-        </div>
+        <ng-container *ngIf="totalHostRevenue; else noRevenue">
+          <div class="card-body">
+            <h2>{{ totalHostRevenue | currency: 'INR' }}</h2>
+            Note: After 20% deduction
+          </div>
+        </ng-container>
+        <ng-template #noRevenue>
+          <p>No data available.</p>
+        </ng-template>
       </div>
     </div>
     <div class="col-lg-3">
-      <div class="card shadow p-3 mb-5 bg-white rounded">
+      <div class="card shadow p-3 mb-5 bg-white rounded" style="height: 80%;">
         <div class="card-title border-bottom">
           <h2>Booking</h2>
         </div>
         <div class="card-body">
-          <h2></h2>
+          <h2>{{ bookedCount }}</h2>
         </div>
       </div>
     </div>
     <div class="col-lg-3">
-      <div class="card shadow p-3 mb-5 bg-white rounded">
+      <div class="card shadow p-3 mb-5 bg-white rounded" style="height: 80%;">
         <div class="card-title border-bottom">
           <h2>Completed</h2>
         </div>
         <div class="card-body">
-          <h2></h2>
+          <h2>{{ completedCount }}</h2>
         </div>
       </div>
     </div>
     <div class="col-lg-3">
-      <div class="card shadow p-3 mb-5 bg-white rounded">
+      <div class="card shadow p-3 mb-5 bg-white rounded" style="height: 80%;">
         <div class="card-title border-bottom">
           <h2>Cancelled</h2>
         </div>
         <div class="card-body">
-          <h2></h2>
+          <h2>{{ cancelledCount }}</h2>
         </div>
       </div>
     </div>
@@ -45,9 +51,14 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-4">
-        <div class="card flex justify-content-center" style="width: 100%;">
-          <p-chart type="pie" [data]="" [options]=""></p-chart>
-        </div>
+        <ng-container *ngIf="data ; else noChart">
+          <div class="card flex justify-content-center" style="width: 100%;">
+            <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+          </div>
+        </ng-container> 
+        <ng-template #noChart>
+          <p>No data available.</p>
+        </ng-template>
       </div>
       <div class="col-lg-8">
         <div class="card">
@@ -55,29 +66,65 @@
             <h2 class="ms-3 mt-2">Trending Vehicle</h2>
             <hr class="mx-3">
           </div>
-          <div class="card-body mt-3 mb-3">
-            <div class="row">
-              <div class="col-lg-6">
-                <img [src]="" width="100%"
-                  height="250px" alt="">
+          <div class="card-body mt-3 mb-3" [style.height.px]="trendingVehicle ? 'auto' : '282'">
+            <ng-container *ngIf="trendingVehicle; else noTrending">
+              <div class="row">
+                <div class="col-lg-6" *ngIf="trendingVehicle.images">
+                  <img [src]="getImage(trendingVehicle.images ? trendingVehicle.images[0].toString() : '')" width="100%"
+                    height="250px" alt="">
+                </div>
+                <div class="col-lg-6">
+                  <h2>{{ trendingVehicle.brand }} {{ trendingVehicle.name }}</h2>
+                  <h3>Model: <b>{{ trendingVehicle.model }}</b></h3>
+                  <h3>Transmission: <b>{{ trendingVehicle.transmission }}</b></h3>
+                  <h3>Fuel: <b>{{ trendingVehicle.fuel }}</b></h3>
+                  <h3>Price: <b>{{ trendingVehicle.price | currency: 'INR' }}</b></h3>
+                  <h3></h3>
+                </div>
               </div>
-              <div class="col-lg-6">
-                <h2></h2>
-                <h3>Model: <b></b></h3>
-                <h3>Transmission: <b></b></h3>
-                <h3>Fuel: <b></b></h3>
-                <h3>Price: <b></b></h3>
-                <h3></h3>
-              </div>
-            </div>
+            </ng-container>
           </div>
+          <ng-template #noTrending>
+            <p>No data available.</p>
+          </ng-template>
         </div>
       </div>
     </div>
   </div>
   <div class="container mt-5 mb-5">
     <div class="card">
-      <p-chart type="line" [data]="" [options]=""></p-chart>
+      <div class="card-title">
+        <h2 class="mt-1 mx-3">Latest Orders</h2>
+      </div>
+      <div class="card-body">
+        <ng-container *ngIf="latestOrder.length; else noOrders">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Vehicle</th>
+                <th>Booked by</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of latestOrder; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ order.vehicleDetails.brand }} {{ order.vehicleDetails.name }}</td>
+                <td>{{ order.userDetails.name }}</td>
+                <td>{{ order.startDate | date }}</td>
+                <td>{{ order.endDate | date }}</td>
+                <td>{{ order.vehicleDetails.price| currency: 'INR' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+        <ng-template #noOrders>
+          <p>No orders available.</p>
+        </ng-template>
+      </div>
     </div>
   </div>
 </div>

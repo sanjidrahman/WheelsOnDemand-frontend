@@ -1,0 +1,23 @@
+<section>
+    <div class="main">
+        <form [formGroup]="form" #formEmail="ngForm" (ngSubmit)="submit()">
+            <div class="card">
+                <h2>Provide Email for Password Reset</h2>
+                <div class="input-container">
+                    <label for="email">Email Address:</label>
+                    <input matInput formControlName="email" class="mb-3" type="email" id="email" placeholder="Enter your email">
+                </div>
+                <div *ngIf="formEmail.submitted && form.controls['email'].errors" class="text-danger">
+                    <p *ngIf="formEmail.submitted && form.controls['email'].errors['required']">
+                        email is required
+                    </p>
+                    <p *ngIf="formEmail.submitted && form.controls['email'].errors['email']">
+                        invalid email
+                    </p>
+                </div>
+                <button mat-raised-button color="primary" type="submit">send</button>
+            </div>
+        </form>
+    </div>
+</section>
+

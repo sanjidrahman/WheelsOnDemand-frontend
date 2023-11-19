@@ -16,7 +16,7 @@
         <div class="col-md-4" *ngFor="let v of hostVehicles">
             <div class="card">
                 <img [src]="getImage(v.images[0] ? v.images[0].toString() : '')" alt="Vehicle Image" width="250px"
-                    height="250px">
+                    height="200px">
                 <h1>{{ v.brand }} {{ v.name }}</h1>
                 <p class="price">{{ v.price | currency:'INR':'symbol':'1.2-2' }}</p>
                 <div class="card-body">
@@ -49,5 +49,26 @@
                 <button mat-raised-button (click)="deleteVehicle(v._id)" color="warn">Delete</button>
             </div>
         </div>
+    </div>
+    <div class="mt-4 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" aria-label="Previous" (click)="previousPage()" [attr.disabled]="currentPage === 1 ? true : null">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <ng-container *ngFor="let page of pageArr()">
+                  <li class="page-item" [class.active]="page === currentPage">
+                    <a class="page-link" (click)="callPag(page)">{{ page }}</a>
+                  </li>
+                </ng-container>
+                <li class="page-item" [class.disabled]="currentPage === totalPage">
+                  <a class="page-link" aria-label="Next"  (click)="nextPage()" [attr.disabled]="currentPage === totalPage ? true : null">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>              
+        </nav>
     </div>
 </div>

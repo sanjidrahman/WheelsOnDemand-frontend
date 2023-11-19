@@ -37,3 +37,7 @@
     align-content: center;
     text-decoration: none;
 }
+
+a {
+    cursor: pointer;
+}

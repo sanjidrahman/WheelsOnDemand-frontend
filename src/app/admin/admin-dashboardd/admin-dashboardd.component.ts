@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnDestroy, OnInit, inject } from '@angular/co
 import { Store } from '@ngrx/store';
 import { IUserModel } from 'src/app/models/user.model';
 import { AdminService } from '../services/admin.services';
-import { IDashboardModel } from '../../models/admin-dashboard.model';
 import { Subscription } from 'rxjs';
 import { IVehicleModel } from '../../models/vehicle.model';
 import { environment } from '../../../environments/environment.development';
@@ -12,7 +11,7 @@ import { environment } from '../../../environments/environment.development';
   templateUrl: './admin-dashboardd.component.html',
   styleUrls: ['./admin-dashboardd.component.css']
 })
-export class AdminDashboarddComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AdminDashboarddComponent implements OnInit, OnDestroy {
 
   users!: IUserModel[]
   data: any;
@@ -56,10 +55,6 @@ export class AdminDashboarddComponent implements OnInit, AfterViewInit, OnDestro
         }
       })
     )
-
-  }
-
-  ngAfterViewInit(): void {
 
   }
 
