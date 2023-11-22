@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
-import { IVehicleModel } from '../../models/vehicle.model';
+import { IReviewModel, IVehicleModel } from '../../models/vehicle.model';
 import { IBookingModel } from '../../models/booking.model';
 import { IUserModel } from '../../models/user.model';
 declare var google: any;
@@ -113,6 +113,12 @@ export class UserService {
     })
   }
 
+  postReview(review: IReviewModel, v_id: string | null) {
+    return this._http.post(`${this.commonUrl}/user/add-review/${v_id}`, review , {
+      withCredentials: true
+    })
+  }
+
   deleteReview(v_id: string | null, r_id: string | undefined) {
     return this._http.patch(`${this.commonUrl}/user/delete-review/${v_id}`, { r_id }, {
       withCredentials: true
@@ -131,7 +137,19 @@ export class UserService {
     })
   }
 
-  logout() {
+  isBookingCompleted(vid: string | null) {
+    return this._http.post(`${this.commonUrl}/user/isBooked/${vid}`, {
+      withCredentials: true
+    })
+  }
+
+  dfPost() {
+    return this._http.post('http://localhost:3000/webhook', {} , {
+      withCredentials: true
+    })
+  }
+
+  logout() { 
     return this._http.post(`${this.commonUrl}/user/logout`, {}, {
       withCredentials: true
     })

@@ -27,19 +27,22 @@
             <div class="row">
                 <div class="d-flex justify-content-between">
                     <h1>Reviews</h1>
-                    <button mat-raised-button color="primary">Add Review</button>
+                    <div *ngIf="isBookedCompleted">
+                        <button data-bs-toggle="modal" data-bs-target="#exampleModal" mat-raised-button
+                            color="primary">Add Review</button>
+                    </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <ng-container *ngIf="reviews.length > 0; else noReview">
-                            <div class="card-body" *ngFor="let r of reviews">
+                            <div class="card-body" *ngFor="let r of reviews.slice(0,2)">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div>
                                         <img [src]="getImage(r.userId.profile ? r.userId.profile.toString() : '')"
-                                            width="35px" alt="" />
+                                            width="35px" alt=""/>
                                         <h4 class="user-name ms-3">
                                             {{ r.userId.name }}
                                         </h4>
@@ -53,7 +56,16 @@
                                     <h3>
                                         <b>Review : {{ r.review }}</b>
                                     </h3>
-                                    <h3><b>Ratings : Good car nice one</b></h3>
+                                </div> 
+                                <div class="row" *ngIf="r.rating">
+                                    <div class="col-lg-2">
+                                        <h3><b>Ratings :</b></h3>
+                                    </div>
+                                    <div class="col-lg-3" style="margin-left: -129px; margin-top: -5px;" >
+                                        <ng-container *ngFor="let star of rating">
+                                            <img width="37" height="34" src="https://img.icons8.com/fluency/48/star--v1.png" alt="star--v1" />
+                                        </ng-container>
+                                    </div>
                                 </div>
                                 <hr />
                             </div>
@@ -74,3 +86,38 @@
     </div>
 </section>
 <app-footer></app-footer>
+
+
+<div class="modal fade" #exampleModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Review and Rating</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+                    <div class="mb-3">
+                        <label for="reviewText" class="form-label"><b>Review :</b></label>
+                        <textarea class="form-control" id="reviewText" formControlName="review" rows="3"
+                            placeholder="Enter your review"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 12px;">
+                                <label for="rating" class="form-label"><b>Rating :</b></label>
+                            </div>
+                            <div class="col-lg-6">
+                                <ngx-star-rating class="mb-3" formControlName="rating"
+                                    [id]="'rating'"></ngx-star-rating>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" mat-raised-button id="close" class="me-2"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" mat-raised-button id="save" (click)="close()">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

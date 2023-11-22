@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { IReview, IVehicleModel } from '../../models/vehicle.model';
+import { IReviewModel, IVehicleModel } from '../../models/vehicle.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
 import { NgConfirmService } from 'ng-confirm-box';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-view-all-reviews',
@@ -14,9 +15,11 @@ import { NgConfirmService } from 'ng-confirm-box';
 })
 export class ViewAllReviewsComponent implements OnInit, OnDestroy {
 
-  reviews!: IReview[] | any
+  rating!: number[]
+  reviews!: IReviewModel[] | any
   vehicleDetails!: IVehicleModel | undefined
   v_id!: string | null
+  userId!: string
   private subscribe = new Subscription()
 
   constructor(
@@ -27,6 +30,16 @@ export class ViewAllReviewsComponent implements OnInit, OnDestroy {
   ){}
 
   ngOnInit(): void {
+    this.updateData()
+
+    const token = localStorage.getItem('userToken')
+    if(token) {
+      var decoded: any = jwt_decode(token)
+    }
+    this.userId = decoded.id
+  }
+
+  updateData() {
     this.v_id = this._activatedroute.snapshot.paramMap.get('v_id')
 
     this.subscribe.add(
@@ -35,6 +48,11 @@ export class ViewAllReviewsComponent implements OnInit, OnDestroy {
         this.reviews = res.review
       })
     )
+  }
+
+
+  getStarArray(rating: number): number[] {
+    return Array(rating).fill(0).map((_, index) => index + 1);
   }
 
   getImage(file: string) {
@@ -46,6 +64,7 @@ export class ViewAllReviewsComponent implements OnInit, OnDestroy {
       this.subscribe.add(
         this._service.deleteReview(this.v_id, r_id).subscribe({
           next: () => {
+            this.updateData()
             this._toastr.success('Review deleted successfully')
           },
           error: (err) => {

@@ -98,7 +98,6 @@ export class LoginRegisterComponent implements OnInit , OnDestroy {
     } else {
       let regUser = this.registerForm.value
       this._service.registerUser(regUser).subscribe((res) => {
-        console.log(res , "Res");
         // if(res.status == 200) {
           this._router.navigate(['/otp-verify']);
         // }  
@@ -114,10 +113,6 @@ export class LoginRegisterComponent implements OnInit , OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe()
-  }
-
-  click(){
-    console.log(this.registerForm.controls);
   }
 
 }

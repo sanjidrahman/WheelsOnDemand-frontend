@@ -22,6 +22,47 @@
 }
 
 .user-name {
-  padding-left: 40px; 
+  padding-left: 40px;
   margin-top: -23px;
 }
+
+gallery {
+  background-color: white;
+}
+
+gallery-core {
+  background-color: white;
+}
+
+.g-counter {
+  background-color: white;
+}
+
+.g-slider {
+  background-color: white;
+}
+
+gallery-core[autoHeight=true][thumbPosition=bottom] .g-slider {
+  background-color: white;
+}
+
+::ng-deep label.star {
+  font-size: 20px !important;
+}
+
+#close {
+  background-color: rgb(218, 38, 38);
+}
+
+#save {
+  background-color: rgb(20, 188, 20);
+}
+
+.rating {
+  font-size: 24px; 
+}
+
+.filled {
+  color: gold;
+}
+

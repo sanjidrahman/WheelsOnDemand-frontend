@@ -1,0 +1,27 @@
+.car-details {
+  margin-top: 165px;
+}
+
+.review {
+  margin-top: 115px;
+  padding-bottom: 50px;
+}
+
+#book-btn {
+  background-color: #ffc107;
+}
+
+.example-viewport {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+}
+
+.example-item {
+  height: 50px;
+}
+
+.user-name {
+  padding-left: 40px;
+  margin-top: -23px;
+}

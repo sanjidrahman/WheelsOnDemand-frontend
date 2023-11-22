@@ -1,14 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageItem, GalleryItem } from 'ng-gallery';
 import jwt_decode from 'jwt-decode';
 import { Observable, Subscription } from 'rxjs';
-import { IReview, IVehicleModel } from 'src/app/models/vehicle.model';
+import { IReviewModel, IVehicleModel } from 'src/app/models/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 import { UserService } from '../services/user.service';
 import { IChoiceModel } from 'src/app/models/choice.model';
 import { ToastrService } from 'ngx-toastr';
 import { NgConfirmService } from 'ng-confirm-box';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -18,15 +19,20 @@ import { NgConfirmService } from 'ng-confirm-box';
 
 export class VehicleDetailsComponent implements OnInit, OnDestroy {
 
+  @ViewChild('exampleModal', {static: false} ) reviewModal!: ElementRef;
+
+  reviewForm!: FormGroup
+  rating!: number[]
   images: GalleryItem[] = []
   vehicleDetails!: IVehicleModel | undefined
   data!: string[] | undefined
   imageData!: any[]
   userChoices!: IChoiceModel
-  reviews!: IReview[] | any
+  reviews!: IReviewModel[] | any
   v_price!: number
   v_id!: string | null
   userId!: string
+  isBookedCompleted: boolean = true
   private subscribe = new Subscription()
 
   constructor(
@@ -34,30 +40,51 @@ export class VehicleDetailsComponent implements OnInit, OnDestroy {
     private _activatedroute: ActivatedRoute,
     private _toastr: ToastrService,
     private _ngConfirm: NgConfirmService,
+    private _fb: FormBuilder,
   ) { }
 
   ngOnInit() {
-    this.v_id = this._activatedroute.snapshot.paramMap.get('id')
 
-    this.subscribe.add(
-      this._service.getVehicleDetails(this.v_id).subscribe((res: IVehicleModel) => {
-        this.vehicleDetails = res
-        this.reviews = res.review
-        this.handleData()
-      })
-    )
+    this.loadVehicleData()
+   
     this.subscribe.add(
       this._service.getUser().subscribe((res: any) => {
         this.userChoices = res.choices
         this.handleData()
       })
     )
-    
-    const token = localStorage.getItem('userToken');
-    if (token) {
-      const decoded: any = jwt_decode(token) 
-      this.userId = decoded.id
-    } 
+    this.subscribe.add(
+      this._service.isBookingCompleted(this.v_id).subscribe((res: any) => {
+        // this.isBookedCompleted = res.hasCompletedBooking
+      })
+    )
+
+    const token = localStorage.getItem('userToken')
+    if(token) {
+      var decoded: any = jwt_decode(token)
+    }
+    this.userId = decoded.id
+
+    this.reviewForm = this._fb.group({
+      review: ['', Validators.required],
+      rating: ['', Validators.required]
+    })
+
+  }
+
+  loadVehicleData() {
+    this.v_id = this._activatedroute.snapshot.paramMap.get('id')
+
+    this.subscribe.add(
+      this._service.getVehicleDetails(this.v_id).subscribe((res: IVehicleModel) => {
+        this.vehicleDetails = res
+        this.reviews = res.review
+        res.review.forEach((val) => {
+          this.getStarArray(val.rating)
+        })
+        this.handleData()
+      })
+    )
   }
 
   handleData() {
@@ -77,6 +104,10 @@ export class VehicleDetailsComponent implements OnInit, OnDestroy {
 
       this.loadImage();
     }
+  }
+
+  getStarArray(rating: number): void {
+    this.rating = Array(rating).fill(0).map((_, index) => index + 1);
   }
 
   loadImage() {
@@ -107,6 +138,7 @@ export class VehicleDetailsComponent implements OnInit, OnDestroy {
       this.subscribe.add(
         this._service.deleteReview(this.v_id, r_id).subscribe({
           next: () => {
+            this.loadVehicleData()
             this._toastr.success('Review deleted successfully')
           },
           error: (err) => {
@@ -117,6 +149,31 @@ export class VehicleDetailsComponent implements OnInit, OnDestroy {
     }, () => {
       this._ngConfirm.closeConfirm()
     })
+  }
+
+  close() {
+    (this.reviewModal.nativeElement as HTMLElement).style.display = 'none'
+    // this.modalVisible = false
+  }
+
+  submitReview() {
+    if(this.reviewForm.invalid) {
+      return
+    } else {
+      const data = this.reviewForm.getRawValue()
+      this.subscribe.add(
+        this._service.postReview(data, this.v_id).subscribe({
+          error: (err) => {
+            console.log(err);
+            this._toastr.error('Something went wrong')
+          },
+          complete: () => {
+            this.ngOnInit()
+            this._toastr.success('Review uploaded successfully')
+          }
+        })
+      )
+    }
   }
 
   ngOnDestroy(): void {

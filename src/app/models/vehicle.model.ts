@@ -1,8 +1,9 @@
 import { IUserModel } from "./user.model"
 
-export interface IReview  {
+export interface IReviewModel  {
     userId: IUserModel
     review: string
+    rating: number
     _id: string
     replay?: string
 }
@@ -20,5 +21,5 @@ export interface IVehicleModel  {
     isVerified: boolean
     images: string[]
     document: string
-    review: IReview
+    review: IReviewModel[]
 }

@@ -68,6 +68,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ViewAllReviewsComponent } from './user/view-all-reviews/view-all-reviews.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PlaceAutocompleteComponent } from './user/place-autocomplete/place-autocomplete.component';
+import { NgxStarRatingModule } from 'ngx-star-rating';
 
 
 @NgModule({
@@ -140,6 +141,7 @@ import { PlaceAutocompleteComponent } from './user/place-autocomplete/place-auto
     MatRadioModule,
     MatDialogModule,
     ScrollingModule,
+    NgxStarRatingModule
   ],
   providers: [
     {
