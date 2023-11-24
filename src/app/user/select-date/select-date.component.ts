@@ -21,8 +21,6 @@ export class SelectDateComponent implements OnInit, OnDestroy {
   dropLocation!: FormGroup;
   statectrl!: FormControl
   isLinear = true;
-  state!: IState[]
-  city!: ICity[]
   filteredstate!: Observable<IState[]>
   disable: boolean = true;
   address: any
@@ -81,7 +79,7 @@ export class SelectDateComponent implements OnInit, OnDestroy {
             if (err.status == 401) {
               this._toastr.warning('Please login to proceed !', err.error.message)
             } else {
-              this._toastr.error('Something went wrong', err.error.message)
+              this._toastr.error('Something went wrong', err)
             }
           }
         })

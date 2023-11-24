@@ -3,7 +3,8 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -18,7 +19,10 @@ export class AppInterceptor implements HttpInterceptor {
     let hostToken = localStorage.getItem('hostToken')
     if (userToken) {
       let newRequest = request.clone({
-        setHeaders: { Authorization: 'Bearer ' + userToken }
+        headers: new HttpHeaders({
+          'Authorization': 'Bearer ' + userToken,
+          'Sample': 'my-auth-token'
+        })
       })
       return next.handle(newRequest)
     } else if (adminToken) {

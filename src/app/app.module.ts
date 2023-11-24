@@ -69,6 +69,8 @@ import { ViewAllReviewsComponent } from './user/view-all-reviews/view-all-review
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PlaceAutocompleteComponent } from './user/place-autocomplete/place-autocomplete.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
+import { SearchFilterPipe } from './user/pipe/search-filter.pipe';
+import { AngularPaginatorModule } from 'angular-paginator';
 
 
 @NgModule({
@@ -102,7 +104,8 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
     ViewAllReviewsComponent,
     NotFoundComponent,
     PlaceAutocompleteComponent,
-    // CapitalizePipePipe
+    // CapitalizePipePipe,
+    SearchFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -141,7 +144,8 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
     MatRadioModule,
     MatDialogModule,
     ScrollingModule,
-    NgxStarRatingModule
+    NgxStarRatingModule,
+    AngularPaginatorModule
   ],
   providers: [
     {

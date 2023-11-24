@@ -16,6 +16,9 @@
                     </div>
                 </div>
                 <hr>
+                <div class="search">
+                    <input placeholder="Search..." [(ngModel)]="searchText">
+                </div>
                 <div class="filters">
                     <div>
                         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -99,7 +102,7 @@
                 </div>
                 <app-vehicle-list [startDateChild]="startDate" [endDateChild]="endDate" [pickupChild]="pickup"
                     [dropoffChild]="dropoff" [daysChild]="days" [transmissionChild]="transmissionSelected"
-                    [fuelChild]="fuelSelected">
+                    [fuelChild]="fuelSelected" [searchText]="searchText">
                 </app-vehicle-list>
             </div>
         </div>

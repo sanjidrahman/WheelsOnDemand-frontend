@@ -34,6 +34,7 @@ export class VehiclesComponent implements OnInit, OnDestroy, AfterViewInit {
   transmissionOptions: string[] = ['Manual', 'Automatic']
   fuelSelected: string | undefined
   transmissionSelected: string | undefined
+  searchText!:string
   private subscribe = new Subscription();
 
   constructor(

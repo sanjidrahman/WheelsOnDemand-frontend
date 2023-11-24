@@ -46,13 +46,13 @@ export class UserService {
     })
   }
 
-  getVehicle(filters?: any) {
+  getVehicle(filters?: any, page?: number) {
     let params = new HttpParams()
     if (filters) {
       if (filters.fuel) params = params.append('fuel', filters.fuel)
       if (filters.transmission) params = params.append('transmission', filters.transmission)
     }
-    return this._http.get<IVehicleModel[]>(`${this.commonUrl}/user/vehicles`, {
+    return this._http.get<IVehicleModel[]>(`${this.commonUrl}/user/vehicles/${page}`, {
       params,
       withCredentials: true
     })
@@ -108,13 +108,13 @@ export class UserService {
   }
 
   cancelbooking(reason: string, b_id: string, amount: number) {
-    return this._http.patch(`${this.commonUrl}/user/cancel-booking/${b_id}`, {reason, amount}, {
+    return this._http.patch(`${this.commonUrl}/user/cancel-booking/${b_id}`, { reason, amount }, {
       withCredentials: true
     })
   }
 
   postReview(review: IReviewModel, v_id: string | null) {
-    return this._http.post(`${this.commonUrl}/user/add-review/${v_id}`, review , {
+    return this._http.post(`${this.commonUrl}/user/add-review/${v_id}`, review, {
       withCredentials: true
     })
   }
@@ -126,13 +126,13 @@ export class UserService {
   }
 
   forgotPass(email: string) {
-    return this._http.post(`${this.commonUrl}/user/forgot-password`,  email , {
+    return this._http.post(`${this.commonUrl}/user/forgot-password`, email, {
       withCredentials: true
     })
   }
 
   resetPass(id: string | null, resetData: any) {
-    return this._http.patch(`${this.commonUrl}/user/reset-password/${id}` , resetData , {
+    return this._http.patch(`${this.commonUrl}/user/reset-password/${id}`, resetData, {
       withCredentials: true
     })
   }
@@ -144,12 +144,12 @@ export class UserService {
   }
 
   dfPost() {
-    return this._http.post('http://localhost:3000/webhook', {} , {
+    return this._http.post('http://localhost:3000/webhook', {}, {
       withCredentials: true
     })
   }
 
-  logout() { 
+  logout() {
     return this._http.post(`${this.commonUrl}/user/logout`, {}, {
       withCredentials: true
     })

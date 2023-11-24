@@ -1,18 +1,21 @@
 .card {
-    padding: 10px;
-    box-shadow: 2px 4px 7px #969595;
-    margin: 50px;
+  padding: 10px;
+  box-shadow: 2px 4px 7px #969595;
+  margin: 50px;
 }
 
-
 .car-card {
-    padding: 10px;
-    box-shadow: 2px 4px 7px #969595;
-    margin: 50px;
-    display: inline-block;
-    border-radius: 2px;
+  padding: 10px;
+  box-shadow: 2px 4px 7px #969595;
+  margin: 50px;
+  display: inline-block;
+  border-radius: 2px;
 }
 
 #book-btn {
-    background-color: #ffc107;
+  background-color: #ffc107;
+}
+
+a {
+  cursor: pointer;
 }
