@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IVehicleModel } from '../../models/vehicle.model';
 
 @Pipe({
-  name: 'searchFilter',
+  name: 'searchFilterPipe',
 })
 export class SearchFilterPipe implements PipeTransform {
 

@@ -40,8 +40,8 @@ export class UserService {
     })
   }
 
-  storeChoice(choice: any) {
-    return this._http.put(`${this.commonUrl}/user/store-choice`, choice, {
+  storeChoice(choice: any, placesInRange: string[]) {
+    return this._http.put(`${this.commonUrl}/user/store-choice`, { choice, placesInRange }, {
       withCredentials: true
     })
   }
@@ -107,8 +107,8 @@ export class UserService {
     })
   }
 
-  cancelbooking(reason: string, b_id: string, amount: number) {
-    return this._http.patch(`${this.commonUrl}/user/cancel-booking/${b_id}`, { reason, amount }, {
+  cancelbooking(reason: string, b_id: string, amount: number, refundvia: string) {
+    return this._http.patch(`${this.commonUrl}/user/cancel-booking/${b_id}`, { reason, amount, refundvia }, {
       withCredentials: true
     })
   }

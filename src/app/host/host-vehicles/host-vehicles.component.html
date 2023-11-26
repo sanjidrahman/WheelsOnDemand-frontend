@@ -3,6 +3,9 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <h1 class="navbar-brand">Vehicles</h1>
+                <div class="search">
+                    <input type="text" [(ngModel)]="searchInput" placeholder="Search..">
+                </div>
                 <div>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
@@ -13,7 +16,7 @@
         </nav>
     </div>
     <div class="row" *ngIf="hostVehicles">
-        <div class="col-md-4" *ngFor="let v of hostVehicles">
+        <div class="col-md-4" *ngFor="let v of hostVehicles | searchFilterPipe: searchInput">
             <div class="card">
                 <img [src]="getImage(v.images[0] ? v.images[0].toString() : '')" alt="Vehicle Image" width="250px"
                     height="200px">

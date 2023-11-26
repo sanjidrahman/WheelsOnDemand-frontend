@@ -18,6 +18,7 @@ export class HostVehiclesComponent implements OnInit {
   currentPage: number = 1
   hostVehicles!: IVehicleModel[]
   token!: any
+  searchInput!: string
   private subscribe = new Subscription()
 
   constructor(

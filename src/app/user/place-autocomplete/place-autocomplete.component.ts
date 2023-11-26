@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { DataSharingService } from '../services/data-sharing.service';
 declare var google: any;
 
 @Component({
@@ -12,6 +13,10 @@ export class PlaceAutocompleteComponent implements AfterViewInit {
   @Output() placeSelected = new EventEmitter<string>();
   placesInRange: string[] = []
 
+  constructor(
+    private _dataSharingService: DataSharingService,
+  ){}
+
   ngAfterViewInit(): void {
     this.initMap()
   }
@@ -21,7 +26,7 @@ export class PlaceAutocompleteComponent implements AfterViewInit {
     const autocomplete = new google.maps.places.Autocomplete(
       inputElement,
       {
-        types: ['establishment'],
+        types: ['geocode'],
         componentRestrictions: { 'country': ['IN'] },
         fields: ['place_id', 'geometry', 'name'],
       });
@@ -56,7 +61,9 @@ export class PlaceAutocompleteComponent implements AfterViewInit {
     placesService.nearbySearch(request, (results: any, status: any) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         this.placesInRange = results.map((place: any) => place.name)
-        console.log(this.placesInRange);
+        if(this.placesInRange) {
+          this._dataSharingService.setData(this.placesInRange)
+        }
       } else {
         console.error('Error fetching nearby places:', status);
       }

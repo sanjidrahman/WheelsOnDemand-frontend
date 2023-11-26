@@ -35,11 +35,12 @@ export class VehiclesComponent implements OnInit, OnDestroy, AfterViewInit {
   fuelSelected: string | undefined
   transmissionSelected: string | undefined
   searchText!:string
+  placesInRange: string[] = []
   private subscribe = new Subscription();
 
   constructor(
     private _service: UserService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -123,8 +124,9 @@ export class VehiclesComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.formattedEndDate <= this.formattedStartDate) {
       this._toastr.error('Droppoff date cannot be lesser or equal to start date')
     } else {
+      if(this.placesInRange)
       this.subscribe.add(
-        this._service.storeChoice(choice).subscribe({
+        this._service.storeChoice(choice, this.placesInRange).subscribe({
           next: () => {
             this.initialize()
             this.isEditable = false
@@ -145,7 +147,7 @@ export class VehiclesComponent implements OnInit, OnDestroy, AfterViewInit {
     const autocomplete = new google.maps.places.Autocomplete(
       inputElement,
       {
-        types: ['establishment'],
+        types: ['geocode'],
         componentRestrictions: { 'country': ['IN'] },
         fields: ['place_id', 'geometry', 'name'],
       });
@@ -163,7 +165,27 @@ export class VehiclesComponent implements OnInit, OnDestroy, AfterViewInit {
       inputElement.placeholder = 'Enter your location...';
     } else {
       this.pickup = place.name
+      this.getNearbyPlaces(place.geometry.location);
     }
+  }
+
+  getNearbyPlaces(location: any) {
+    const request = {
+      location: location,
+      radius: 5000, 
+      types: ['establishment'],
+      fields: ['place_id', 'geometry', 'name'],
+    };
+  
+    const placesService = new google.maps.places.PlacesService(document.createElement('div'));
+  
+    placesService.nearbySearch(request, (results: any, status: any) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        this.placesInRange = results.map((place: any) => place.name)
+      } else {
+        console.error('Error fetching nearby places:', status);
+      }
+    });
   }
 
   ngOnDestroy(): void {

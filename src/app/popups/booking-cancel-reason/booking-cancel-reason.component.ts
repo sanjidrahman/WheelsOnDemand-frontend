@@ -17,6 +17,7 @@ export class BookingCancelReasonComponent implements OnInit, OnDestroy {
   reasonForm!: FormGroup
   bookingDetails!: IBookingModel[]
   refundAmount: number = 0
+  refundSourceAmount: number = 0
   private subscribe = new Subscription()
 
   constructor(
@@ -31,13 +32,13 @@ export class BookingCancelReasonComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscribe.add(
       this._service.getBookDetails(this._data).subscribe((res: any) => {
-        console.log(res);
         this.bookingDetails = res
         this.calculateRefund(this.bookingDetails[0].startDate, this.bookingDetails[0].grandTotal)
       })
     )
     this.reasonForm = this._fb.group({
-      reason: ['', [Validators.required, Validators.minLength(4)]]
+      reason: ['', [Validators.required, Validators.minLength(4)]],
+      refundOption: ['wallet', Validators.required]
     })
   }
 
@@ -45,16 +46,16 @@ export class BookingCancelReasonComponent implements OnInit, OnDestroy {
     if (this.bookingDetails) {
       const parsedBookedDate = new Date(bookedDate)
       const currentDate = new Date();
+
+      if (parsedBookedDate.toDateString() === currentDate.toDateString()) {
+        return this.refundAmount = bookingPrice;
+      }
+
       if (parsedBookedDate < currentDate) {
         return this.refundAmount;
       }
       const timeDifference = Math.abs(parsedBookedDate.getTime() - currentDate.getTime());
       const hoursDifference = Math.ceil(timeDifference / (1000 * 60 * 60));
-
-      console.log(parsedBookedDate)
-      console.log(currentDate, 'CURR DATE');
-      console.log(timeDifference, 'TIME DIFFERENCE');
-      console.log(hoursDifference, 'HOUR DIFFERENCE');
 
       if (hoursDifference >= 24) {
         return this.refundAmount = bookingPrice;
@@ -67,6 +68,34 @@ export class BookingCancelReasonComponent implements OnInit, OnDestroy {
     return this.refundAmount
   }
 
+  calculateSourceRefund(bookedDate: string, bookingPrice: number): any {
+    const parsedBookedDate = new Date(bookedDate);
+    const currentDate = new Date();
+
+    if (parsedBookedDate.toDateString() === currentDate.toDateString()) {
+      const razorCharge = (bookingPrice * 2) / 100
+      const razorTax = (razorCharge * 18) / 100
+      this.refundSourceAmount = Math.round(bookingPrice - (razorTax + razorCharge))
+      return this.refundAmount = this.refundSourceAmount;
+    }
+
+    if (parsedBookedDate < currentDate) {
+      return this.refundAmount = this.refundSourceAmount;
+    }
+
+    const timeDifference = Math.abs(parsedBookedDate.getTime() - currentDate.getTime());
+    const hoursDifference = Math.ceil(timeDifference / (1000 * 60 * 60));
+
+    if (hoursDifference >= 24) {
+      this.refundAmount = this.refundSourceAmount;
+    } else if (hoursDifference >= 12) {
+      this.refundAmount = 0.5 * this.refundSourceAmount;
+    } else {
+      this.refundAmount = 0;
+    }
+  }
+
+
   closepopup() {
     this._ref.close()
   }
@@ -75,9 +104,11 @@ export class BookingCancelReasonComponent implements OnInit, OnDestroy {
     if (this.reasonForm.invalid) {
       return
     }
-    const reason = this.reasonForm.value
+    const reason = this.reasonForm.get('reason')?.value
+    const refundvia = this.reasonForm.get('refundOption')?.value
+
     this.subscribe.add(
-      this._service.cancelbooking(reason, this._data, this.refundAmount).subscribe({
+      this._service.cancelbooking(reason, this._data, this.refundAmount, refundvia).subscribe({
         next: () => {
           this.closepopup()
           this._toastr.success('booking Cancelled')

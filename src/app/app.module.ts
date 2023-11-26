@@ -47,7 +47,6 @@ import { LIGHTBOX_CONFIG, LightboxConfig, LightboxModule } from 'ng-gallery/ligh
 import { VehicleListComponent } from './user/vehicle-list/vehicle-list.component';
 import { CheckoutComponent } from './user/checkout/checkout.component';
 import { BookingSuccessComponent } from './user/booking-success/booking-success.component';
-import { PriceCalculationPipe } from './user/pipe/price-calculation.pipe';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -56,21 +55,21 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BookingsComponent } from './user/bookings/bookings.component';
 import { ProfileComponent } from './user/profile/profile.component';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { UserProfileBookingDetailsComponent } from './user/user-profile-booking-details/user-profile-booking-details.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { BookingCancelReasonComponent } from './popups/booking-cancel-reason/booking-cancel-reason.component';
-import { CapitalizePipePipe } from './host/pipe/capitalize-pipe.pipe';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ViewAllReviewsComponent } from './user/view-all-reviews/view-all-reviews.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PlaceAutocompleteComponent } from './user/place-autocomplete/place-autocomplete.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
-import { SearchFilterPipe } from './user/pipe/search-filter.pipe';
 import { AngularPaginatorModule } from 'angular-paginator';
+import { DataSharingService } from './user/services/data-sharing.service';
+import { SharedModule } from './shared-module/shared.module';
 
 
 @NgModule({
@@ -95,7 +94,6 @@ import { AngularPaginatorModule } from 'angular-paginator';
     VehicleListComponent,
     CheckoutComponent,
     BookingSuccessComponent,
-    PriceCalculationPipe,
     UserProfileComponent,
     BookingsComponent,
     ProfileComponent,
@@ -104,8 +102,6 @@ import { AngularPaginatorModule } from 'angular-paginator';
     ViewAllReviewsComponent,
     NotFoundComponent,
     PlaceAutocompleteComponent,
-    // CapitalizePipePipe,
-    SearchFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -145,7 +141,8 @@ import { AngularPaginatorModule } from 'angular-paginator';
     MatDialogModule,
     ScrollingModule,
     NgxStarRatingModule,
-    AngularPaginatorModule
+    AngularPaginatorModule,
+    SharedModule
   ],
   providers: [
     {
@@ -173,6 +170,7 @@ import { AngularPaginatorModule } from 'angular-paginator';
         imageSize: 'cover'
       } as GalleryConfig
     },
+    DataSharingService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

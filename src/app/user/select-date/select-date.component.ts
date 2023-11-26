@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Country, State, City, IState, ICity } from 'country-state-city';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { DataSharingService } from '../services/data-sharing.service';
 
 @Component({
   selector: 'app-select-date',
@@ -23,14 +24,15 @@ export class SelectDateComponent implements OnInit, OnDestroy {
   isLinear = true;
   filteredstate!: Observable<IState[]>
   disable: boolean = true;
-  address: any
+  sharedData!: string[] // Data from the service (dataSharingService)
   private subscribe = new Subscription()
 
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
     private _service: UserService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _dataSharingService: DataSharingService
   ) { }
 
   ngOnInit(): void {
@@ -70,8 +72,12 @@ export class SelectDateComponent implements OnInit, OnDestroy {
         dropoff: pickupData.pickup,
       };
 
+      this._dataSharingService.getData.subscribe((data) => {
+        this.sharedData = data
+      })
+
       this.subscribe.add(
-        this._service.storeChoice(queryParams).subscribe({
+        this._service.storeChoice(queryParams, this.sharedData).subscribe({
           next: (res) => {
             this._router.navigate(['vehicles'])
           },

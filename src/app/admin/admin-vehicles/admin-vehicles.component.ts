@@ -24,6 +24,7 @@ export class AdminVehiclesComponent implements OnInit, OnDestroy {
   createdby!: any
   totalPage!: number
   currentPage: number = 1
+  searchInput!: string
   private subscribe = new Subscription()
 
   constructor(
