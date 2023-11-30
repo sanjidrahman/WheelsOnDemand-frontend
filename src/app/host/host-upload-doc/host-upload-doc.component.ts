@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import jwt_decode from "jwt-decode";
-import { RxwebValidators } from '@rxweb/reactive-form-validators';
 
 @Component({
   selector: 'app-host-upload-doc',

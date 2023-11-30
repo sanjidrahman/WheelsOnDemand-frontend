@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,500&family=Poppins:ital,wght@1,400;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,500&family=Poppins:ital,wght@1,400;1,900&family=Roboto+Mono:wght@700&display=swap");
+
+/* body {
+    margin: 0%;
+    padding: 0%;
+} */
+
+section {
+  background-image: url("/assets/images/brad-starkey-MBr7At_KxxM-unsplash (1).jpg");
+  opacity: inherit;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  /* height: 100%; */
+}
+
+.image-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.main-text {
+  padding-top: 150px;
+  font-family: "Poppins", sans-serif;
+  font-weight: bolder;
+  font-size: xx-large;
+}
+
+.text-tnc {
+  padding-top: 50px;
+  text-decoration: underline;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+h4 {
+  font-family: "Montserrat", sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-family: "Roboto Mono", monospace;
+}
+
+h3 {
+  font-family: "Montserrat", sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-family: "Roboto Mono", monospace;
+}

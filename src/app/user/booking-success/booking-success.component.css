@@ -3,7 +3,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80vh; /* This ensures it takes up at least the full viewport height */
+    min-height: 80vh;
 }
 
 /* .container {
@@ -59,4 +59,6 @@ svg text {
 	}
 }
 
-.wrapper {background-color: #FFFFFF};
+.wrapper {
+	background-color: #FFFFFF;
+}

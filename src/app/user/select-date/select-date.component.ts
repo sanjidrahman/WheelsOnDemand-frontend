@@ -4,7 +4,6 @@ import { Subscription, map, startWith, Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Country, State, City, IState, ICity } from 'country-state-city';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { DataSharingService } from '../services/data-sharing.service';
 
@@ -22,7 +21,6 @@ export class SelectDateComponent implements OnInit, OnDestroy {
   dropLocation!: FormGroup;
   statectrl!: FormControl
   isLinear = true;
-  filteredstate!: Observable<IState[]>
   disable: boolean = true;
   sharedData!: string[] // Data from the service (dataSharingService)
   private subscribe = new Subscription()

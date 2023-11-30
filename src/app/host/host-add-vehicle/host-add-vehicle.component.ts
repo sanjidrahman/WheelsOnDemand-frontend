@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { HostService } from '../services/host.service';
-import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { Router } from '@angular/router';
 declare var google: any;
 

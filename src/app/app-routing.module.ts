@@ -19,6 +19,7 @@ import { ViewAllReviewsComponent } from './user/view-all-reviews/view-all-review
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ResetPasswordComponent } from './user/forgot-password/reset-password/reset-password.component';
 import { PlaceAutocompleteComponent } from './user/place-autocomplete/place-autocomplete.component';
+import { HostPartnershipComponent } from './user/host-partnership/host-partnership.component';
 
 const routes: Routes = [
   { path: '', title: 'Home', component: HomeComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'booking-success/:b_id/:v_id', title: 'Booking Success', component: BookingSuccessComponent },
   { path: 'view-reviews/:v_id', title: 'View Reviews', component: ViewAllReviewsComponent },
   { path: 'reset-password/:u_id', title: 'Reset Password', component: ResetPasswordComponent },
+  { path: 'host-partnership', title: 'Host Partnership', component: HostPartnershipComponent },
   { path: 'map', title: 'Map', component: PlaceAutocompleteComponent },
   {
     path: 'user-profile', title: 'Profile', component: UserProfileComponent, children: [

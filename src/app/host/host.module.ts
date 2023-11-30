@@ -17,7 +17,6 @@ import { HostService } from './services/host.service';
 import { HostUploadDocComponent } from './host-upload-doc/host-upload-doc.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { HostUploadSuccessComponent } from './host-upload-success/host-upload-success.component';
-import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { HostNavigationComponent } from './host-navigation/host-navigation.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SidebarModule } from 'primeng/sidebar';
@@ -80,7 +79,6 @@ import { HostResetPasswordComponent } from './host-forgot-password/host-forgot-p
     GoogleSigninButtonModule,
     ToastrModule.forRoot(),
     FileUploadModule,
-    RxReactiveFormsModule,
     MatSidenavModule,
     SidebarModule,
     MatButtonModule,

@@ -67,9 +67,9 @@ import { ViewAllReviewsComponent } from './user/view-all-reviews/view-all-review
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PlaceAutocompleteComponent } from './user/place-autocomplete/place-autocomplete.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
-import { AngularPaginatorModule } from 'angular-paginator';
 import { DataSharingService } from './user/services/data-sharing.service';
 import { SharedModule } from './shared-module/shared.module';
+import { HostPartnershipComponent } from './user/host-partnership/host-partnership.component';
 
 
 @NgModule({
@@ -102,6 +102,7 @@ import { SharedModule } from './shared-module/shared.module';
     ViewAllReviewsComponent,
     NotFoundComponent,
     PlaceAutocompleteComponent,
+    HostPartnershipComponent,
   ],
   imports: [
     BrowserModule,
@@ -141,7 +142,6 @@ import { SharedModule } from './shared-module/shared.module';
     MatDialogModule,
     ScrollingModule,
     NgxStarRatingModule,
-    AngularPaginatorModule,
     SharedModule
   ],
   providers: [
