@@ -36,10 +36,7 @@
       </div>
       <div>
         <ng-container
-          *ngIf="
-            reasonForm.get('refundOption')?.value === 'wallet';
-            else sourceRefund
-          "
+          *ngIf="reasonForm.get('refundOption')?.value === 'wallet'"
         >
           <p class="px-4">
             <b>Note: </b> By cancelling the vehicle you will be refunded
@@ -51,7 +48,7 @@
             }}</b>
           </p>
         </ng-container>
-        <ng-template #sourceRefund>
+        <!-- <ng-template #sourceRefund>
           <p class="px-4">
             <b>Note: </b> By cancelling the vehicle you will be refunded
             <b
@@ -64,15 +61,15 @@
               ( XXX amount will be deducted as razorpay service charge )</b
             >
           </p>
-        </ng-template>
+        </ng-template> -->
       </div>
 
-      <mat-radio-group formControlName="refundOption">
+      <!-- <mat-radio-group formControlName="refundOption">
         <mat-radio-button class="px-3" value="wallet"
           >Refund to Wallet</mat-radio-button
         >
         <mat-radio-button value="source">Refund to Source</mat-radio-button>
-      </mat-radio-group>
+      </mat-radio-group> -->
     </div>
 
     <div class="button-container">

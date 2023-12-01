@@ -68,32 +68,32 @@ export class BookingCancelReasonComponent implements OnInit, OnDestroy {
     return this.refundAmount
   }
 
-  calculateSourceRefund(bookedDate: string, bookingPrice: number): any {
-    const parsedBookedDate = new Date(bookedDate);
-    const currentDate = new Date();
+  // calculateSourceRefund(bookedDate: string, bookingPrice: number): any {
+  //   const parsedBookedDate = new Date(bookedDate);
+  //   const currentDate = new Date();
 
-    if (parsedBookedDate.toDateString() === currentDate.toDateString()) {
-      const razorCharge = (bookingPrice * 2) / 100
-      const razorTax = (razorCharge * 18) / 100
-      this.refundSourceAmount = Math.round(bookingPrice - (razorTax + razorCharge))
-      return this.refundAmount = this.refundSourceAmount;
-    }
+  //   if (parsedBookedDate.toDateString() === currentDate.toDateString()) {
+  //     const razorCharge = (bookingPrice * 2) / 100
+  //     const razorTax = (razorCharge * 18) / 100
+  //     this.refundSourceAmount = Math.round(bookingPrice - (razorTax + razorCharge))
+  //     return this.refundAmount = this.refundSourceAmount;
+  //   }
 
-    if (parsedBookedDate < currentDate) {
-      return this.refundAmount = this.refundSourceAmount;
-    }
+  //   if (parsedBookedDate < currentDate) {
+  //     return this.refundAmount = this.refundSourceAmount;
+  //   }
 
-    const timeDifference = Math.abs(parsedBookedDate.getTime() - currentDate.getTime());
-    const hoursDifference = Math.ceil(timeDifference / (1000 * 60 * 60));
+  //   const timeDifference = Math.abs(parsedBookedDate.getTime() - currentDate.getTime());
+  //   const hoursDifference = Math.ceil(timeDifference / (1000 * 60 * 60));
 
-    if (hoursDifference >= 24) {
-      this.refundAmount = this.refundSourceAmount;
-    } else if (hoursDifference >= 12) {
-      this.refundAmount = 0.5 * this.refundSourceAmount;
-    } else {
-      this.refundAmount = 0;
-    }
-  }
+  //   if (hoursDifference >= 24) {
+  //     this.refundAmount = this.refundSourceAmount;
+  //   } else if (hoursDifference >= 12) {
+  //     this.refundAmount = 0.5 * this.refundSourceAmount;
+  //   } else {
+  //     this.refundAmount = 0;
+  //   }
+  // }
 
 
   closepopup() {

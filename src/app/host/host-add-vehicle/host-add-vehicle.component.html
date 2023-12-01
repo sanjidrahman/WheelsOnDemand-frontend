@@ -39,12 +39,12 @@
                                     <div>
                                         <mat-form-field appearance="outline" class="example-full-width">
                                             <mat-label>Model</mat-label>
-                                            <input formControlName="model" maxlength="4" matInput>
+                                            <input formControlName="make" maxlength="4" matInput>
                                         </mat-form-field>
-                                        <div *ngIf="form.submitted && vehicleForm.controls['model'].errors"
+                                        <div *ngIf="form.submitted && vehicleForm.controls['make'].errors"
                                             class="text-danger">
                                             <p
-                                                *ngIf="form.submitted && vehicleForm.controls['model'].errors['pattern']">
+                                                *ngIf="form.submitted && vehicleForm.controls['make'].errors['pattern']">
                                                 Model should be digits
                                             </p>
                                         </div>

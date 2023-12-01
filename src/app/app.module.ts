@@ -70,6 +70,8 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
 import { DataSharingService } from './user/services/data-sharing.service';
 import { SharedModule } from './shared-module/shared.module';
 import { HostPartnershipComponent } from './user/host-partnership/host-partnership.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -124,8 +126,10 @@ import { HostPartnershipComponent } from './user/host-partnership/host-partnersh
     EffectsModule.forRoot([AppEffects]),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-ripple-multiple' }),
     NgConfirmModule,
     MatIconModule,
+    CommonModule,
     MatStepperModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -143,6 +147,9 @@ import { HostPartnershipComponent } from './user/host-partnership/host-partnersh
     ScrollingModule,
     NgxStarRatingModule,
     SharedModule
+  ],
+  exports: [
+    NgxSpinnerModule
   ],
   providers: [
     {

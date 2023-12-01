@@ -104,7 +104,7 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
     let data = this.vehicleForm.getRawValue()
     form.append('name', data.name);
     form.append('brand', data.brand);
-    form.append('model', data.model);
+    form.append('make', data.make);
     form.append('transmission', data.transmission);
     form.append('fuel', data.fuel);
     form.append('location', data.location);

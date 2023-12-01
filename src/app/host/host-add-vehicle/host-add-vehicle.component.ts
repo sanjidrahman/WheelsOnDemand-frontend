@@ -34,7 +34,7 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
     this.vehicleForm = this._fb.group({
       name: ['', Validators.required],
       brand: ['', [Validators.required, Validators.minLength(3)]],
-      model: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      make: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       transmission: ['', Validators.required],
       fuel: ['', Validators.required],
       location: ['', Validators.required],
@@ -101,7 +101,7 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
     let data = this.vehicleForm.getRawValue()
     form.append('name', data.name);
     form.append('brand', data.brand);
-    form.append('model', data.model);
+    form.append('make', data.make);
     form.append('transmission', data.transmission);
     form.append('fuel', data.fuel);
     form.append('location', data.location);

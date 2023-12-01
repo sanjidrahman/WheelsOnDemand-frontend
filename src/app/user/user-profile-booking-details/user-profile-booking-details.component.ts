@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './user-profile-booking-details.component.html',
   styleUrls: ['./user-profile-booking-details.component.css']
 })
-export class UserProfileBookingDetailsComponent implements OnInit, AfterViewInit {
+export class UserProfileBookingDetailsComponent implements OnInit {
 
   private subscribe = new Subscription()
   bookingDetails!: IBookingModel[]
@@ -59,8 +59,6 @@ export class UserProfileBookingDetailsComponent implements OnInit, AfterViewInit
       })
     )
 
-
-
     this.subscribe.add(
       this._service.getVehicleDetails(this.vehicleId).subscribe((res) => {
         this.vehicleDetails = res
@@ -78,12 +76,14 @@ export class UserProfileBookingDetailsComponent implements OnInit, AfterViewInit
     })
   }
 
-  ngAfterViewInit(): void {
-
+  isNotExpired() {
+    const endDate = new Date(this.bookingDetails[0].endDate);
+    const currentDate = new Date();
+    return endDate > currentDate;
   }
 
-  getImage(file: string) {
-    return `${environment.STATIC_FILE_API}${file}`
-  }
+getImage(file: string) {
+  return `${environment.STATIC_FILE_API}${file}`
+}
 
 }

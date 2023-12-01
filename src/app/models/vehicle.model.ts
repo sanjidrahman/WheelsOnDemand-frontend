@@ -12,7 +12,7 @@ export interface IVehicleModel  {
     _id: string
     name: string
     price: number
-    model: number
+    make: number
     transmission: string
     brand: string
     fuel: string

@@ -37,11 +37,16 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <ng-container *ngIf="bookingDetails[0].status !== 'cancelled'; else elseBlock">
+                        <ng-container *ngIf="isNotExpired(); else expiredBlock">
                         <button mat-raised-button (click)="openReasonDialog(bookingDetails[0]._id)" color="warn">Cancel
                             Booking</button>
+                        </ng-container>
                     </ng-container>
                     <ng-template #elseBlock>
                         <h2 class="text-danger">Booking Cancelled</h2>
+                    </ng-template>
+                    <ng-template #expiredBlock>
+                        <h2 class="text-success">Booking Completed</h2>
                     </ng-template>
                 </div>
             </div>
