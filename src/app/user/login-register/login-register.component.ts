@@ -53,7 +53,7 @@ export class LoginRegisterComponent implements OnInit , OnDestroy {
     this.sub = this._authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
-      console.log(this.user)
+      // console.log(this.user)
       this._service.googleLogin(this.user).subscribe((res) => {
         localStorage.setItem('userToken' , res.token)
         this._router.navigate([''])
