@@ -48,8 +48,15 @@
                     </div>
                 </div>
                
-                <button class="mx-1" mat-raised-button [routerLink]="['/host/h/edit-vehicle', v._id]" color="primary">Edit</button>
-                <button mat-raised-button (click)="deleteVehicle(v._id)" color="warn">Delete</button>
+               <ng-container *ngIf="hostVehicles[0].isVerified; else notVerified">
+                    <button class="mx-1" mat-raised-button [routerLink]="['/host/h/edit-vehicle', v._id]" color="primary">Edit</button>
+                    <button mat-raised-button (click)="deleteVehicle(v._id)" color="warn">Delete</button>
+                </ng-container>
+                <ng-template #notVerified>
+                    <h3 class="text-danger" style="font-weight: 800;">Under Verification</h3>
+                </ng-template>
+                
+              
             </div>
         </div>
     </div>
