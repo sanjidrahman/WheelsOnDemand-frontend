@@ -36,13 +36,13 @@ export class UserService {
 
   verify(otp: any) {
     return this._http.post(`${this.commonUrl}/user/verify-otp`, otp, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   storeChoice(choice: any, placesInRange: string[]) {
     return this._http.put(`${this.commonUrl}/user/store-choice`, { choice, placesInRange }, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
@@ -54,104 +54,104 @@ export class UserService {
     }
     return this._http.get<IVehicleModel[]>(`${this.commonUrl}/user/vehicles/${page}`, {
       params,
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   bookVehicle(bookData: object) {
     return this._http.post(`${this.commonUrl}/user/book-vehicle`, bookData, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   getBookDetails(id: string | null) {
     return this._http.get<IBookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   getBookings() {
     return this._http.get<IBookingModel[]>(`${this.commonUrl}/user/user-booking`, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   updateUser(data: any) {
     return this._http.patch(`${this.commonUrl}/user/update-user`, data, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   updateProfile(file: any) {
     return this._http.patch(`${this.commonUrl}/user/update-profile`, file, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   // a common api all interfaces ([user, host, admin] retrieving single vehicle details) 
   getVehicleDetails(id: string | null): Observable<IVehicleModel> {
     return this._http.get<IVehicleModel>(`${this.commonUrl}/host/vehicle-details/${id}`, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   changePass(data: any) {
     return this._http.patch(`${this.commonUrl}/user/change-password`, data, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   getUser(): Observable<IUserModel> {
     return this._http.get<IUserModel>(`${this.commonUrl}/user/getuser`, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   cancelbooking(reason: string, b_id: string, amount: number, refundvia: string) {
     return this._http.patch(`${this.commonUrl}/user/cancel-booking/${b_id}`, { reason, amount, refundvia }, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   postReview(review: IReviewModel, v_id: string | null) {
     return this._http.post(`${this.commonUrl}/user/add-review/${v_id}`, review, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   deleteReview(v_id: string | null, r_id: string | undefined) {
     return this._http.patch(`${this.commonUrl}/user/delete-review/${v_id}`, { r_id }, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   forgotPass(email: string) {
     return this._http.post(`${this.commonUrl}/user/forgot-password`, email, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   resetPass(id: string | null, resetData: any) {
     return this._http.patch(`${this.commonUrl}/user/reset-password/${id}`, resetData, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   isBookingCompleted(vid: string | null) {
     return this._http.post(`${this.commonUrl}/user/isBooked/${vid}`, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   dfPost() {
     return this._http.post('http://localhost:3000/webhook', {}, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   logout() {
     return this._http.post(`${this.commonUrl}/user/logout`, {}, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
