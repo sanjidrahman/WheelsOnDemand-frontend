@@ -19,7 +19,7 @@ import { HostResetPasswordComponent } from './host-forgot-password/host-forgot-p
 
 
 const routes: Routes = [
-    { path: '', title: 'Host Login', component: HostLoginRegisterComponent, },
+    { path: '', title: 'Host Login', component: HostLoginRegisterComponent, canActivate: [hostGuardGuard]},
     { path: 'host-mail-verify', title: 'Mail Verify', component: HostMailVerifyComponent },
     { path: 'reset-password/:h_id', title: 'Reset Password', component: HostResetPasswordComponent },
     {

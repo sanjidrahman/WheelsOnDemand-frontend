@@ -18,67 +18,67 @@ export class AdminService {
 
   loginUser(adminData: any): Observable<any> {
     return this._http.post(`${this.commonUrl}/admin/login`, adminData, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   getDashboardData() {
     return this._http.get(`${this.commonUrl}/admin/dashboard` , {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   getAllUser(): Observable<IUserModel[]> {
     return this._http.get<IUserModel[]>(`${this.commonUrl}/admin/users`, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   getAllHost(): Observable<IHostModel[]> {
     return this._http.get<IHostModel[]>(`${this.commonUrl}/admin/hosts`, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   blockuser(id: string) {
     return this._http.patch(`${this.commonUrl}/admin/user/block/${id}`, null, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   unblockuser(id: string) {
     return this._http.patch(`${this.commonUrl}/admin/user/unblock/${id}`, null, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   blockhost(id: string) {
     return this._http.patch(`${this.commonUrl}/admin/host/block/${id}`, null, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   unblockhost(id: string) {
     return this._http.patch(`${this.commonUrl}/admin/host/unblock/${id}`, null, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   verifyhost(id: string) {
     return this._http.post(`${this.commonUrl}/admin/host/verify-host/${id}`, null, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   hostnotverify(id: string, issue: any) {
     return this._http.post(`${this.commonUrl}/admin/host/host-notverify/${id}`, issue, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   getVehicleDetails(id: string | null) : Observable<IVehicleModel> {
     return this._http.get<IVehicleModel>(`${this.commonUrl}/host/vehicle-details/${id}` , {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
@@ -87,7 +87,7 @@ export class AdminService {
     if(page) params = params.append('page', page)
     return this._http.get<IVehicleModel[]>(`${this.commonUrl}/admin/vehicles`, {
       params,
-      withCredentials: true
+      withCredentials: false
     })
   }
 
@@ -97,63 +97,63 @@ export class AdminService {
 
   addvehicle(data: any) {
     return this._http.post(`${this.commonUrl}/admin/add-vehicle`, data, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   verifyVehicle(v_id: string, h_id: string) {
     return this._http.patch(`${this.commonUrl}/admin/verify-host-vehicle?vehicleid=${v_id}&hostid=${h_id}`, null, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   rejectVehicle(issue: string, id: string) {
     return this._http.post(`${this.commonUrl}/admin/reject-host-vehicle/${id}`, issue, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   editVehicle(data: any, id: string) {
     return this._http.patch(`${this.commonUrl}/admin/edit-vehicle/${id}`, data, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   deleteVehicleImage(file: string, id: string) {
     return this._http.patch(`${this.commonUrl}/admin/delete-image/${id}?file=${file}`, null, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   deleteVehicle(id: string) {
     return this._http.delete(`${this.commonUrl}/admin/delete-vehicle/${id}` , {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   getBookings() {
     return this._http.get<IBookingModel[]>(`${this.commonUrl}/admin/all-bookings` , {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
    // a common api for all interfaces ([user, host, admin] for booking details)
    getBookDetails(id: string | null) {
     return this._http.get<IBookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   // a common api in admin, host (changing the status of bookings)
   updateBookingStatus(status: string, b_id: string | null) {
     return this._http.patch(`${this.commonUrl}/host/edit-booking-status/${b_id}` , {status}, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   logout() {
     return this._http.post(`${this.commonUrl}/admin/logout`, {}, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 

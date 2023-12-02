@@ -34,7 +34,7 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
     this.vehicleForm = this._fb.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
       brand: ['', [Validators.required, Validators.minLength(3)]],
-      model: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      make: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       transmission: ['', Validators.required],
       fuel: ['', Validators.required],
       location: ['', Validators.required],
@@ -79,7 +79,6 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
     this.document = <File>event.target.files[0];
 
     if (this.document) {
-      console.log(this.document);
       const fileExtension = this.getFileExtensionn(this.document.name);
 
       if (!allowedExtensions.includes(fileExtension)) {
