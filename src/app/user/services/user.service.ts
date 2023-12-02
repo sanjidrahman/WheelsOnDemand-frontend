@@ -18,19 +18,19 @@ export class UserService {
 
   registerUser(userData: any): Observable<any> {
     return this._http.post(`${this.commonUrl}/user/signup`, userData, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   loginUser(userData: any): Observable<any> {
     return this._http.post(`${this.commonUrl}/user/login`, userData, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
   googleLogin(idToken: any): Observable<any> {
     return this._http.post(`${this.commonUrl}/user/auth/login`, idToken, {
-      withCredentials: true
+      withCredentials: false
     })
   }
 
