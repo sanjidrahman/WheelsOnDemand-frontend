@@ -1,4 +1,4 @@
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { userState } from 'src/app/store/state/app.state';
@@ -68,7 +68,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     const token = localStorage.getItem('userToken');
     if (token) {
-      this.userid = jwt_decode(token)
+      this.userid = jwtDecode(token)
     }
     this._store.dispatch(retrieveuser())
     this.userDetails = this._store.pipe(
@@ -80,7 +80,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   update() {
     const token = localStorage.getItem('userToken');
     if (token) {
-      this.userid = jwt_decode(token)
+      this.userid = jwtDecode(token)
     }
     this._store.dispatch(retrieveuser())
     this.userDetails = this._store.pipe(

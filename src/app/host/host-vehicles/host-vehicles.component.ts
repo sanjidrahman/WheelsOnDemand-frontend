@@ -1,7 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { IVehicleModel } from '../../../../src/app/models/vehicle.model';
-import jwt_decode from "jwt-decode";
 import { HostService } from '../services/host.service';
 import { environment } from 'src/environments/environment.development';
 import { NgConfirmService } from 'ng-confirm-box';

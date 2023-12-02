@@ -4,7 +4,7 @@ import { HostService } from '../services/host.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 @Component({
   selector: 'app-host-upload-doc',
@@ -36,7 +36,7 @@ export class HostUploadDocComponent {
       const form = new FormData()
       form.append('file', this.file, this.file.name)
       const token = localStorage.getItem('hostToken')
-      if (token) this.jwttoken = jwt_decode(token)
+      if (token) this.jwttoken = jwtDecode(token)
       const upload$ = this._service.upload(form , this.jwttoken.id)
       this.status = "uploading"
       upload$.subscribe({

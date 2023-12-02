@@ -7,7 +7,6 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { userState } from 'src/app/store/state/app.state';
 import { Store, select } from '@ngrx/store';
-import jwt_decode from "jwt-decode";
 import { retrieveuser } from 'src/app/store/state/app.actions';
 import { getuser } from 'src/app/store/state/app.selectors';
 import { IUserModel } from 'src/app/models/user.model';

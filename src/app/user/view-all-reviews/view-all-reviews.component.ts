@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
 import { NgConfirmService } from 'ng-confirm-box';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 @Component({
   selector: 'app-view-all-reviews',
@@ -34,7 +34,7 @@ export class ViewAllReviewsComponent implements OnInit, OnDestroy {
 
     const token = localStorage.getItem('userToken')
     if(token) {
-      var decoded: any = jwt_decode(token)
+      var decoded: any = jwtDecode(token)
     }
     this.userId = decoded.id
   }

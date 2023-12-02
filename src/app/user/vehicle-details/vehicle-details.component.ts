@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageItem, GalleryItem } from 'ng-gallery';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 import { Observable, Subscription } from 'rxjs';
 import { IReviewModel, IVehicleModel } from 'src/app/models/vehicle.model';
 import { environment } from 'src/environments/environment.development';
@@ -61,7 +61,7 @@ export class VehicleDetailsComponent implements OnInit, OnDestroy {
 
     const token = localStorage.getItem('userToken')
     if(token) {
-      var decoded: any = jwt_decode(token)
+      var decoded: any = jwtDecode(token)
     }
     this.userId = decoded.id
 

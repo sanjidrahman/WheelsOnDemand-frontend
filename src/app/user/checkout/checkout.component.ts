@@ -8,7 +8,7 @@ import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { retrieveuser, retrievevehicles } from 'src/app/store/state/app.actions';
 import { getuser, getvehicles } from 'src/app/store/state/app.selectors';
 import { userState, vehicleState } from 'src/app/store/state/app.state';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 import { environment } from 'src/environments/environment.development';
 import { UserService } from '../services/user.service';
 import { sub } from 'date-fns/fp';
@@ -66,7 +66,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
     const token = localStorage.getItem('userToken');
     if (token) {
-      this.u_id = jwt_decode(token)
+      this.u_id = jwtDecode(token)
     }
     this._ustore.dispatch(retrieveuser())
     this.userDetails = this._ustore.pipe(

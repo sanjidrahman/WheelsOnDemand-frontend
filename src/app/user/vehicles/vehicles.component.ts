@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IUserModel } from 'src/app/models/user.model';
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatRadioChange } from '@angular/material/radio';
@@ -62,7 +62,7 @@ export class VehiclesComponent implements OnInit, OnDestroy, AfterViewInit {
   initialize() {
     const token = localStorage.getItem('userToken');
     if (token) {
-      this.userid = jwt_decode(token)
+      this.userid = jwtDecode(token)
     }
 
     this._service.getUser().subscribe({
