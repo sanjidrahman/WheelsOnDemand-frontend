@@ -34,7 +34,7 @@ export class HostBookingsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.dataSourceCompleted.data = res.filter(item => item.status == 'completed')
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
         }
       })
     )

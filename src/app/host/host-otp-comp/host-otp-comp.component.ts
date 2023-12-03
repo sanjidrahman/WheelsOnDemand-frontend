@@ -31,8 +31,7 @@ export class HostOtpCompComponent {
     } else {
       let otp = this.otpVerify.getRawValue()
       this._service.verifyHost(otp).subscribe((res: any) => {
-        if (res.message == 'Success')
-          localStorage.setItem('hostToken', res.token)
+        localStorage.setItem('hostToken', res.token)
         this._router.navigate(['host/host-upload'])
       }, (err) => {
         this._toastr.error(err.error.message)

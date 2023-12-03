@@ -20,7 +20,7 @@ export function userReducer(state: any, action: any) {
 export const hostintialState: IHostModel[] = []
 const _hostReducer = createReducer(hostintialState,
     on(retrievehostsuccess, (state, { hostlist }) => {
-        console.log(state , hostlist , 'I AM INSIDE REDUCER')
+        // console.log(state , hostlist , 'I AM INSIDE REDUCER')
         return [...hostlist]
     })
 )

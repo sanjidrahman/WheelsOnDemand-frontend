@@ -67,11 +67,9 @@ export class HostEditVehicleComponent implements OnInit, AfterViewInit, OnDestro
     this.subscribe.add(
       this._service.getVehicleDetails(this.v_id).subscribe((res) => {
         this.vehicle = res
-        console.log(res.location);
         this.vehicleLocation = res.location
       })
     )
-    console.log(this.vehicleLocation);
   }
 
   getImage(file: string) {
@@ -143,7 +141,6 @@ export class HostEditVehicleComponent implements OnInit, AfterViewInit, OnDestro
     }
     const form = new FormData()
     let data = this.vehicleForm.getRawValue()
-    console.log(this.vehicle);
     this.vehicleForm.get('location')?.setValue(this.vehicleLocation)
     form.append('name', data.name);
     form.append('brand', data.brand);
@@ -243,12 +240,11 @@ export class HostEditVehicleComponent implements OnInit, AfterViewInit, OnDestro
 
   currentLocation() {
     if (!navigator.geolocation) {
-      console.log('location is not supported');
+      this._toastr.warning('location is not supported');
     }
     navigator.geolocation.getCurrentPosition((position) => {
       this.getReverseGeocodingData(position.coords.latitude, position.coords.longitude)
     }, (err) => {
-      console.log(err);
       this._toastr.warning('Please check your location permission !')
     })
   }

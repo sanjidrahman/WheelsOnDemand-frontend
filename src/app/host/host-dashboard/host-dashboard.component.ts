@@ -39,7 +39,7 @@ export class HostDashboardComponent implements OnInit, OnDestroy {
         this.loadCircle()
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       }
     })
   }

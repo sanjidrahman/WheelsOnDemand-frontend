@@ -37,7 +37,6 @@ export class AdminDashboarddComponent implements OnInit, OnDestroy {
     this.subscribe.add(
       this._service.getDashboardData().subscribe({
         next: (res: any) => {
-          console.log(res);
           this.bookingBookedCount = res.bookingBookingCount
           this.bookingCancelledCount = res.cancelledBookingCount
           this.bookingCompletedCount = res.completeBookingCount
@@ -51,7 +50,8 @@ export class AdminDashboarddComponent implements OnInit, OnDestroy {
           this.loadGraph()
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
+          
         }
       })
     )
@@ -144,12 +144,12 @@ export class AdminDashboarddComponent implements OnInit, OnDestroy {
     };
   }
 
-getImage(file: string) {
-  return `${environment.STATIC_FILE_API}${file}`
-}
+  getImage(file: string) {
+    return `${environment.STATIC_FILE_API}${file}`
+  }
 
-ngOnDestroy(): void {
-
-}
+  ngOnDestroy(): void {
+    this.subscribe.unsubscribe()
+  }
 
 }

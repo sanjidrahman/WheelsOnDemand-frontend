@@ -24,7 +24,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
 
   vehicleDetails!: IVehicleModel | undefined;
-  userDetails!: Observable<IUserModel | undefined>;
+  userDetails!: IUserModel | undefined;
   u_id: any;
   v_id!: string | null;
   startDate!: Date;
@@ -61,30 +61,42 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.subscribe.add(
       this._service.getVehicleDetails(this.v_id).subscribe((res) => {
         this.vehicleDetails = res
+        this.getCurrUser()
       })
     )
+  }
 
+  getCurrUser() {
     const token = localStorage.getItem('userToken');
     if (token) {
       this.u_id = jwtDecode(token)
     }
-    this._ustore.dispatch(retrieveuser())
-    this.userDetails = this._ustore.pipe(
-      select(getuser),
-      map(u => u.find(user => user._id == this.u_id.id))
-    )
 
-    setTimeout(() => {
-      this.userDetails.forEach((i) => {
-        this.userChoices = i?.choices
-        this.userName = i?.name
-        this.userEmail = i?.email
-        this.userPhone = i?.phone
-        this.userWallet = i?.wallet
-      })
-    }, 50)
+    this._service.getUser().subscribe({
+      next: (res: IUserModel) => {
+        this.userDetails = res
+        this.getUserDetails()
+        this.checkoutDetails()
+        this.fairDetails()
+      },
+      error: (err) => {
+        this._toastr.error(err.error.message)
+      }
+    })
+  }
 
-    setTimeout(() => {
+  getUserDetails() {
+    if (this.userDetails) {
+      this.userChoices = this.userDetails.choices;
+      this.userName = this.userDetails.name;
+      this.userEmail = this.userDetails.email;
+      this.userPhone = this.userDetails.phone;
+      this.userWallet = this.userDetails.wallet;
+    }
+  }
+
+  checkoutDetails() {
+    if (this.userDetails && this.userChoices) {
       this.pickup = this.userChoices.pickup
       this.dropoff = this.userChoices.dropoff
       this.startDate = new Date(this.userChoices.startDate)
@@ -93,32 +105,27 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.formattedEndDate = this.endDate.toISOString().split('T')[0]
       const timeDiff = this.endDate.getTime() - this.startDate.getTime()
       this.days = timeDiff / (1000 * 3600 * 24)
-    }, 100)
+    }
+  }
 
-    setTimeout(() => {
-      const startDate = new Date(this.userChoices.startDate)
-      const endDate = new Date(this.userChoices.endDate)
-      const timeDiff = endDate.getTime() - startDate.getTime()
-      const days = timeDiff / (1000 * 3600 * 24)
-      if (days >= 7) {
-        if (this.vehicleDetails) {
-          const vprice = this.vehicleDetails.price
-          const dis = (vprice * days) * 10 / 100
-          this.v_price = (vprice * days) - dis
-        }
+  fairDetails() {
+    if (this.userChoices && this.vehicleDetails) {
+      if (this.days >= 7) {
+        const vprice = this.vehicleDetails.price
+        const dis = (vprice * this.days) * 10 / 100
+        this.v_price = (vprice * this.days) - dis
       } else {
-        if (this.vehicleDetails) {
-          const vprice = this.vehicleDetails?.price
-          this.v_price = vprice * days
-        }
+        const vprice = this.vehicleDetails.price
+        this.v_price = vprice * this.days
       }
 
-      this.sgst = Math.floor((this.v_price * 14) / 100)
-      this.cgst = Math.floor((this.v_price * 14) / 100)
-      this.subTotal = this.v_price + this.cgst + this.sgst
-      this.grandTotal = this.v_price + this.cgst + this.sgst
-
-    }, 100)
+      if (this.v_price) {
+        this.sgst = Math.floor((this.v_price * 14) / 100)
+        this.cgst = Math.floor((this.v_price * 14) / 100)
+        this.subTotal = this.v_price + this.cgst + this.sgst
+        this.grandTotal = this.v_price + this.cgst + this.sgst
+      }
+    }
   }
 
   getImage(file: any) {
@@ -130,11 +137,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
     if (this.useWallet) {
       if (this.userWallet) {
-        this.grandTotal < this.userWallet ? this.grandTotal = 0 : this.grandTotal -= this.userWallet 
+        this.grandTotal < this.userWallet ? this.grandTotal = 0 : this.grandTotal -= this.userWallet
       }
     } else {
       if (this.userWallet) {
-        this.grandTotal < this.userWallet ? this.grandTotal = this.subTotal : this.grandTotal += this.userWallet 
+        this.grandTotal < this.userWallet ? this.grandTotal = this.subTotal : this.grandTotal += this.userWallet
       }
     }
   }
@@ -158,7 +165,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           this._toastr.success('Booked Successsfully !')
         },
         error: (err) => {
-          console.log(err);
           this._toastr.error('Something went wrong', err.error.message)
         }
       })
@@ -185,18 +191,18 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         },
         modal: {
           ondismiss: () => {
-            console.log('dismissed');
+            // console.log('dismissed');
           }
         }
       }
     }
 
     const paymentsuccess = (paymentid: any) => {
-      console.log(paymentid);
+      // console.log(paymentid);
     }
 
     const paymentfailure = (err: any) => {
-      console.log(err);
+      // console.log(err);
     }
 
     Razorpay.open(RazorpayOptions, paymentsuccess, paymentfailure)

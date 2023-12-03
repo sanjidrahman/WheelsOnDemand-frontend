@@ -6,16 +6,6 @@ import { UserService } from '../services/user.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
-  constructor(
-    private _service: UserService
-  ){}
-
-  ngOnInit(): void {
-    // const 
-    // this._service.dfPost().subscribe((res) => {
-    //   console.log(res);
-    // })
-  }
 }

@@ -87,7 +87,7 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
           this.totalPage = res.totalPage
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
         }
       })
     )

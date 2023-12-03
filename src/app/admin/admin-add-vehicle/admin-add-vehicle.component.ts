@@ -91,10 +91,6 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
     return filename.split('.').pop();
   }
 
-  click() {
-    console.log(this.firstFormGroup.controls, this.secondFormGroup.controls);
-  }
-
   onSubmit() {
     if (this.vehicleForm.invalid && this.firstFormGroup && this.secondFormGroup) {
       return
@@ -115,7 +111,6 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
 
     this._service.addvehicle(form).subscribe({
       next: (res) => {
-        console.log(res);
         this._router.navigate(['/admin/a/vehicles'])
         this._toastr.success('Registered vehicle to collection!')
       },
@@ -196,13 +191,10 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
 
   currentLocation() {
     if (!navigator.geolocation) {
-      console.log('location is not supported');
     }
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
       this.getReverseGeocodingData(position.coords.latitude, position.coords.longitude)
     }, (err) => {
-      console.log(err);
       this._toastr.warning('Please check your location permission !')
     })
   }
@@ -216,7 +208,6 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
       }
 
       if (status === google.maps.GeocoderStatus.OK) {
-        console.log(results[0].address_components[0].short_name);
         const place = results[0];
 
         if (place && place.formatted_address) {

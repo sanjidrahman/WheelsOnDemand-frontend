@@ -49,7 +49,6 @@ export class AdminHostlistComponent implements OnInit, AfterViewInit {
         this._toastr.success('Partner blocked successfully !')
         this._store.dispatch(retrievehost())
       }, (err) => {
-        console.log(err);
         this._toastr.error('Something went wrong')
       })
     }, () => {

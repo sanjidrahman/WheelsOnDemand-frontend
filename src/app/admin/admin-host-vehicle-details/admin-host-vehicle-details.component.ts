@@ -79,7 +79,6 @@ export class AdminHostVehicleDetailsComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           this._toastr.error('Something went wrong')
-          console.log(err);
         }
       })
     )

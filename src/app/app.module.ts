@@ -148,9 +148,7 @@ import { CommonModule } from '@angular/common';
     NgxStarRatingModule,
     SharedModule
   ],
-  exports: [
-    NgxSpinnerModule
-  ],
+  exports: [NgxSpinnerModule],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',

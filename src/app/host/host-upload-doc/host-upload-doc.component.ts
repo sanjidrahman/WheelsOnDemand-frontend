@@ -42,11 +42,11 @@ export class HostUploadDocComponent {
       upload$.subscribe({
         next: () => {
           this.status = "success"
+          localStorage.removeItem('hostToken')
           this._router.navigate(['/host/host-upload-success'])
           this._toastr.success('Document uploaded successfully!')
         },
         error: (err: any) => {
-          console.log(err);
           this._toastr.error(err.error.message)
           this.status = "fail"
         }

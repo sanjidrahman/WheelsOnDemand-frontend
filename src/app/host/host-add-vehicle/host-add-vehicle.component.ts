@@ -79,7 +79,6 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
     this.document = <File>event.target.files[0];
 
     if (this.document) {
-      console.log(this.document);
       const fileExtension = this.getFileExtensionn(this.document.name);
 
       if (!allowedExtensions.includes(fileExtension)) {
@@ -116,9 +115,7 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
         this._toastr.success('Vehicle Registered, after verification it would be display on your page')
       },
       error: (err) => {
-        console.log(err);
         this._toastr.error('Something went wrong');
-        console.log('Something went wrong');
       }
     })
   }
@@ -194,12 +191,11 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
 
   currentLocation() {
     if (!navigator.geolocation) {
-      console.log('location is not supported');
+      this._toastr.warning('location is not supported');
     }
     navigator.geolocation.getCurrentPosition((position) => {
       this.getReverseGeocodingData(position.coords.latitude, position.coords.longitude)
     }, (err) => {
-      console.log(err);
       this._toastr.warning('Please check your location permission !')
     })
   }

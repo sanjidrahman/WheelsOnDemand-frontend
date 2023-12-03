@@ -1,13 +1,9 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { Observable, Subscription, map, of, switchMap } from 'rxjs';
+import { Subscription, of, switchMap } from 'rxjs';
 import { IBookingModel } from 'src/app/models/booking.model';
 import { IVehicleModel } from 'src/app/models/vehicle.model';
-import { Store, select } from '@ngrx/store';
-import { vehicleState } from 'src/app/store/state/app.state';
-import { retrievevehicles } from 'src/app/store/state/app.actions';
-import { getvehicles } from 'src/app/store/state/app.selectors';
 import { environment } from 'src/environments/environment.development';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingCancelReasonComponent } from 'src/app/popups/booking-cancel-reason/booking-cancel-reason.component';

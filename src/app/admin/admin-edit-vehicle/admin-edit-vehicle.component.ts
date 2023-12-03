@@ -64,7 +64,6 @@ export class AdminEditVehicleComponent implements OnInit, AfterViewInit, OnDestr
     this.subscribe.add(
       this._service.getVehicleDetails(this.v_id).subscribe((res) => {
         this.vehicle = res
-        console.log(res.location);
         this.vehicleLocation = res.location
       })
     )
@@ -237,12 +236,11 @@ export class AdminEditVehicleComponent implements OnInit, AfterViewInit, OnDestr
 
   currentLocation() {
     if (!navigator.geolocation) {
-      console.log('location is not supported');
+      this._toastr.warning('location is not supported');
     }
     navigator.geolocation.getCurrentPosition((position) => {
       this.getReverseGeocodingData(position.coords.latitude, position.coords.longitude)
     }, (err) => {
-      console.log(err);
       this._toastr.warning('Please check your location permission !')
     })
   }

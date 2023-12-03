@@ -57,7 +57,7 @@ export class HostBookingsDetailsComponent implements OnInit, OnDestroy {
           }
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
         }
       })
     );

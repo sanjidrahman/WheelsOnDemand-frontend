@@ -83,7 +83,6 @@ export class AdminVehiclesComponent implements OnInit, OnDestroy {
     this._store.dispatch(retrievevehicles())
     this.subscribe.add(
       this._store.select(getvehicles).subscribe((res: any) => {
-        console.log(res);
         this.vehiclelist = res
       })
     )

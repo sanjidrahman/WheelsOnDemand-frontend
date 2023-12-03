@@ -39,7 +39,6 @@ export class AdminBookingDetailsComponent {
     this.subscribe.add(
       this._service.getBookDetails(this.bookingId).pipe(
         switchMap((res: any) => {
-          console.log(res);
           this.bookingDetails = res;
           this.vehicleId = res[0].vehicleId._id;
           this.statusCurr = res[0].status;
@@ -56,7 +55,7 @@ export class AdminBookingDetailsComponent {
           }
         },
         error: (err) => {
-          console.log(err);
+          this._toastr.error('Something went wrong')
         }
       })
     );

@@ -6,7 +6,6 @@ export const adminGuardGuard: CanActivateFn = (route, state) => {
   const userToken = localStorage.getItem('userToken')
   const hostToken = localStorage.getItem('hostToken')
   const router = inject(Router)
-  console.log(userToken);
   if(userToken){
     router.navigate(['/home']);
     return false

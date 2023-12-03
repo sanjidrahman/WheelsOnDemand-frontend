@@ -114,7 +114,7 @@ export class BookingCancelReasonComponent implements OnInit, OnDestroy {
           this._toastr.success('booking Cancelled')
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
         }
       })
     )

@@ -31,7 +31,6 @@ export class AdminBookingListComponent {
   ngOnInit(): void {
     this.subscribe.add(
       this._service.getBookings().subscribe((res: any) => {
-        console.log(res);
         res.bookings.forEach((e: any) => {
           this.ifHost = e.vehicleId.createdBy;
         });

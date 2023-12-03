@@ -37,27 +37,28 @@ export class BookingSuccessComponent implements OnInit, OnDestroy {
       this._service.getBookDetails(bookingId).subscribe({
         next: (res) => {
           this.booking = res
+          this.uiDetails()
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
         }
       })
     )
-
-    setTimeout(() => {
-      console.log(this.booking[0].startDate);
-      this.startDate = this.booking[0].startDate
-      this.endDate = this.booking[0].endDate
-      this.pickup = this.booking[0].pickup
-      this.dropoff = this.booking[0].dropoff
-    }, 50);
 
     this.subscribe.add(
       this._service.getVehicleDetails(vehicleId).subscribe((res) => {
         this.vehicleDetails = res
       })
     )
+  }
 
+  uiDetails() {
+    if(this.booking) {
+      this.startDate = this.booking[0].startDate
+      this.endDate = this.booking[0].endDate
+      this.pickup = this.booking[0].pickup
+      this.dropoff = this.booking[0].dropoff
+    }
   }
 
   getImage(file: any) {

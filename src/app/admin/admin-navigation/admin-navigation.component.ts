@@ -37,7 +37,6 @@ export class AdminNavigationComponent implements OnDestroy {
           this._toastr.success('Logged out successfully');
         },
         error: (err) => {
-          console.log(err);
           this._toastr.error('Something went wrong')
         },
       })

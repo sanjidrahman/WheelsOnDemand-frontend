@@ -52,7 +52,6 @@ export class ChangePassComponent implements OnInit {
     if (this.passFormChange.invalid) {
       return
     }
-    console.log(this.passFormChange.value);
     this._service.changePass(this.passFormChange.value).subscribe((res) => {
       this.close()
       this._toastr.success('Password changed successfully!')

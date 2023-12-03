@@ -55,7 +55,7 @@ export class VehicleDetailsComponent implements OnInit, OnDestroy {
     )
     this.subscribe.add(
       this._service.isBookingCompleted(this.v_id).subscribe((res: any) => {
-        // this.isBookedCompleted = res.hasCompletedBooking
+        this.isBookedCompleted = res.hasCompletedBooking
       })
     )
 
