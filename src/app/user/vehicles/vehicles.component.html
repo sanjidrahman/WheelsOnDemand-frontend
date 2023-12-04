@@ -17,7 +17,7 @@
                 </div>
                 <hr>
                 <div class="search">
-                    <input placeholder="Search..." [(ngModel)]="searchText">
+                    <input placeholder="Search..." [(ngModel)]="searchText" (input)="onSearch()">
                 </div>
                 <div class="filters">
                     <div>
@@ -102,7 +102,7 @@
                 </div>
                 <app-vehicle-list [startDateChild]="startDate" [endDateChild]="endDate" [pickupChild]="pickup"
                     [dropoffChild]="dropoff" [daysChild]="days" [transmissionChild]="transmissionSelected"
-                    [fuelChild]="fuelSelected" [searchText]="searchText">
+                    [fuelChild]="fuelSelected" [searchText]="debouncedSearchText">
                 </app-vehicle-list>
             </div>
         </div>

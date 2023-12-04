@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, debounceTime } from 'rxjs';
 import { IUserModel } from 'src/app/models/user.model';
 import { jwtDecode } from "jwt-decode";
 import { UserService } from '../services/user.service';
@@ -12,7 +12,7 @@ declare var google: any;
   templateUrl: './vehicles.component.html',
   styleUrls: ['./vehicles.component.css']
 })
-export class VehiclesComponent implements OnInit, OnDestroy, AfterViewInit {
+export class VehiclesComponent implements OnInit, OnDestroy {
 
   @ViewChild('autocomplete') autocomplete!: ElementRef;
 
@@ -35,8 +35,10 @@ export class VehiclesComponent implements OnInit, OnDestroy, AfterViewInit {
   fuelSelected: string | undefined
   transmissionSelected: string | undefined
   searchText!:string
+  debouncedSearchText!: string
   placesInRange: string[] = []
   private subscribe = new Subscription();
+  private searchTextSubject = new Subject<string>()
 
   constructor(
     private _service: UserService,
@@ -46,6 +48,10 @@ export class VehiclesComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.initialize()
 
+    this.searchTextSubject.pipe(debounceTime(1000)).subscribe((val) => {
+      this.debouncedSearchText = val
+    })
+
     // this gives contraits on data selection
     const today = new Date();
     const sixMonthsFromNow = new Date();
@@ -54,9 +60,11 @@ export class VehiclesComponent implements OnInit, OnDestroy, AfterViewInit {
     this.maxDate = sixMonthsFromNow.toISOString().split('T')[0];
   }
 
-  ngAfterViewInit(): void {
-    
+  // debouncing
+  onSearch() {
+    this.searchTextSubject.next(this.searchText)
   }
+  // --------------
 
   // initializes the values to the templete by retrieving from service
   initialize() {

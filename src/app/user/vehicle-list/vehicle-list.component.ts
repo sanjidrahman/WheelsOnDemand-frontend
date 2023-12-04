@@ -1,14 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { Observable, Subscription, map } from 'rxjs';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { IVehicleModel } from 'src/app/models/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
-import { userState } from 'src/app/store/state/app.state';
-import { Store, select } from '@ngrx/store';
-import { retrieveuser } from 'src/app/store/state/app.actions';
-import { getuser } from 'src/app/store/state/app.selectors';
 import { IUserModel } from 'src/app/models/user.model';
 
 @Component({
@@ -36,7 +31,6 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
   private subscribe = new Subscription();
 
   constructor(
-    private _store: Store<userState>,
     private _service: UserService,
     private _toastr: ToastrService,
   ) { }
@@ -84,7 +78,7 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
       this._service.getVehicle(query, this.currentPage).subscribe({
         next: (res: any) => {
           this.vehicleList = res.vehicles
-          this.totalPage = res.totalPage
+          this.totalPage = Math.ceil(this.vehicleList.length / 6)
         },
         error: (err) => {
           // console.log(err);
