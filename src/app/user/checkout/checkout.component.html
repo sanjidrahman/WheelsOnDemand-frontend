@@ -10,7 +10,8 @@
                         <div class="row">
                             <div class="col-lg-5">
                                 <div class="v_image" style="margin-left: 21%;">
-                                    <img [src]="getImage(v.images[0] ? v.images[0].toString() : '')"  width="200px" height="148px" alt="">
+                                    <img [src]="getImage(v.images[0] ? v.images[0].toString() : '')" width="200px"
+                                        height="148px" alt="">
                                 </div>
                                 <hr>
                                 <div class="row">
@@ -54,7 +55,7 @@
                                 </div>
                                 <div class="row justify-content-between">
                                     <div class="col-lg-4">
-                                       <b>{{ startDate | date }}</b>
+                                        <b>{{ startDate | date }}</b>
                                     </div>
                                     <div class="col-lg-4">
                                         <b>{{ endDate | date }}</b>
@@ -142,7 +143,7 @@
                             <div class="col-lg-6 d-flex align-items-center">
                                 <input type="checkbox" (change)="onWalletSelect()" class="me-2">
                                 <p class="mb-0"><b>Wallet :</b></p>
-                            </div>                            
+                            </div>
                             <div class="col-lg-4">
                                 <p class="mx-1"><b>{{ userWallet | currency:'INR':'symbol':'1.2-2'}}</b></p>
                             </div>
@@ -155,11 +156,13 @@
                                 <p class="mx-1"><b>{{ grandTotal | currency:'INR':'symbol':'1.2-2'}}</b></p>
                             </div>
                         </div>
-                        <div class="col-lg-12"  *ngIf="grandTotal > 0">
-                            <button (click)="payNow()" id="pay-btn" class="mt-3 w-100" color="blue" mat-raised-button>Pay Now</button>
+                        <div class="col-lg-12" *ngIf="grandTotal > 0">
+                            <button (click)="payNow()" id="pay-btn" class="mt-3 w-100" color="blue"
+                                mat-raised-button>Pay Now</button>
                         </div>
                         <div class="col-lg-12" *ngIf="grandTotal == 0">
-                            <button (click)="bookNow()" id="pay-btn" class="mt-3 w-100" color="blue" mat-raised-button>Book Now</button>
+                            <button (click)="bookNow()" id="pay-btn" class="mt-3 w-100" color="blue"
+                                mat-raised-button>Book Now</button>
                         </div>
                     </div>
                 </div>
@@ -169,12 +172,80 @@
     <div class="p-5 container-fluid">
         <div class="card">
             <h2 class="m-3">Terms & Conditions</h2>
-            <div class="card-body">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi possimus cumque atque architecto,
-                dolorum nisi iusto ab aliquid voluptate deleniti nulla modi magni, doloremque tempora expedita maxime
-                aliquam earum ratione assumenda. Placeat a rerum labore, accusamus quaerat quia neque blanditiis aut,
-                vero, possimus obcaecati soluta dolore recusandae. Laudantium itaque, sequi eum natus obcaecati
-                veritatis aliquam animi quam quidem, corrupti culpa rerum aspernatur mollitia, fuga quia!
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                aria-expanded="true" aria-controls="collapseOne">
+                                A. View Refund Policy
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                        data-parent="#accordionExample">
+                        <div class="card-body">
+                            Our refund policy is designed to provide flexibility and fairness to our customers. If a
+                            cancellation request is made 24 hours or more prior to the booked date, a full refund will
+                            be issued. For cancellations made between 12 to 24 hours before the scheduled date, a 50%
+                            refund will be processed. However, please note that if the cancellation is requested within
+                            12 hours of the booked date, no refund will be provided. We understand that plans can
+                            change, and we strive to accommodate our customers while considering the impact on our
+                            services. This policy ensures that customers have the opportunity to receive a partial or
+                            full refund based on the time frame of their cancellation, allowing for a reasonable and
+                            transparent approach to refunds.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                B. View Penalty Policy
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            Our penalty policy is designed to ensure responsible and safe usage of our vehicles. In the
+                            event that penalties are incurred due to unusual activities associated with a vehicle, the
+                            user is responsible for covering the entire penalty amount. We explicitly state that we, as
+                            the service provider, will not assume responsibility for any penalties accrued as a result
+                            of the user's actions. Furthermore, as part of our commitment to transparency and
+                            compliance, we undertake to verify the existence of any pending penalties on a vehicle
+                            before its delivery to the user. This precautionary measure aims to facilitate a smooth and
+                            penalty-free experience for our users while upholding the principles of accountability and
+                            safety.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                C. View Vehicle Damage Policy
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                        data-parent="#accordionExample">
+                        <div class="card-body">
+                            We understand that accidents can happen, and we want to ensure transparency
+                            regarding our damage policy. In the unfortunate event of accidental damage to a vehicle
+                            during your possession, if the vehicle is insured, you will be responsible for covering the
+                            deductible amount after deducting the insured portion. However, it is crucial to note that
+                            if the vehicle is not insured or if the insurance has expired on the day of your delivery,
+                            we strongly advise against taking unnecessary risks. While we strive to provide only
+                            top-quality vehicles, unforeseen circumstances may arise. In such cases, if the vehicle is
+                            not insured, the company cannot intervene, and you will be required to bear the entire
+                            restoration cost of the vehicle. We prioritize your safety and satisfaction and encourage
+                            responsible handling of our vehicles to ensure a smooth and worry-free experience.
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

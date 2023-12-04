@@ -5,5 +5,19 @@
 }
 
 #pay-btn {
-    background-color: #00A87E ;
+  background-color: #00a87e;
+}
+
+
+.card-header {
+  background-color: #ffffff;
+  color: #fff;
+}
+
+.card-body {
+  background-color: #fff;
+}
+
+.btn {
+  color: black;
 }

@@ -22,9 +22,9 @@ import { PlaceAutocompleteComponent } from './user/place-autocomplete/place-auto
 import { HostPartnershipComponent } from './user/host-partnership/host-partnership.component';
 
 const routes: Routes = [
-  { path: '', title: 'Home', component: HomeComponent , canActivate: [userGuardLogged]},
+  { path: '', title: 'Home', component: HomeComponent, canActivate: [userGuardLogged] },
   { path: 'home', redirectTo: '', pathMatch: 'full' },
-  { path: 'login', title: 'Login', component: LoginRegisterComponent },
+  { path: 'login', title: 'Login', component: LoginRegisterComponent, },
   { path: 'otp-verify', title: 'OTP-Verify', component: OtpCompComponent },
   { path: 'mail-verify', title: 'Mail Verify', component: MailVerifyComponent },
   { path: 'select', title: 'Select Date', component: SelectDateComponent },
