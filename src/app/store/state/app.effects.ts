@@ -3,9 +3,9 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { retrievehost, retrievehostsuccess, retrieveuser, retrieveusersuccess, retrievevehicles, retrivevehiclessuccess } from "./app.actions";
 import { EMPTY, catchError, exhaustMap, map } from "rxjs";
 import { ToastrService } from "ngx-toastr";
-import { IUserModel } from "src/app/models/user.model";
-import { IHostModel } from "src/app/models/host.model";
-import { IVehicleModel } from "src/app/models/vehicle.model";
+import { IUserModel } from "src/app/interfaces/user.model";
+import { IHostModel } from "src/app/interfaces/host.model";
+import { IVehicleModel } from "src/app/interfaces/vehicle.model";
 import { AdminService } from "src/app/admin/services/admin.services";
 
 @Injectable()

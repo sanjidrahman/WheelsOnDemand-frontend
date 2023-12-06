@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HostService } from '../services/host.service';
-import { IBookingModel } from 'src/app/models/booking.model';
+import { IBookingModel } from 'src/app/interfaces/booking.model';
 import { vehicleState } from 'src/app/store/state/app.state';
 import { Store, select } from '@ngrx/store';
 import { Subscription, map, Observable, switchMap, of } from 'rxjs';
-import { IVehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { retrievevehicles } from 'src/app/store/state/app.actions';
 import { getvehicles } from 'src/app/store/state/app.selectors';
 

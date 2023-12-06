@@ -1,11 +1,11 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { IUserModel } from 'src/app/models/user.model';
+import { IUserModel } from 'src/app/interfaces/user.model';
 import { environment } from 'src/environments/environment.development';
-import { IHostModel } from 'src/app/models/host.model';
-import { IVehicleModel } from 'src/app/models/vehicle.model';
-import { IBookingModel } from 'src/app/models/booking.model';
+import { IHostModel } from 'src/app/interfaces/host.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
+import { IBookingModel } from 'src/app/interfaces/booking.model';
 
 @Injectable({
   providedIn: 'any'
@@ -95,8 +95,8 @@ export class AdminService {
     return this._http.get(`${this.commonUrl}/admin/pagination`)
   }
 
-  addvehicle(data: any) {
-    return this._http.post(`${this.commonUrl}/admin/add-vehicle`, data, {
+  addvehicle(data: any, id: string) {
+    return this._http.post(`${this.commonUrl}/admin/add-vehicle/${id}`, data, {
       withCredentials: false
     })
   }

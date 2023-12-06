@@ -5,12 +5,13 @@ import { userState } from 'src/app/store/state/app.state';
 import { retrieveuser } from "src/app/store/state/app.actions";
 import { getuser } from "src/app/store/state/app.selectors";
 import { Observable, Subscription, map } from "rxjs";
-import { IUserModel } from "src/app/models/user.model";
+import { IUserModel } from "src/app/interfaces/user.model";
 import { environment } from "src/environments/environment.development";
 import { UserService } from "../services/user.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
+import { IJwtData } from "../../interfaces/jwt.interface";
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +21,7 @@ import { Router } from "@angular/router";
 export class ProfileComponent implements OnInit, OnDestroy {
 
   isHovered: boolean = false;
-  userid: any
+  userid!: IJwtData
   userDetails!: Observable<IUserModel | undefined>
   profile!: File | null
   userForm!: FormGroup

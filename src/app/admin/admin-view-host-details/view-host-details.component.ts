@@ -10,7 +10,7 @@ import { AdminService } from '../services/admin.services';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { SubmitNotverifiedComponent } from 'src/app/popups/submit-notverified/submit-notverified.component';
-import { IHostModel } from 'src/app/models/host.model';
+import { IHostModel } from 'src/app/interfaces/host.model';
 import { environment } from 'src/environments/environment.development';
 
 @Component({

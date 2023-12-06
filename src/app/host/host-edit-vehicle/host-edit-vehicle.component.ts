@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HostService } from '../services/host.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { IVehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 import { NgConfirmService } from 'ng-confirm-box';
 declare var google: any;

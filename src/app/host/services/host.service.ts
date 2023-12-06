@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IBookingModel } from 'src/app/models/booking.model';
-import { IHostModel } from 'src/app/models/host.model';
-import { IVehicleModel } from 'src/app/models/vehicle.model';
+import { IBookingModel } from 'src/app/interfaces/booking.model';
+import { IHostModel } from 'src/app/interfaces/host.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable()
@@ -85,8 +85,8 @@ export class HostService {
     })
   }
 
-  addvehicle(data: any) {  
-    return this._http.post(`${this.commonUrl}/host/add-vehicle`, data, {
+  addvehicle(data: any, hostid: string) {  
+    return this._http.post(`${this.commonUrl}/host/add-vehicle/${hostid}`, data, {
       withCredentials: false
     })
   }

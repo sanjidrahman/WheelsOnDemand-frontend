@@ -1,10 +1,10 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
-import { IBookingModel } from 'src/app/models/booking.model';
+import { IBookingModel } from 'src/app/interfaces/booking.model';
 import { AdminService } from '../services/admin.services';
 import { MatPaginator } from '@angular/material/paginator';
-import { IHostModel } from 'src/app/models/host.model';
+import { IHostModel } from 'src/app/interfaces/host.model';
 
 @Component({
   selector: 'app-admin-booking-list',

@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { vehicleState } from 'src/app/store/state/app.state';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, map } from 'rxjs';
-import { IVehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { retrievevehicles } from 'src/app/store/state/app.actions';
 import { getvehicles } from 'src/app/store/state/app.selectors';
 import { ActivatedRoute } from '@angular/router';
@@ -39,13 +39,9 @@ export class AdminHostVehicleDetailsComponent implements OnInit, OnDestroy {
     this.subscribe.add(
       this._service.getVehicleDetails(id).subscribe((res) => {
         this.vehicleDetails = res
+        this.loadImage()
       })
     )
-
-    setTimeout(() => {
-      this.loadImage()
-    }, 50);
-
   }
 
   loadImage() {

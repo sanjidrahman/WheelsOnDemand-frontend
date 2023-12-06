@@ -12,14 +12,14 @@ import { Subscription } from 'rxjs';
   templateUrl: './login-register.component.html',
   styleUrls: ['./login-register.component.css']
 })
-export class LoginRegisterComponent implements OnInit , OnDestroy {
+export class LoginRegisterComponent implements OnInit, OnDestroy {
 
   loginForm!: FormGroup
   registerForm!: FormGroup
   submit = false
   user: any;
   loggedIn: any;
-  sub! : Subscription
+  sub!: Subscription
   StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
   hide = true;
   hideConfirm = true;
@@ -55,9 +55,9 @@ export class LoginRegisterComponent implements OnInit , OnDestroy {
       this.loggedIn = (user != null);
       // console.log(this.user)
       this._service.googleLogin(this.user).subscribe((res) => {
-        localStorage.setItem('userToken' , res.token)
+        localStorage.setItem('userToken', res.token)
         this._router.navigate([''])
-      } , (err) => {
+      }, (err) => {
         this._toastr.error(err.error.message)
       })
     });
@@ -84,7 +84,8 @@ export class LoginRegisterComponent implements OnInit , OnDestroy {
     } else {
       let logUser = this.loginForm.getRawValue()
       this._service.loginUser(logUser).subscribe((res) => {
-        localStorage.setItem('userToken' , res.token)
+        console.log(res);
+        localStorage.setItem('userToken', res.token)
         this._router.navigate([''])
       }, (err) => {
         this._toastr.error(err.error.message)
@@ -98,13 +99,7 @@ export class LoginRegisterComponent implements OnInit , OnDestroy {
     } else {
       let regUser = this.registerForm.value
       this._service.registerUser(regUser).subscribe((res) => {
-        // if(res.status == 200) {
-          this._router.navigate(['/otp-verify']);
-        // }  
-        // this._router.navigate(['host/otp-verify'])
-        // if(res.message == 'Success') {
-        //   this.router.navigate([''])
-        // }
+        this._router.navigate(['/otp-verify']);
       }, (err) => {
         this._toastr.error(err.error.message)
       })

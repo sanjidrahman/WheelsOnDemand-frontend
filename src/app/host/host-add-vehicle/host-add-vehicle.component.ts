@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { HostService } from '../services/host.service';
 import { Router } from '@angular/router';
+import { jwtDecode } from "jwt-decode";
 declare var google: any;
 
 @Component({
@@ -22,6 +23,7 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
   fuel: string[] = ['Petrol', 'Diesel', 'Electric']
   isLinear = false;
   map: any
+  token!: any
 
   constructor(
     private _fb: FormBuilder,
@@ -47,6 +49,9 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
     this.secondFormGroup = this._fb.group({
       secondCtrl: ['', Validators.required],
     });
+
+    const token = localStorage.getItem('hostToken')
+    if (token) this.token = jwtDecode(token)
 
   }
 
@@ -109,12 +114,14 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
     for (const file of this.selectedfiles) {
       form.append('files', file, file.name);
     }
-    this._service.addvehicle(form).subscribe({
+    this._service.addvehicle(form, this.token.id).subscribe({
       next: () => {
         this._router.navigate(['/host/h/vehicles'])
         this._toastr.success('Vehicle Registered, after verification it would be display on your page')
       },
       error: (err) => {
+        console.log(err);
+        
         this._toastr.error('Something went wrong');
       }
     })

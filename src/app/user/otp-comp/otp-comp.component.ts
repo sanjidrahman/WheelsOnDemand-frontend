@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -17,7 +16,6 @@ export class OtpCompComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _toastr: ToastrService,
-    private _http: HttpClient,
     private _service: UserService,
     private _router : Router
   ) { }
@@ -33,8 +31,7 @@ export class OtpCompComponent implements OnInit {
       return 
     } else {
       let otp = this.otpVerify.getRawValue()
-      this._service.verify(otp).subscribe((res : any) => {
-        if(res.message == 'Success')
+      this._service.verify(otp).subscribe((res) => {
         localStorage.setItem('userToken' , res.token)
         this._router.navigate([''])
       },(err) => {

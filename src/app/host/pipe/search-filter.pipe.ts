@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IVehicleModel } from '../../models/vehicle.model';
+import { IVehicleModel } from '../../interfaces/vehicle.model';
 
 @Pipe({
   name: 'searchFilterPipe',

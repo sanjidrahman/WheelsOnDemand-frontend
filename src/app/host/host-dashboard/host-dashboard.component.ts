@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HostService } from '../services/host.service';
 import { Subscription } from 'rxjs';
-import { ITrendingVehicleModel } from '../../models/host-dashboard-trending-vehicle.model';
+import { ITrendingVehicleModel } from '../../interfaces/host-dashboard-trending-vehicle.model';
 import { environment } from '../../../environments/environment.development';
-import { IVehicleModel } from '../../models/vehicle.model';
+import { IVehicleModel } from '../../interfaces/vehicle.model';
 
 @Component({
   selector: 'app-host-dashboard',

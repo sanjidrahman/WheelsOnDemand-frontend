@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/user/services/user.service';
-import { IBookingModel } from '../../models/booking.model';
+import { IBookingModel } from '../../interfaces/booking.model';
 
 @Component({
   selector: 'app-booking-cancel-reason',
@@ -15,7 +15,7 @@ import { IBookingModel } from '../../models/booking.model';
 export class BookingCancelReasonComponent implements OnInit, OnDestroy {
 
   reasonForm!: FormGroup
-  bookingDetails!: IBookingModel[]
+  bookingDetails!: IBookingModel
   refundAmount: number = 0
   refundSourceAmount: number = 0
   private subscribe = new Subscription()
@@ -33,7 +33,7 @@ export class BookingCancelReasonComponent implements OnInit, OnDestroy {
     this.subscribe.add(
       this._service.getBookDetails(this._data).subscribe((res: any) => {
         this.bookingDetails = res
-        this.calculateRefund(this.bookingDetails[0].startDate, this.bookingDetails[0].grandTotal)
+        this.calculateRefund(this.bookingDetails.startDate, this.bookingDetails.grandTotal)
       })
     )
     this.reasonForm = this._fb.group({

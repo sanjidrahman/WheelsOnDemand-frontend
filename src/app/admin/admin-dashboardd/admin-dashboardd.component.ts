@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IUserModel } from 'src/app/models/user.model';
+import { IUserModel } from 'src/app/interfaces/user.model';
 import { AdminService } from '../services/admin.services';
 import { Subscription } from 'rxjs';
-import { IVehicleModel } from '../../models/vehicle.model';
+import { IVehicleModel } from '../../interfaces/vehicle.model';
 import { environment } from '../../../environments/environment.development';
 
 @Component({

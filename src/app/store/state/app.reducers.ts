@@ -1,8 +1,8 @@
-import { IVehicleModel } from '../../models/vehicle.model';
+import { IVehicleModel } from '../../interfaces/vehicle.model';
 import { createReducer, on } from "@ngrx/store"
 import { retrievehostsuccess, retrieveusersuccess, retrivevehiclessuccess } from "./app.actions"
-import { IUserModel } from "src/app/models/user.model"
-import { IHostModel } from "src/app/models/host.model"
+import { IUserModel } from "src/app/interfaces/user.model"
+import { IHostModel } from "src/app/interfaces/host.model"
 
 // user reducer 
 export const userinitialState: IUserModel[] = []

@@ -3,6 +3,7 @@ import { AdminService } from '../services/admin.services';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { jwtDecode } from "jwt-decode";
 declare var google: any;
 
 @Component({
@@ -22,6 +23,7 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
   firstFormGroup!: FormGroup
   secondFormGroup!: FormGroup
   map: any;
+  token: any
 
   constructor(
     private _fb: FormBuilder,
@@ -47,6 +49,9 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
     this.secondFormGroup = this._fb.group({
       secondCtrl: ['', Validators.required],
     });
+
+    const token = localStorage.getItem('adminToken')
+    if (token) this.token = jwtDecode(token)
 
   }
 
@@ -109,7 +114,7 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
       form.append('files', file, file.name);
     }
 
-    this._service.addvehicle(form).subscribe({
+    this._service.addvehicle(form, this.token.id).subscribe({
       next: (res) => {
         this._router.navigate(['/admin/a/vehicles'])
         this._toastr.success('Registered vehicle to collection!')

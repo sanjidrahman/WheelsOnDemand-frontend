@@ -1,6 +1,6 @@
-import { IHostModel } from 'src/app/models/host.model';
-import { IUserModel } from '../../models/user.model';
-import { IVehicleModel } from 'src/app/models/vehicle.model';
+import { IHostModel } from 'src/app/interfaces/host.model';
+import { IUserModel } from '../../interfaces/user.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 
 
 export interface userState {

@@ -1,7 +1,10 @@
+import { IUserModel } from "./user.model"
+import { IVehicleModel } from "./vehicle.model"
+
 export interface IBookingModel {
     _id: string
-    userId: any
-    vehicleId: any
+    userId: IUserModel 
+    vehicleId: IVehicleModel 
     startDate: string
     endDate: string
     pickup: string

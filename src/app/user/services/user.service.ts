@@ -1,10 +1,18 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, filter } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
-import { IReviewModel, IVehicleModel } from '../../models/vehicle.model';
-import { IBookingModel } from '../../models/booking.model';
-import { IUserModel } from '../../models/user.model';
+import { IReviewModel, IVehicleListRes, IVehicleModel } from '../../interfaces/vehicle.model';
+import { IBookingModel } from '../../interfaces/booking.model';
+import { IIsBookingCompleted, IUserModel } from '../../interfaces/user.model';
+import { IUserLoginData } from '../../interfaces/user-login.interface';
+import { IOtpData, IUserRegistrationData } from '../../interfaces/user-register.interface';
+import { IGoogleUserData } from '../../interfaces/google-login.interface';
+import { IChoiceModel } from '../../interfaces/choice.interface';
+import { IFilterDetails } from '../../interfaces/filter.interface';
+import { IBookingData, IBookingId } from '../../interfaces/booking.interface';
+import { IPasswordChange, IUserProfile } from '../../interfaces/user-profile.interface';
+import { IJwtToken } from '../../interfaces/jwt.interface';
 declare var google: any;
 
 @Injectable({
@@ -16,67 +24,67 @@ export class UserService {
 
   constructor(private _http: HttpClient) { }
 
-  registerUser(userData: any): Observable<any> {
+  registerUser(userData: IUserRegistrationData) {
     return this._http.post(`${this.commonUrl}/user/signup`, userData, {
       withCredentials: false
     })
   }
 
-  loginUser(userData: any): Observable<any> {
-    return this._http.post(`${this.commonUrl}/user/login`, userData, {
+  loginUser(userData: IUserLoginData): Observable<IJwtToken> {
+    return this._http.post<IJwtToken>(`${this.commonUrl}/user/login`, userData, {
       withCredentials: false
     })
   }
 
-  googleLogin(idToken: any): Observable<any> {
-    return this._http.post(`${this.commonUrl}/user/auth/login`, idToken, {
+  googleLogin(idToken: IGoogleUserData): Observable<IJwtToken> {
+    return this._http.post<IJwtToken>(`${this.commonUrl}/user/auth/login`, idToken, {
       withCredentials: false
     })
   }
 
-  verify(otp: any) {
-    return this._http.post(`${this.commonUrl}/user/verify-otp`, otp, {
+  verify(otp: IOtpData): Observable<IJwtToken> {
+    return this._http.post<IJwtToken>(`${this.commonUrl}/user/verify-otp`, otp, {
       withCredentials: false
     })
   }
 
-  storeChoice(choice: any, placesInRange: string[]) {
+  storeChoice(choice: IChoiceModel, placesInRange: string[]) {
     return this._http.put(`${this.commonUrl}/user/store-choice`, { choice, placesInRange }, {
       withCredentials: false
     })
   }
 
-  getVehicle(filters?: any, page?: number) {
+  getVehicle(filters?: IFilterDetails, page?: number): Observable<IVehicleListRes> {
     let params = new HttpParams()
     if (filters) {
       if (filters.fuel) params = params.append('fuel', filters.fuel)
       if (filters.transmission) params = params.append('transmission', filters.transmission)
     }
-    return this._http.get<IVehicleModel[]>(`${this.commonUrl}/user/vehicles/${page}`, {
+    return this._http.get<IVehicleListRes>(`${this.commonUrl}/user/vehicles/${page}`, {
       params,
       withCredentials: false
     })
   }
 
-  bookVehicle(bookData: object) {
-    return this._http.post(`${this.commonUrl}/user/book-vehicle`, bookData, {
+  bookVehicle(bookData: IBookingData): Observable<IBookingId> {
+    return this._http.post<IBookingId>(`${this.commonUrl}/user/book-vehicle`, bookData, {
       withCredentials: false
     })
   }
 
-  getBookDetails(id: string | null) {
+  getBookDetails(id: string | null): Observable<IBookingModel> {
     return this._http.get<IBookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
       withCredentials: false
     })
   }
 
-  getBookings() {
+  getBookings(): Observable<IBookingModel[]> {
     return this._http.get<IBookingModel[]>(`${this.commonUrl}/user/user-booking`, {
       withCredentials: false
     })
   }
 
-  updateUser(data: any) {
+  updateUser(data: IUserProfile) {
     return this._http.patch(`${this.commonUrl}/user/update-user`, data, {
       withCredentials: false
     })
@@ -95,7 +103,7 @@ export class UserService {
     })
   }
 
-  changePass(data: any) {
+  changePass(data: IPasswordChange) {
     return this._http.patch(`${this.commonUrl}/user/change-password`, data, {
       withCredentials: false
     })
@@ -137,8 +145,8 @@ export class UserService {
     })
   }
 
-  isBookingCompleted(vid: string | null) {
-    return this._http.post(`${this.commonUrl}/user/isBooked/${vid}`, {
+  isBookingCompleted(vid: string | null): Observable<IIsBookingCompleted> {
+    return this._http.post<IIsBookingCompleted>(`${this.commonUrl}/user/isBooked/${vid}`, {
       withCredentials: false
     })
   }
@@ -154,31 +162,5 @@ export class UserService {
       withCredentials: false
     })
   }
-
-
-  // initMap() {
-  //   const myLatlng = { lat: -25.363, lng: 131.044 };
-  //   const map = new google.maps.Map(document.getElementById('autocomplete'), {
-  //     zoom: 4,
-  //     center: myLatlng,
-  //   });
-
-  //   let infoWindow = new google.maps.InfoWindow({
-  //     content: 'Click the map to get Lat/Lng!',
-  //     position: myLatlng,
-  //   });
-
-  //   infoWindow.open(map);
-
-  //   map.addListener('click', (mapsMouseEvent: any) => {
-  //     infoWindow.close();
-  //     infoWindow = new google.maps.InfoWindow({
-  //       position: mapsMouseEvent.latLng,
-  //     });
-  //     infoWindow.setContent(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
-  //     infoWindow.open(map);
-  //   });
-  // }
-
 
 }

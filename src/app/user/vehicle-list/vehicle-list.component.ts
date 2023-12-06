@@ -1,10 +1,10 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { IVehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { IUserModel } from 'src/app/models/user.model';
+import { IUserModel } from 'src/app/interfaces/user.model';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -23,7 +23,6 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
   @Input() searchText!: string
   vehicleList!: IVehicleModel[];
   customPrice: number[] = []
-  // query: any = {}
   userid!: string
   userDetails!: Observable<IUserModel | undefined>
   totalPage!: number
@@ -51,7 +50,7 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
   callPag(page: number) {
     this.currentPage = page
     this.subscribe.add(
-      this._service.getVehicle({}, page).subscribe((res: any) => {
+      this._service.getVehicle({}, page).subscribe((res) => {
         this.vehicleList = res.vehicles
       })
     )
@@ -76,7 +75,7 @@ export class VehicleListComponent implements OnInit, OnDestroy, OnChanges {
     if (this.transmissionChild) query.transmission = this.transmissionChild
     this.subscribe.add(
       this._service.getVehicle(query, this.currentPage).subscribe({
-        next: (res: any) => {
+        next: (res) => {
           this.vehicleList = res.vehicles
           this.totalPage = Math.ceil(this.vehicleList.length / 6)
         },

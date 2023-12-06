@@ -3,7 +3,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
-import { IBookingModel } from 'src/app/models/booking.model';
+import { IBookingModel } from 'src/app/interfaces/booking.model';
 
 @Component({
   selector: 'app-bookings',

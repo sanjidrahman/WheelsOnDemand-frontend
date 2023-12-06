@@ -1,4 +1,4 @@
-import { IChoiceModel } from "./choice.model"
+import { IChoiceModel } from "../interfaces/choice.interface"
 
 export interface IUserModel {
     _id: string

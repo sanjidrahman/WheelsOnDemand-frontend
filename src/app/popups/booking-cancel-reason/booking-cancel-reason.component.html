@@ -36,14 +36,14 @@
       </div>
       <div>
         <ng-container
-          *ngIf="reasonForm.get('refundOption')?.value === 'wallet'"
+          *ngIf="reasonForm.get('refundOption')?.value === 'wallet' && bookingDetails?.startDate"
         >
           <p class="px-4">
             <b>Note: </b> By cancelling the vehicle you will be refunded
             <b>{{
               calculateRefund(
-                bookingDetails[0].startDate,
-                bookingDetails[0].grandTotal
+                bookingDetails.startDate,
+                bookingDetails.grandTotal
               ) | currency : "INR"
             }}</b>
           </p>

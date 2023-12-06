@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
-import { IBookingModel } from 'src/app/models/booking.model';
+import { IBookingModel } from 'src/app/interfaces/booking.model';
 import { HostService } from '../services/host.service';
 
 @Component({

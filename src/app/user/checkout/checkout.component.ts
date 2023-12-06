@@ -1,17 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store, select } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subscription, map } from 'rxjs';
-import { IUserModel } from 'src/app/models/user.model';
-import { IVehicleModel } from 'src/app/models/vehicle.model';
-import { retrieveuser, retrievevehicles } from 'src/app/store/state/app.actions';
-import { getuser, getvehicles } from 'src/app/store/state/app.selectors';
-import { userState, vehicleState } from 'src/app/store/state/app.state';
+import { Subscription } from 'rxjs';
+import { IUserModel } from 'src/app/interfaces/user.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { jwtDecode } from "jwt-decode";
 import { environment } from 'src/environments/environment.development';
 import { UserService } from '../services/user.service';
-import { sub } from 'date-fns/fp';
+import { IBookingId } from '../../interfaces/booking.interface';
 
 declare var Razorpay: any;
 
@@ -48,8 +44,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   private subscribe = new Subscription()
 
   constructor(
-    private _vstore: Store<vehicleState>,
-    private _ustore: Store<userState>,
     private _toastr: ToastrService,
     private _router: Router,
     private _service: UserService,
@@ -161,6 +155,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.subscribe.add(
       this._service.bookVehicle(bookingDetails).subscribe({
         next: (res: any) => {
+          console.log(res);
           this._router.navigate(['booking-success', res.bookingId, this.v_id])
           this._toastr.success('Booked Successsfully !')
         },
@@ -226,7 +221,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
     this.subscribe.add(
       this._service.bookVehicle(bookingDetails).subscribe({
-        next: (res: any) => {
+        next: (res) => {
           this._router.navigate(['booking-success', res.bookingId, this.v_id])
           this._toastr.success('Booked Successsfully !')
         },
@@ -239,7 +234,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    this.subscribe.unsubscribe()
   }
 
 }

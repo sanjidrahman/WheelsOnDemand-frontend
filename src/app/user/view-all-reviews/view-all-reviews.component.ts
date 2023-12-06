@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { IReviewModel, IVehicleModel } from '../../models/vehicle.model';
+import { IReviewModel, IVehicleModel } from '../../interfaces/vehicle.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
 import { NgConfirmService } from 'ng-confirm-box';
 import { jwtDecode } from "jwt-decode";
+import { IJwtData } from '../../interfaces/jwt.interface';
 
 @Component({
   selector: 'app-view-all-reviews',
@@ -19,7 +20,7 @@ export class ViewAllReviewsComponent implements OnInit, OnDestroy {
   reviews!: IReviewModel[] | any
   vehicleDetails!: IVehicleModel | undefined
   v_id!: string | null
-  userId!: string
+  userId!: IJwtData
   private subscribe = new Subscription()
 
   constructor(
@@ -31,12 +32,11 @@ export class ViewAllReviewsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.updateData()
-
-    const token = localStorage.getItem('userToken')
-    if(token) {
-      var decoded: any = jwtDecode(token)
+    
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      this.userId = jwtDecode(token)
     }
-    this.userId = decoded.id
   }
 
   updateData() {

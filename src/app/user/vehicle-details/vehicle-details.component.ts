@@ -3,13 +3,19 @@ import { ActivatedRoute } from '@angular/router';
 import { ImageItem, GalleryItem } from 'ng-gallery';
 import { jwtDecode } from "jwt-decode";
 import { Observable, Subscription } from 'rxjs';
-import { IReviewModel, IVehicleModel } from 'src/app/models/vehicle.model';
+import { IReviewModel, IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 import { UserService } from '../services/user.service';
-import { IChoiceModel } from 'src/app/models/choice.model';
 import { ToastrService } from 'ngx-toastr';
 import { NgConfirmService } from 'ng-confirm-box';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IChoiceModel } from '../../interfaces/choice.interface';
+import { IIsBookingCompleted } from '../../interfaces/user.model';
+import { IJwtData } from '../../interfaces/jwt.interface';
+
+interface isBooked {
+  hasCompletedBooking: boolean
+}
 
 @Component({
   selector: 'app-vehicle-details',
@@ -27,7 +33,7 @@ export class VehicleDetailsComponent implements OnInit, OnDestroy {
   vehicleDetails!: IVehicleModel | undefined
   data!: string[] | undefined
   imageData!: any[]
-  userChoices!: IChoiceModel
+  userChoices!: IChoiceModel | null
   reviews!: IReviewModel[] | any
   v_price!: number
   v_id!: string | null
@@ -48,22 +54,16 @@ export class VehicleDetailsComponent implements OnInit, OnDestroy {
     this.loadVehicleData()
    
     this.subscribe.add(
-      this._service.getUser().subscribe((res: any) => {
+      this._service.getUser().subscribe((res) => {
         this.userChoices = res.choices
         this.handleData()
       })
     )
     this.subscribe.add(
-      this._service.isBookingCompleted(this.v_id).subscribe((res: any) => {
+      this._service.isBookingCompleted(this.v_id).subscribe((res: IIsBookingCompleted) => {
         this.isBookedCompleted = res.hasCompletedBooking
       })
     )
-
-    const token = localStorage.getItem('userToken')
-    if(token) {
-      var decoded: any = jwtDecode(token)
-    }
-    this.userId = decoded.id
 
     this.reviewForm = this._fb.group({
       review: ['', Validators.required],

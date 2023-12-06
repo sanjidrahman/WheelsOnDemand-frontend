@@ -76,7 +76,7 @@ export class SelectDateComponent implements OnInit, OnDestroy {
 
       this.subscribe.add(
         this._service.storeChoice(queryParams, this.sharedData).subscribe({
-          next: (res) => {
+          next: () => {
             this._router.navigate(['vehicles'])
           },
           error: (err) => {

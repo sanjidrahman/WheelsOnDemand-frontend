@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { IUserModel } from "src/app/models/user.model";
+import { IUserModel } from "src/app/interfaces/user.model";
 import { hostState, userState, vehicleState } from "./app.state";
-import { IHostModel } from "src/app/models/host.model";
-import { IVehicleModel } from "src/app/models/vehicle.model";
+import { IHostModel } from "src/app/interfaces/host.model";
+import { IVehicleModel } from "src/app/interfaces/vehicle.model";
 
 const getuserstate = (state: userState) => state.userlist
 export const getuser = createSelector(getuserstate, (state: IUserModel[]) => {

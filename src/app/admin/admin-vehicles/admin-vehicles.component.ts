@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { vehicleState } from 'src/app/store/state/app.state';
 import { retrievevehicles } from 'src/app/store/state/app.actions';
 import { getvehicles } from 'src/app/store/state/app.selectors';
-import { IVehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 import { MatDialog } from '@angular/material/dialog';
 import { SubmitNotverifiedComponent } from 'src/app/popups/submit-notverified/submit-notverified.component';

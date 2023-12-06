@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Subject, Subscription, debounceTime } from 'rxjs';
-import { IUserModel } from 'src/app/models/user.model';
+import { IUserModel } from 'src/app/interfaces/user.model';
 import { jwtDecode } from "jwt-decode";
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatRadioChange } from '@angular/material/radio';
+import { IChoiceModel } from '../../interfaces/choice.interface';
+import { IJwtData } from '../../interfaces/jwt.interface';
 declare var google: any;
 
 @Component({
@@ -22,12 +24,12 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   dropoff!: string
   formattedStartDate!: string
   formattedEndDate!: string
-  days!: any
+  days!: number
   minDate!: string
   maxDate!: string
-  userid!: any
+  userid!: IJwtData
   userDetails!: IUserModel | undefined
-  userChoices: any
+  userChoices!: IChoiceModel | null
   isEditable: boolean = false
   panelOpenState: boolean = false;
   fuelOptions: string[] = ['Petrol', 'Diesel']

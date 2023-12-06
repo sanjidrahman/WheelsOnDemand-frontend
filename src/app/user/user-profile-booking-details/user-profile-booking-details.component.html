@@ -18,27 +18,27 @@
                 <hr>
                 <div class="row" *ngIf="bookingDetails">
                     <div class="col-lg-6 col-sm-6 text-center">
-                        <h3>Start Date : <b>{{ bookingDetails[0].startDate | date }} </b> </h3>
+                        <h3>Start Date : <b>{{ bookingDetails.startDate | date }} </b> </h3>
                     </div>
                     <div class="col-lg-6 col-sm-6  text-center">
-                        <h3>End Date : <b>{{ bookingDetails[0].endDate | date }} </b> </h3>
+                        <h3>End Date : <b>{{ bookingDetails.endDate | date }} </b> </h3>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-sm-6  text-center">
-                        <h3>Pickup Location : <b>{{ bookingDetails[0].pickup }} </b></h3>
+                        <h3>Pickup Location : <b>{{ bookingDetails.pickup }} </b></h3>
                     </div>
                     <div class="col-lg-6 col-sm-6  text-center">
-                        <h3>Dropoff Location : <b>{{ bookingDetails[0].dropoff }} </b></h3>
+                        <h3>Dropoff Location : <b>{{ bookingDetails.dropoff }} </b></h3>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <h3>Amount : <b>{{ bookingDetails[0].grandTotal | currency:'INR' }}</b></h3>
+                    <h3>Amount : <b>{{ bookingDetails.grandTotal | currency:'INR' }}</b></h3>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <ng-container *ngIf="bookingDetails[0].status !== 'cancelled'; else elseBlock">
+                    <ng-container *ngIf="bookingDetails.status !== 'cancelled'; else elseBlock">
                         <ng-container *ngIf="isNotExpired(); else expiredBlock">
-                        <button mat-raised-button (click)="openReasonDialog(bookingDetails[0]._id)" color="warn">Cancel
+                        <button mat-raised-button (click)="openReasonDialog(bookingDetails._id)" color="warn">Cancel
                             Booking</button>
                         </ng-container>
                     </ng-container>

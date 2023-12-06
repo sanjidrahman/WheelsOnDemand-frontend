@@ -1,7 +1,7 @@
 import { hostState } from './../../store/state/app.state';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { HostService } from '../services/host.service';
-import { IHostModel } from 'src/app/models/host.model';
+import { IHostModel } from 'src/app/interfaces/host.model';
 import { environment } from 'src/environments/environment.development';
 import { MatDialog } from '@angular/material/dialog';
 import { EditHostDialogComponent } from 'src/app/popups/edit-host-dialog/edit-host-dialog.component';

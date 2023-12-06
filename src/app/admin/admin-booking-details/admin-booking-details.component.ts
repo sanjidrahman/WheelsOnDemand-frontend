@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, of, switchMap } from 'rxjs';
-import { IBookingModel } from 'src/app/models/booking.model';
-import { IVehicleModel } from 'src/app/models/vehicle.model';
+import { IBookingModel } from 'src/app/interfaces/booking.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { AdminService } from '../services/admin.services';
 import { NgConfirmService } from 'ng-confirm-box';
 

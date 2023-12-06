@@ -23,3 +23,8 @@ export interface IVehicleModel  {
     document: string
     review: IReviewModel[]
 }
+
+// response of vehicle list ( user side [ in user service])
+export interface IVehicleListRes {
+    vehicles: IVehicleModel[]
+}

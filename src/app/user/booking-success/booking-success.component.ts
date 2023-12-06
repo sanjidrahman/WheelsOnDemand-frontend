@@ -3,11 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription, map, Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { environment } from 'src/environments/environment.development';
-import { IVehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { Store, select } from '@ngrx/store';
 import { vehicleState } from 'src/app/store/state/app.state';
 import { retrievevehicles } from 'src/app/store/state/app.actions';
 import { getvehicles } from 'src/app/store/state/app.selectors';
+import { IBookingModel } from '../../interfaces/booking.model';
 
 @Component({
   selector: 'app-booking-success',
@@ -16,7 +17,7 @@ import { getvehicles } from 'src/app/store/state/app.selectors';
 })
 export class BookingSuccessComponent implements OnInit, OnDestroy {
 
-  booking: any
+  booking!: IBookingModel
   vehicleDetails!: IVehicleModel | undefined
   startDate!: string;
   endDate!: string;
@@ -54,10 +55,10 @@ export class BookingSuccessComponent implements OnInit, OnDestroy {
 
   uiDetails() {
     if(this.booking) {
-      this.startDate = this.booking[0].startDate
-      this.endDate = this.booking[0].endDate
-      this.pickup = this.booking[0].pickup
-      this.dropoff = this.booking[0].dropoff
+      this.startDate = this.booking.startDate
+      this.endDate = this.booking.endDate
+      this.pickup = this.booking.pickup
+      this.dropoff = this.booking.dropoff
     }
   }
 

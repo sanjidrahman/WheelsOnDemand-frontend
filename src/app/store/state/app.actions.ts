@@ -1,7 +1,7 @@
-import { IHostModel } from 'src/app/models/host.model';
-import { IUserModel } from '../../models/user.model';
+import { IHostModel } from 'src/app/interfaces/host.model';
+import { IUserModel } from '../../interfaces/user.model';
 import { createAction, props } from "@ngrx/store";
-import { IVehicleModel } from 'src/app/models/vehicle.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 
 export const LOAD_USER = '[admin page] list users'
 export const loaduser = createAction('[admin page] list users')

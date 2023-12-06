@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Subscription, of, switchMap } from 'rxjs';
-import { IBookingModel } from 'src/app/models/booking.model';
-import { IVehicleModel } from 'src/app/models/vehicle.model';
+import { IBookingModel } from 'src/app/interfaces/booking.model';
+import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingCancelReasonComponent } from 'src/app/popups/booking-cancel-reason/booking-cancel-reason.component';
@@ -17,8 +17,8 @@ import { ToastrService } from 'ngx-toastr';
 export class UserProfileBookingDetailsComponent implements OnInit {
 
   private subscribe = new Subscription()
-  bookingDetails!: IBookingModel[]
-  vehicleDetails!: IVehicleModel | undefined
+  bookingDetails!: IBookingModel
+  vehicleDetails!: IVehicleModel | null
   vehicleId!: string
 
   constructor(
@@ -36,9 +36,9 @@ export class UserProfileBookingDetailsComponent implements OnInit {
     const b_id = this._activatedroute.snapshot.paramMap.get('b_id')
     this.subscribe.add(
       this._service.getBookDetails(b_id).pipe(
-        switchMap((res: any) => {
+        switchMap((res) => {     
           this.bookingDetails = res;
-          this.vehicleId = res[0].vehicleId._id;
+          this.vehicleId = res.vehicleId._id;
           if (this.vehicleId) {
             return this._service.getVehicleDetails(this.vehicleId)
           } else {
@@ -46,20 +46,23 @@ export class UserProfileBookingDetailsComponent implements OnInit {
           }
         })
       ).subscribe({
-        next: (vehicleDetails: any) => {
+        next: (vehicleDetails) => {
           this.vehicleDetails = vehicleDetails
         },
         error: (err) => {
-          this._toastr.error(err.error.message)
+          console.log(err);
+          this._toastr.error(err.error)
         }
       })
     )
 
-    this.subscribe.add(
-      this._service.getVehicleDetails(this.vehicleId).subscribe((res) => {
-        this.vehicleDetails = res
-      })
-    )
+    //************* */ keeping for reference /* ************
+    // if(this.vehicleId)
+    // this.subscribe.add(
+    //   this._service.getVehicleDetails(this.vehicleId).subscribe((res) => {
+    //     this.vehicleDetails = res
+    //   })
+    // )
   }
 
   openReasonDialog(bookingId: string) {
@@ -73,7 +76,7 @@ export class UserProfileBookingDetailsComponent implements OnInit {
   }
 
   isNotExpired() {
-    const endDate = new Date(this.bookingDetails[0].endDate);
+    const endDate = new Date(this.bookingDetails.endDate);
     const currentDate = new Date();
     return endDate > currentDate;
   }
