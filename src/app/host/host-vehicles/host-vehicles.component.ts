@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HostVehiclesComponent implements OnInit {
 
-  totalPage!: number
+  totalPage!: number | undefined
   currentPage: number = 1
   hostVehicles!: IVehicleModel[]
   token!: any
@@ -27,8 +27,8 @@ export class HostVehiclesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._service.hostVehicle().subscribe((res: any) => {
-      this.hostVehicles = res.vehicle
+    this._service.hostVehicle().subscribe((res) => {
+      this.hostVehicles = res.vehicles
       this.totalPage = res.totalPage
     })
   }
@@ -37,7 +37,7 @@ export class HostVehiclesComponent implements OnInit {
   pageArr() {
     const limit = 5; 
     const start = Math.max(1, this.currentPage - Math.floor(limit / 2));
-    const end = Math.min(start + limit - 1, this.totalPage);
+    const end = Math.min(start + limit - 1, this.totalPage !== undefined ? this.totalPage : 0);
   
     return Array.from({ length: end - start + 1 }, (_, index) => start + index);
   }
@@ -45,14 +45,14 @@ export class HostVehiclesComponent implements OnInit {
   callPag(page: number) {
     this.currentPage = page
     this.subscribe.add(
-      this._service.hostVehicle(page).subscribe((res: any) => {
-        this.hostVehicles = res.vehicle
+      this._service.hostVehicle(page).subscribe((res) => {   
+        this.hostVehicles = res.vehicles
       })
     )
   }
 
   nextPage() {
-    if (this.currentPage < this.totalPage) {
+    if (this.totalPage !== undefined && this.currentPage < this.totalPage) {
       this.currentPage++;
     }
   }
@@ -66,7 +66,7 @@ export class HostVehiclesComponent implements OnInit {
 
   update() {
     this._service.hostVehicle().subscribe((res) => {
-      this.hostVehicles = res
+      this.hostVehicles = res.vehicles
     })
   }
 

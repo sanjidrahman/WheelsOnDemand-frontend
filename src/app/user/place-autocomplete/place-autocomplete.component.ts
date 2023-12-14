@@ -1,24 +1,47 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { DataSharingService } from '../services/data-sharing.service';
+import { Subscription } from 'rxjs';
+import { ScriptLoaderService } from '../../scripts-loader/script.loader';
+import { environment } from '../../../environments/environment.development';
 declare var google: any;
+
+declare global {
+  interface Window {
+    google: any,
+    initMap: () => void;
+  }
+}
 
 @Component({
   selector: 'app-place-autocomplete',
   templateUrl: './place-autocomplete.component.html',
   styleUrl: './place-autocomplete.component.css'
 })
-export class PlaceAutocompleteComponent implements AfterViewInit {
+export class PlaceAutocompleteComponent implements OnInit, AfterViewInit, OnDestroy{
 
   @ViewChild('autocomplete') autocomplete!: ElementRef;
   @Output() placeSelected = new EventEmitter<string>();
   placesInRange: string[] = []
+  private subscribe = new Subscription() 
 
   constructor(
     private _dataSharingService: DataSharingService,
+    private _scriptLoaderService: ScriptLoaderService,
   ){}
 
+  ngOnInit(): void {
+    this.subscribe.add(
+      this._scriptLoaderService.loadScript(environment.MAP_SCRIPT, () => {
+      })
+    );
+    window['initMap'] = () => {
+      this.initMap();
+    }
+   
+  }
+
   ngAfterViewInit(): void {
-    this.initMap()
+    // this.initMap()
   }
 
   initMap() {
@@ -68,6 +91,10 @@ export class PlaceAutocompleteComponent implements AfterViewInit {
         console.error('Error fetching nearby places:', status);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscribe.unsubscribe()
   }
 
 }

@@ -1,9 +1,13 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { AdminService } from '../services/admin.services';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { jwtDecode } from "jwt-decode";
+import { IJwtData } from '../../interfaces/jwt.interface';
+import { Subscription } from 'rxjs';
+import { environment } from '../../../environments/environment.development';
+import { ScriptLoaderService } from '../../scripts-loader/script.loader';
 declare var google: any;
 
 @Component({
@@ -11,7 +15,7 @@ declare var google: any;
   templateUrl: './admin-add-vehicle.component.html',
   styleUrls: ['./admin-add-vehicle.component.css']
 })
-export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
+export class AdminAddVehicleComponent implements OnInit, AfterViewInit, OnDestroy {
 
   files: File[] = [];
   selectedfiles: File[] = []
@@ -23,16 +27,19 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
   firstFormGroup!: FormGroup
   secondFormGroup!: FormGroup
   map: any;
-  token: any
+  token!: IJwtData
+  private subscribe = new Subscription()
 
   constructor(
     private _fb: FormBuilder,
     private _toastr: ToastrService,
     private _service: AdminService,
-    private _router: Router
+    private _router: Router,
+    private _scriptLoaderService: ScriptLoaderService,
   ) { }
 
   ngOnInit(): void {
+
     this.vehicleForm = this._fb.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
       brand: ['', [Validators.required, Validators.minLength(3)]],
@@ -56,7 +63,13 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initMap()
+    this.subscribe.add(
+      this._scriptLoaderService.loadScript(environment.MAP_SCRIPT, () => {
+      })
+    );
+    window['initMap'] = () => {
+      this.initMap();
+    }
   }
 
   getFile(event: any) {
@@ -196,14 +209,20 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
 
   currentLocation() {
     if (!navigator.geolocation) {
+      console.log('Hi im not there');
     }
     navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position.coords, 'll');
       this.getReverseGeocodingData(position.coords.latitude, position.coords.longitude)
     }, (err) => {
+      console.log(err);
+      
       this._toastr.warning('Please check your location permission !')
     })
   }
   getReverseGeocodingData(lat: number, lng: number) {
+    console.log(lat, lng);
+    
     const latlng = new google.maps.LatLng(lat, lng);
     const geocoder = new google.maps.Geocoder();
 
@@ -259,6 +278,10 @@ export class AdminAddVehicleComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscribe.unsubscribe()
   }
 
 }

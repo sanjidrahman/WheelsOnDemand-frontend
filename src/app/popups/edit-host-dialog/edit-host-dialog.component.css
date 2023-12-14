@@ -1,18 +1,18 @@
-.edit-host-form {
+/* .edit-host-form {
     display: flex;
     flex-direction: column;
     gap: 16px;
     max-width: 400px;
     margin: 0 auto;
-  }
-  
-  h1 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 16px;
-  }
-  
-  .mat-form-field {
+  } */
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+/* .mat-form-field {
     width: 100%;
   }
   
@@ -30,7 +30,29 @@
   
   button {
     width: 48%;
-  }
-  
-  /* Add more styling as needed */
-  
+  } */
+
+/* Add more styling as needed */
+
+.edit-host-form {
+  max-width: 400px;
+  margin: auto;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.error-message {
+  color: red;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+h1.mt-3 {
+  margin-top: 1.5rem;
+}
+

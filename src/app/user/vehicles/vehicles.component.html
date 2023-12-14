@@ -64,7 +64,7 @@
                                     <div class="form-group">
                                         <label for="pickuplocation1">Pickup Location</label>
                                         <input type="text" #autocomplete class="form-control" [(ngModel)]="pickup"
-                                            placeholder="Enter your location.." [readonly]="!isEditable">
+                                            placeholder="Enter your location.." (input)="onAutocomplete()" [readonly]="!isEditable">
                                     </div>
                                 </div>
                                 <div class="col-md-6">

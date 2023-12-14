@@ -14,7 +14,7 @@ import { NgConfirmService } from 'ng-confirm-box';
 })
 export class AdminBookingDetailsComponent {
 
-  bookingDetails!: IBookingModel[]
+  bookingDetails!: IBookingModel
   vehicleId!: string
   vehicleDetails!: IVehicleModel | undefined
   status: string[] = ['complete', 'cancel']
@@ -38,10 +38,10 @@ export class AdminBookingDetailsComponent {
     this.bookingId = this._activatedroute.snapshot.paramMap.get('b_id')
     this.subscribe.add(
       this._service.getBookDetails(this.bookingId).pipe(
-        switchMap((res: any) => {
+        switchMap((res) => {
           this.bookingDetails = res;
-          this.vehicleId = res[0].vehicleId._id;
-          this.statusCurr = res[0].status;
+          this.vehicleId = res.vehicleId._id;
+          this.statusCurr = res.status;
           if (this.vehicleId) {
             return this._service.getVehicleDetails(this.vehicleId);
           } else {
@@ -49,7 +49,7 @@ export class AdminBookingDetailsComponent {
           }
         })
       ).subscribe({
-        next: (vehicleDetails: any) => {
+        next: (vehicleDetails) => {
           if (vehicleDetails) {
             this.vehicleDetails = vehicleDetails;
           }

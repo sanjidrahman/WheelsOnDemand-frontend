@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription, map, startWith, Observable } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { DataSharingService } from '../services/data-sharing.service';
 
 @Component({
@@ -20,7 +19,7 @@ export class SelectDateComponent implements OnInit, OnDestroy {
   pickupLocation!: FormGroup;
   dropLocation!: FormGroup;
   statectrl!: FormControl
-  isLinear = true;
+  isLinear = false;
   disable: boolean = true;
   sharedData!: string[] // Data from the service (dataSharingService)
   private subscribe = new Subscription()
@@ -82,8 +81,10 @@ export class SelectDateComponent implements OnInit, OnDestroy {
           error: (err) => {
             if (err.status == 401) {
               this._toastr.warning('Please login to proceed !', err.error.message)
+            } else if (err.message.length >=2 ) {
+              this._toastr.error('Please select a pickup location')
             } else {
-              this._toastr.error('Something went wrong', err)
+              this._toastr.error('Something went wrong')
             }
           }
         })

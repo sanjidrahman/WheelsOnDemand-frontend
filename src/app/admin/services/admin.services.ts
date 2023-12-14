@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment.development';
 import { IHostModel } from 'src/app/interfaces/host.model';
 import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { IBookingModel } from 'src/app/interfaces/booking.model';
+import { ILoginData } from '../../interfaces/login.interface';
 
 @Injectable({
   providedIn: 'any'
@@ -16,7 +17,7 @@ export class AdminService {
 
   constructor(private _http: HttpClient) { }
 
-  loginUser(adminData: any): Observable<any> {
+  loginUser(adminData: ILoginData): Observable<any> {
     return this._http.post(`${this.commonUrl}/admin/login`, adminData, {
       withCredentials: false
     })
@@ -70,7 +71,7 @@ export class AdminService {
     })
   }
 
-  hostnotverify(id: string, issue: any) {
+  hostnotverify(id: string, issue: string) {
     return this._http.post(`${this.commonUrl}/admin/host/host-notverify/${id}`, issue, {
       withCredentials: false
     })
@@ -131,14 +132,14 @@ export class AdminService {
     })
   }
 
-  getBookings() {
+  getBookings(): Observable<IBookingModel[]> {
     return this._http.get<IBookingModel[]>(`${this.commonUrl}/admin/all-bookings` , {
       withCredentials: false
     })
   }
 
    // a common api for all interfaces ([user, host, admin] for booking details)
-   getBookDetails(id: string | null) {
+   getBookDetails(id: string | null): Observable<IBookingModel> {
     return this._http.get<IBookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
       withCredentials: false
     })

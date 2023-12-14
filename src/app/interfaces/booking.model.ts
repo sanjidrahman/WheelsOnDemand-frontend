@@ -15,3 +15,9 @@ export interface IBookingModel {
     status: string
     __v: number
 }
+
+// this is only for admin ( admin booking-list component )
+export interface IBookingListData {
+    bookings: IBookingModel
+}
+

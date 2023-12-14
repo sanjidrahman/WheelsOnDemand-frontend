@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { IJwtData } from "../../interfaces/jwt.interface";
+import { WhiteSpace } from "../../validators/validators";
 
 @Component({
   selector: 'app-profile',
@@ -56,7 +57,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.userForm = this._fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, WhiteSpace]],
       email: ['', [Validators.required]],
       phone: ['', [Validators.required]]
     })
@@ -119,7 +120,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const form = new FormData()
     if (this.profile) form.append('profile', this.profile, this.profile.name)
     this.subscribe.add(
-      this._service.updateProfile(form).subscribe({
+      this._service.updateProfile(form, this.userid.id).subscribe({
         next: () => {
           this.profile = null
           this.update()

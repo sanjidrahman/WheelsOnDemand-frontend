@@ -97,7 +97,7 @@
         <h2 class="mt-1 mx-3">Latest Orders</h2>
       </div>
       <div class="card-body">
-        <ng-container *ngIf="latestOrder.length; else noOrders">
+        <ng-container *ngIf="latestOrder?.length; else noOrders">
           <table class="table table-bordered">
             <thead>
               <tr>

@@ -28,14 +28,14 @@ export class HostDashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._service.getDashboard().subscribe({
-      next: (res: any) => {
+      next: (res) => {
         this.totalHostRevenue = res.hostRevenue
         this.bookedCount = res.bookedCount
         this.completedCount = res.completedCount
         this.cancelledCount = res.cancelledBooking
         this.trendingVehicle = res.trending
         this.latestOrder = res.latestOrders
-      
+
         this.loadCircle()
       },
       error: (err) => {

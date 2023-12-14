@@ -9,6 +9,8 @@ import { ChangePassComponent } from 'src/app/popups/change-pass/change-pass.comp
 import { Store } from '@ngrx/store';
 import { retrievehost } from 'src/app/store/state/app.actions';
 import { ToastrService } from 'ngx-toastr';
+import { IJwtData } from '../../interfaces/jwt.interface';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-host-profile',
@@ -20,6 +22,7 @@ export class HostProfileComponent implements OnInit {
   hostDetails!: IHostModel;
   file!: File | null
   isHidden = false
+  token!: IJwtData
 
   constructor(
     private _service: HostService,
@@ -28,6 +31,9 @@ export class HostProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const token = localStorage.getItem('hostToken')
+    if (token) this.token = jwtDecode(token)
+
     this._service.hostdetails().subscribe((res) => {
       this.hostDetails = res
     })
@@ -84,7 +90,7 @@ export class HostProfileComponent implements OnInit {
     if(this.file) {
       const form = new FormData()
       form.append('file', this.file, this.file.name)
-      this._service.uploadProfile(form).subscribe(() => {
+      this._service.uploadProfile(form, this.token.id).subscribe(() => {
         this._toastr.success('Profile updated!')
         this.file = null
         this.update()

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { jwtDecode } from "jwt-decode";
+import { IJwtData } from '../../interfaces/jwt.interface';
 
 @Component({
   selector: 'app-host-upload-doc',
@@ -15,7 +16,7 @@ export class HostUploadDocComponent {
 
   status: "initial" | "uploading" | "success" | "fail" = "initial"; // Variable to store file status
   file!: File
-  jwttoken!: any
+  jwttoken!: IJwtData
 
   constructor(
     private _service: HostService,
@@ -46,7 +47,7 @@ export class HostUploadDocComponent {
           this._router.navigate(['/host/host-upload-success'])
           this._toastr.success('Document uploaded successfully!')
         },
-        error: (err: any) => {
+        error: (err) => {
           this._toastr.error(err.error.message)
           this.status = "fail"
         }

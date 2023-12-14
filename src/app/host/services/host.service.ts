@@ -3,8 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IBookingModel } from 'src/app/interfaces/booking.model';
 import { IHostModel } from 'src/app/interfaces/host.model';
-import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
+import { IVehicleListRes, IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { environment } from 'src/environments/environment.development';
+import { IGoogleUserData } from '../../interfaces/google-login.interface';
+import { ILoginData } from '../../interfaces/login.interface';
+import { IOtpData, IRegistrationData } from '../../interfaces/register.interface';
+import { IPasswordChange, IProfile } from '../../interfaces/profile.interface';
+import { IJwtToken } from '../../interfaces/jwt.interface';
+import { IDashboardData } from '../../interfaces/host-dashboard.interface';
 
 @Injectable()
 export class HostService {
@@ -13,20 +19,20 @@ export class HostService {
 
   constructor(private _http: HttpClient) { }
 
-  registerHost(userData: any): Observable<any> {
+  registerHost(userData: IRegistrationData) {
     return this._http.post(`${this.commonUrl}/host/signup`, userData, {
       withCredentials: false
     });
   }
 
-  loginHost(userData: any): Observable<any> {
-    return this._http.post(`${this.commonUrl}/host/login`, userData, {
+  loginHost(userData: ILoginData): Observable<IJwtToken> {
+    return this._http.post<IJwtToken>(`${this.commonUrl}/host/login`, userData, {
       withCredentials: false
     });
   }
 
-  googleLogin(idToken: any): Observable<any> {
-    return this._http.post(`${this.commonUrl}/host/auth/login`, idToken, {
+  googleLogin(idToken: IGoogleUserData): Observable<IJwtToken> {
+    return this._http.post<IJwtToken>(`${this.commonUrl}/host/auth/login`, idToken, {
       withCredentials: false
     });
   }
@@ -43,14 +49,14 @@ export class HostService {
     })
   }
 
-  getDashboard() {
-    return this._http.get(`${ this.commonUrl }/host/dashboard` , {
+  getDashboard(): Observable<IDashboardData> {
+    return this._http.get<IDashboardData>(`${ this.commonUrl }/host/dashboard` , {
       withCredentials: false
     })
   }
 
-  verifyHost(otp: any) {
-    return this._http.post(`${this.commonUrl}/host/verify-otp`, otp, {
+  verifyHost(otp: IOtpData): Observable<IJwtToken> {
+    return this._http.post<IJwtToken> (`${this.commonUrl}/host/verify-otp`, otp, {
       withCredentials: false
     });
   }
@@ -61,8 +67,8 @@ export class HostService {
     });
   }
 
-  uploadProfile(file: any) {
-    return this._http.post(`${this.commonUrl}/host/upload-profile`, file, {
+  uploadProfile(file: any, id: string) {
+    return this._http.post(`${this.commonUrl}/host/upload-profile/${id}`, file, {
       withCredentials: false
     })
   }
@@ -73,13 +79,13 @@ export class HostService {
     })
   }
 
-  updatehost(data: any) {
+  updatehost(data: IProfile) {
     return this._http.patch(`${this.commonUrl}/host/update-host`, data, {
       withCredentials: false
     })
   }
 
-  changePass(data: any) {
+  changePass(data: IPasswordChange) {
     return this._http.patch(`${this.commonUrl}/host/change-pass`, data, {
       withCredentials: false
     })
@@ -109,23 +115,23 @@ export class HostService {
     })
   }
 
-  hostVehicle(page?: number) : Observable<IVehicleModel[]> {
+  hostVehicle(page?: number) : Observable<IVehicleListRes> {
     let params = new HttpParams()
     if(page) params = params.append('page', page)
-    return this._http.get<IVehicleModel[]>(`${this.commonUrl}/host/host-vehicles` , {
+    return this._http.get<IVehicleListRes>(`${this.commonUrl}/host/host-vehicles` , {
       params,
       withCredentials: false
     })
   }
 
-  hostBooking() {
+  hostBooking(): Observable<IBookingModel[]> {
     return this._http.get<IBookingModel[]>(`${this.commonUrl}/host/host-bookings`, {
       withCredentials: false
     })
   }
 
   // a common api for all interfaces ([user, host, admin] for booking details)
-  getBookDetails(id: string | null) {
+  getBookDetails(id: string | null): Observable<IBookingModel> {
     return this._http.get<IBookingModel>(`${this.commonUrl}/user/booking-details/${id}`, {
       withCredentials: false
     })
@@ -133,7 +139,7 @@ export class HostService {
 
 
   // a common api all interfaces ([user, host, admin] retrieving single vehicle details) 
-  getVehicleDetails(id: string | null) : Observable<IVehicleModel> {
+  getVehicleDetails(id: string | null): Observable<IVehicleModel> {
     return this._http.get<IVehicleModel>(`${this.commonUrl}/host/vehicle-details/${id}` , {
       withCredentials: false
     })

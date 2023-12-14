@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { MatRadioChange } from '@angular/material/radio';
 import { IChoiceModel } from '../../interfaces/choice.interface';
 import { IJwtData } from '../../interfaces/jwt.interface';
+import { environment } from '../../../environments/environment.development';
+import { ScriptLoaderService } from '../../scripts-loader/script.loader';
 declare var google: any;
 
 @Component({
@@ -36,7 +38,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   transmissionOptions: string[] = ['Manual', 'Automatic']
   fuelSelected: string | undefined
   transmissionSelected: string | undefined
-  searchText!:string
+  searchText!: string
   debouncedSearchText!: string
   placesInRange: string[] = []
   private subscribe = new Subscription();
@@ -45,6 +47,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   constructor(
     private _service: UserService,
     private _toastr: ToastrService,
+    private _scriptLoaderService: ScriptLoaderService,
   ) { }
 
   ngOnInit(): void {
@@ -62,9 +65,15 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     this.maxDate = sixMonthsFromNow.toISOString().split('T')[0];
   }
 
-  // debouncing
+  // debouncing for search
   onSearch() {
     this.searchTextSubject.next(this.searchText)
+  }
+  // --------------
+
+  // debouncing for autocomplete
+  onAutocomplete() {
+    // this.searchTextSubject.next(this.pickup)
   }
   // --------------
 
@@ -99,7 +108,6 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     }
   }
 
-
   addMonthsToDate(date: Date, months: number) {
     const newDate = new Date(date);
     newDate.setMonth(newDate.getMonth() + months);
@@ -107,7 +115,13 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   }
 
   edit() {
-    this.initMap()
+    this.subscribe.add(
+      this._scriptLoaderService.loadScript(environment.MAP_SCRIPT, () => {
+      })
+    );
+    window['initMap'] = () => {
+      this.initMap();
+    }
     this.isEditable = true
   }
 
@@ -134,19 +148,23 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     if (this.formattedEndDate <= this.formattedStartDate) {
       this._toastr.error('Droppoff date cannot be lesser or equal to start date')
     } else {
-      if(this.placesInRange)
-      this.subscribe.add(
-        this._service.storeChoice(choice, this.placesInRange).subscribe({
-          next: () => {
-            this.initialize()
-            this.isEditable = false
-            this._toastr.success('Editted Successfully')
-          },
-          error: (err) => {
-            this._toastr.error(err)
-          }
-        })
-      )
+      if (this.placesInRange)
+        this.subscribe.add(
+          this._service.storeChoice(choice, this.placesInRange).subscribe({
+            next: () => {
+              this.initialize()
+              this.isEditable = false
+              this._toastr.success('Editted Successfully')
+            },
+            error: (err) => {
+              if (err.message.length >= 2) {
+                this._toastr.error('pickup should have value')
+              } else {
+                this._toastr.error('something went wrong')
+              }
+            }
+          })
+        )
     }
   }
 
@@ -182,13 +200,13 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   getNearbyPlaces(location: any) {
     const request = {
       location: location,
-      radius: 5000, 
+      radius: 5000,
       types: ['establishment'],
       fields: ['place_id', 'geometry', 'name'],
     };
-  
+
     const placesService = new google.maps.places.PlacesService(document.createElement('div'));
-  
+
     placesService.nearbySearch(request, (results: any, status: any) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         this.placesInRange = results.map((place: any) => place.name)

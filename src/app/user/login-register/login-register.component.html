@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div class="container">
-    <div class="card mt-5">
+    <div class="card mt-5 mb-5">
         <div class="card-body">
             <mat-tab-group>
                 <mat-tab dynamicHeight label="Login">
@@ -67,6 +67,9 @@
                                 </p>
                                 <p *ngIf="localform.submitted && registerForm.controls['name'].errors['minlength']">
                                     Name must have at least 4 characters.
+                                </p>
+                                <p *ngIf="localform.submitted && registerForm.controls['name'].errors['whitespace']">
+                                    Whitespece not allowed.
                                 </p>
                             </div>
                             <mat-form-field class="example-full-width">

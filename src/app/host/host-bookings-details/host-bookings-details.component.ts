@@ -17,9 +17,9 @@ import { getvehicles } from 'src/app/store/state/app.selectors';
 })
 export class HostBookingsDetailsComponent implements OnInit, OnDestroy {
 
-  bookingDetails!: IBookingModel[]
+  bookingDetails!: IBookingModel
   vehicleId!: string
-  vehicleDetails!: IVehicleModel | undefined
+  vehicleDetails!: IVehicleModel | null
   status: string[] = ['complete', 'cancel']
   statusCurr!: string
   bookingId!: string | null
@@ -40,10 +40,10 @@ export class HostBookingsDetailsComponent implements OnInit, OnDestroy {
     this.bookingId = this._activatedroute.snapshot.paramMap.get('b_id')
     this.subscribe.add(
       this._service.getBookDetails(this.bookingId).pipe(
-        switchMap((res: any) => {
+        switchMap((res) => {
           this.bookingDetails = res;
-          this.vehicleId = res[0].vehicleId._id;
-          this.statusCurr = res[0].status;
+          this.vehicleId = res.vehicleId._id;
+          this.statusCurr = res.status;
           if (this.vehicleId) {
             return this._service.getVehicleDetails(this.vehicleId);
           } else {
@@ -51,10 +51,8 @@ export class HostBookingsDetailsComponent implements OnInit, OnDestroy {
           }
         })
       ).subscribe({
-        next: (vehicleDetails: any) => {
-          if (vehicleDetails) {
-            this.vehicleDetails = vehicleDetails;
-          }
+        next: (vehicleDetails) => {
+          this.vehicleDetails = vehicleDetails;
         },
         error: (err) => {
           // console.log(err);

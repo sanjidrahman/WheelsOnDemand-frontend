@@ -1,4 +1,4 @@
-export interface IUserRegistrationData {
+export interface IRegistrationData {
     confirmPass: string;
     email: string;
     name: string;

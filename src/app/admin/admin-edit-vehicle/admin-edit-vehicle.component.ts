@@ -7,6 +7,7 @@ import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 import { AdminService } from '../services/admin.services';
 import { NgConfirmService } from 'ng-confirm-box';
+import { ScriptLoaderService } from '../../scripts-loader/script.loader';
 declare var google: any;
 
 @Component({
@@ -38,6 +39,7 @@ export class AdminEditVehicleComponent implements OnInit, AfterViewInit, OnDestr
     private _service: AdminService,
     private _toastr: ToastrService,
     private _router: Router,
+    private _scriptLoaderService: ScriptLoaderService,
   ) { }
 
   ngOnInit(): void {
@@ -56,7 +58,13 @@ export class AdminEditVehicleComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngAfterViewInit(): void {
-    this.initMap()
+    this.subscribe.add(
+      this._scriptLoaderService.loadScript(environment.MAP_SCRIPT, () => {
+      })
+    );
+    window['initMap'] = () => {
+      this.initMap();
+    }
   }
 
   update() {

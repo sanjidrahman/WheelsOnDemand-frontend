@@ -72,6 +72,7 @@ import { SharedModule } from './shared-module/shared.module';
 import { HostPartnershipComponent } from './user/host-partnership/host-partnership.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { CommonModule } from '@angular/common';
+import { ScriptLoaderService } from './scripts-loader/script.loader';
 
 
 @NgModule({
@@ -175,7 +176,8 @@ import { CommonModule } from '@angular/common';
         imageSize: 'cover'
       } as GalleryConfig
     },
-    DataSharingService
+    DataSharingService,
+    ScriptLoaderService,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

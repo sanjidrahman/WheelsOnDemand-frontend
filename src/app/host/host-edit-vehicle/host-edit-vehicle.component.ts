@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
 import { environment } from 'src/environments/environment.development';
 import { NgConfirmService } from 'ng-confirm-box';
+import { ScriptLoaderService } from '../../scripts-loader/script.loader';
 declare var google: any;
 
 @Component({
@@ -39,7 +40,8 @@ export class HostEditVehicleComponent implements OnInit, AfterViewInit, OnDestro
     private _service: HostService,
     private _toastr: ToastrService,
     private _router: Router,
-    private _ngConfirm: NgConfirmService
+    private _ngConfirm: NgConfirmService,
+    private _scriptLoaderService: ScriptLoaderService,
   ) { }
 
   ngOnInit(): void {
@@ -59,7 +61,13 @@ export class HostEditVehicleComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ngAfterViewInit(): void {
-    this.initMap()
+    this.subscribe.add(
+      this._scriptLoaderService.loadScript(environment.MAP_SCRIPT, () => {
+      })
+    );
+    window['initMap'] = () => {
+      this.initMap();
+    }
   }
 
   update() {

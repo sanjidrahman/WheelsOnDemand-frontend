@@ -27,4 +27,5 @@ export interface IVehicleModel  {
 // response of vehicle list ( user side [ in user service])
 export interface IVehicleListRes {
     vehicles: IVehicleModel[]
+    totalPage?: number
 }

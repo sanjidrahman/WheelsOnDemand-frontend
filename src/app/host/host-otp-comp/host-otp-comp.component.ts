@@ -30,7 +30,7 @@ export class HostOtpCompComponent {
       return
     } else {
       let otp = this.otpVerify.getRawValue()
-      this._service.verifyHost(otp).subscribe((res: any) => {
+      this._service.verifyHost(otp).subscribe((res) => {
         localStorage.setItem('hostToken', res.token)
         this._router.navigate(['host/host-upload'])
       }, (err) => {

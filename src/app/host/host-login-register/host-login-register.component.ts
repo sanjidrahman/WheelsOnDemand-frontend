@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HostService } from '../services/host.service';
+import { IGoogleUserData } from '../../interfaces/google-login.interface';
+import { passwordMatchValidator } from '../../validators/validators';
 
 @Component({
   selector: 'app-host-login-register',
@@ -12,11 +14,11 @@ import { HostService } from '../services/host.service';
 })
 export class HostLoginRegisterComponent implements OnInit {
 
-  submit: any;
-  hostRegisterForm!: FormGroup<any>;
-  hostLoginForm!: FormGroup<any>;
-  user: any
-  loggedIn: any;
+  submit!: boolean;
+  hostRegisterForm!: FormGroup;
+  hostLoginForm!: FormGroup;
+  user!: IGoogleUserData;
+  loggedIn!: boolean;
   StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
   hideLogin: boolean = true;
   hideRegister: boolean = true;
@@ -29,21 +31,6 @@ export class HostLoginRegisterComponent implements OnInit {
     private _toastr: ToastrService,
     private _authService: SocialAuthService
   ) { }
-
-  passwordMatchValidator(password: any, confirmPass: any) {
-    return (formgroup: FormGroup) => {
-      const passwordcontrol = formgroup.controls[password];
-      const confirmPassControl = formgroup.controls[confirmPass];
-
-      if (confirmPassControl.errors && confirmPassControl.errors['passwordMismatch']) {
-        return
-      }
-
-      if (passwordcontrol.value !== confirmPassControl.value) {
-        confirmPassControl.setErrors({ passwordMismatch: true })
-      }
-    };
-  }
 
   ngOnInit(): void {
     this._authService.authState.subscribe((user) => {
@@ -68,7 +55,7 @@ export class HostLoginRegisterComponent implements OnInit {
       phone: ['', [Validators.required, Validators.minLength(10)]],
       password: ['', [Validators.required, Validators.pattern(this.StrongPasswordRegx)]],
       confirmPass: ['', [Validators.required]]
-    }, { validators: this.passwordMatchValidator('password', 'confirmPass')} );
+    }, { validators: passwordMatchValidator('password', 'confirmPass')} );
 
   }
 

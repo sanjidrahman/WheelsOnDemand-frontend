@@ -5,14 +5,14 @@ import { environment } from '../../../environments/environment.development';
 import { IReviewModel, IVehicleListRes, IVehicleModel } from '../../interfaces/vehicle.model';
 import { IBookingModel } from '../../interfaces/booking.model';
 import { IIsBookingCompleted, IUserModel } from '../../interfaces/user.model';
-import { IUserLoginData } from '../../interfaces/user-login.interface';
-import { IOtpData, IUserRegistrationData } from '../../interfaces/user-register.interface';
+import { IOtpData, IRegistrationData } from '../../interfaces/register.interface';
 import { IGoogleUserData } from '../../interfaces/google-login.interface';
 import { IChoiceModel } from '../../interfaces/choice.interface';
 import { IFilterDetails } from '../../interfaces/filter.interface';
 import { IBookingData, IBookingId } from '../../interfaces/booking.interface';
-import { IPasswordChange, IUserProfile } from '../../interfaces/user-profile.interface';
+import { IPasswordChange, IProfile } from '../../interfaces/profile.interface';
 import { IJwtToken } from '../../interfaces/jwt.interface';
+import { ILoginData } from '../../interfaces/login.interface';
 declare var google: any;
 
 @Injectable({
@@ -24,13 +24,13 @@ export class UserService {
 
   constructor(private _http: HttpClient) { }
 
-  registerUser(userData: IUserRegistrationData) {
+  registerUser(userData: IRegistrationData) {
     return this._http.post(`${this.commonUrl}/user/signup`, userData, {
       withCredentials: false
     })
   }
 
-  loginUser(userData: IUserLoginData): Observable<IJwtToken> {
+  loginUser(userData: ILoginData): Observable<IJwtToken> {
     return this._http.post<IJwtToken>(`${this.commonUrl}/user/login`, userData, {
       withCredentials: false
     })
@@ -84,14 +84,14 @@ export class UserService {
     })
   }
 
-  updateUser(data: IUserProfile) {
+  updateUser(data: IProfile) {
     return this._http.patch(`${this.commonUrl}/user/update-user`, data, {
       withCredentials: false
     })
   }
 
-  updateProfile(file: any) {
-    return this._http.patch(`${this.commonUrl}/user/update-profile`, file, {
+  updateProfile(file: any, id: string) {
+    return this._http.patch(`${this.commonUrl}/user/update-profile/${id}`, file, {
       withCredentials: false
     })
   }

@@ -1,9 +1,13 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { HostService } from '../services/host.service';
 import { Router } from '@angular/router';
 import { jwtDecode } from "jwt-decode";
+import { IJwtData } from '../../interfaces/jwt.interface';
+import { environment } from '../../../environments/environment.development';
+import { ScriptLoaderService } from '../../scripts-loader/script.loader';
+import { Subscription } from 'rxjs';
 declare var google: any;
 
 @Component({
@@ -11,7 +15,7 @@ declare var google: any;
   templateUrl: './host-add-vehicle.component.html',
   styleUrls: ['./host-add-vehicle.component.css']
 })
-export class HostAddVehicleComponent implements OnInit, AfterViewInit {
+export class HostAddVehicleComponent implements OnInit, AfterViewInit, OnDestroy {
 
   files: File[] = [];
   selectedfiles: File[] = []
@@ -23,13 +27,15 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
   fuel: string[] = ['Petrol', 'Diesel', 'Electric']
   isLinear = false;
   map: any
-  token!: any
+  token!: IJwtData
+  private subscribe = new Subscription()
 
   constructor(
     private _fb: FormBuilder,
     private _toastr: ToastrService,
     private _service: HostService,
-    private _router: Router
+    private _router: Router,
+    private _scriptLoaderService: ScriptLoaderService,
   ) { }
 
   ngOnInit(): void {
@@ -56,7 +62,13 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initMap()
+    this.subscribe.add(
+      this._scriptLoaderService.loadScript(environment.MAP_SCRIPT, () => {
+      })
+    );
+    window['initMap'] = () => {
+      this.initMap();
+    }
   }
 
   getFile(event: any) {
@@ -120,8 +132,7 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
         this._toastr.success('Vehicle Registered, after verification it would be display on your page')
       },
       error: (err) => {
-        console.log(err);
-        
+        // console.log(err);
         this._toastr.error('Something went wrong');
       }
     })
@@ -262,5 +273,9 @@ export class HostAddVehicleComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscribe.unsubscribe()
   }
 }
