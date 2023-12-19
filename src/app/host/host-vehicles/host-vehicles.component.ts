@@ -2,9 +2,9 @@ import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { IVehicleModel } from '../../interfaces/vehicle.model';
 import { HostService } from '../services/host.service';
-import { environment } from 'src/environments/environment.development';
 import { NgConfirmService } from 'ng-confirm-box';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-host-vehicles',

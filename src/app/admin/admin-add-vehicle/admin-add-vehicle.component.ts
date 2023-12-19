@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { jwtDecode } from "jwt-decode";
 import { IJwtData } from '../../interfaces/jwt.interface';
 import { Subscription } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
 import { ScriptLoaderService } from '../../scripts-loader/script.loader';
+import { environment } from '../../../environments/environment.development';
 declare var google: any;
 
 @Component({

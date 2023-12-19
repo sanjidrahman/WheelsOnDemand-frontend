@@ -4,10 +4,10 @@ import { ToastrService } from 'ngx-toastr';
 import { IReviewModel, IVehicleModel } from '../../interfaces/vehicle.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../../environments/environment.development';
 import { NgConfirmService } from 'ng-confirm-box';
 import { jwtDecode } from "jwt-decode";
 import { IJwtData } from '../../interfaces/jwt.interface';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-view-all-reviews',

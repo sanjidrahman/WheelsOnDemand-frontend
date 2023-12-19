@@ -4,10 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { IVehicleModel } from 'src/app/interfaces/vehicle.model';
-import { environment } from 'src/environments/environment.development';
 import { AdminService } from '../services/admin.services';
 import { NgConfirmService } from 'ng-confirm-box';
 import { ScriptLoaderService } from '../../scripts-loader/script.loader';
+import { environment } from '../../../environments/environment.development';
 declare var google: any;
 
 @Component({
