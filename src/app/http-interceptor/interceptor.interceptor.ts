@@ -4,9 +4,10 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpHeaders
+  HttpHeaders,
+  HttpResponse
 } from '@angular/common/http';
-import { Observable, finalize } from 'rxjs';
+import { Observable, finalize, tap } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
@@ -23,12 +24,11 @@ export class AppInterceptor implements HttpInterceptor {
       let newRequest = request.clone({
         headers: new HttpHeaders({
           'Authorization': 'Bearer ' + userToken,
-          'Sample': 'my-auth-token'
         })
       })
       return next.handle(newRequest).pipe(
         finalize(() => this._spinner.hide())
-      );
+      )
     } else if (adminToken) {
       let newRequest = request.clone({
         setHeaders: { Authorization: 'Bearer ' + adminToken },
